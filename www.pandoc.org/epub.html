@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Pandoc - Creating an ebook with pandoc</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--[if lt IE 9]>
+       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+       <![endif]-->
+  <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/screen.css">
+  <link rel="stylesheet" type="text/css" media="print" href="css/print.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      pre{ font-size: 12pt; }
+      .smallcaps{font-variant: small-caps;}
+      .line-block{white-space: pre-line;}
+      .column{display: inline-block;}
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"
+            type="text/javascript"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="js/nav.js"></script>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-2234613-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  </script>
+  <script type="text/javascript">
+  /* <![CDATA[ */
+    (function() {
+        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'https://api.flattr.com/js/0.6/load.js?mode=auto';
+        t.parentNode.insertBefore(s, t);
+    })();
+  /* ]]> */
+  </script>
+</head>
+<body>
+  <div id="doc" class="container-fluid">
+    <header>
+      <div id="flattr">
+        <a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="https://pandoc.org"></a>
+        <noscript><a href="https://flattr.com/thing/936364/Pandoc" target="_blank"><img src="https://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
+      </div>
+        <div id="paypal">
+         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+      </div>
+
+        <span class="big">Pandoc</span>
+        &nbsp;
+        <span class="small">a universal document converter</span>
+    </header>
+    <div id="bd">
+      <nav id="navbar" class="navbar nav navbar-default col-md-3 col-sm-4">
+        <div class="navbar-header">
+  <button type="button" class="navbar-toggle"
+          data-toggle="collapse"
+          data-target=".navbar-collapse">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+</div>
+<div class="navbar-collapse collapse">
+  <ul class="nav tree">
+    <li><a href="index.html">About</a></li>
+    <li><a href="installing.html">Installing</a></li>
+    <li><a href="getting-started.html">Getting started</a></li>
+    <li><a class="tree-toggle nav-header">Demos</a>
+    <ul class="nav tree">
+      <li><a href="try">Try pandoc online</a></li>
+      <li><a href="demos.html">Examples</a></li>
+    </ul>
+    </li>
+    <li><a class="tree-toggle nav-header">Documentation</a>
+    <ul class="nav tree">
+      <li><a href="MANUAL.html">User's Guide</a>
+      <li><a href="MANUAL.pdf">User's Guide (PDF)</a>
+      <li><a href="epub.html">Making an ebook</a></li>
+      <li><a href="filters.html">Filters</a></li>
+      <li><a href="lua-filters.html">Lua filters</a></li>
+      <li><a href="CONTRIBUTING.html">Contributing</a></li>
+      <li><a href="faqs.html">FAQ</a></li>
+      <li><a href="press.html">Press</a></li>
+      <li><a href="using-the-pandoc-api.html">Using the Pandoc API</a></li>
+      <li><a href="http://hackage.haskell.org/package/pandoc">API documentation</a></li>
+    </ul>
+    </li>
+    <li><a href="help.html">Help</a></li>
+    <li><a href="https://github.com/jgm/pandoc/wiki/Pandoc-Extras">Extras</a></li>
+    <li><a href="releases.html">Releases</a></li>
+  </ul>
+</div>
+      </nav>
+      <main class="col-md-9 col-sm-8">
+        <div class="row">
+          <h1 class="title">Creating an ebook with pandoc</h1>
+        <div id="toc">
+<ul>
+<li><a href="#a-toy-example">A toy example</a></li>
+<li><a href="#a-real-book">A real book</a><ul>
+<li><a href="#changing-the-format">Changing the format</a></li>
+<li><a href="#math">Math</a></li>
+</ul></li>
+</ul>
+        </div>
+<p>Starting with version 1.6, pandoc can produce output in the <a href="http://en.wikipedia.org/wiki/EPUB">EPUB</a> electronic book format. EPUB books can be viewed on iPads, Nooks, and other electronic book readers, including many smart phones. (They can also be converted to Kindle books using <a href="http://www.amazon.com/gp/feature.html?ie=UTF8&amp;docId=1000234621">KindleGen</a>.)</p>
+<p>This means that it’s now very easy to produce an electronic book! Let’s try it.</p>
+<h1 id="a-toy-example">A toy example</h1>
+<p>Use your text editor to create a file <code>mybook.txt</code>, with the following contents:</p>
+<pre><code>% My Book
+% Sam Smith
+
+This is my book!
+
+# Chapter One
+
+Chapter one is over.
+
+# Chapter Two
+
+Chapter two has just begun.</code></pre>
+<p>To make this into an ebook takes only one command:</p>
+<pre><code>pandoc mybook.txt -o mybook.epub</code></pre>
+<p>You can upload <code>mybook.epub</code> to your ebook reader and try it out.</p>
+<p>Note that if your markdown file contains links to local images, for example</p>
+<pre><code>![Juliet](images/sun.jpg)</code></pre>
+<p>pandoc will automatically include the images in the generated epub.</p>
+<h1 id="a-real-book">A real book</h1>
+<p>To see what this would look like for a real book, let’s convert Scott Chacon’s book <a href="http://progit.org/">Pro Git</a>, which he wrote using pandoc’s markdown variant and released under a <a href="http://creativecommons.org/">Creative Commons</a> license. (If you use the book, please consider <a href="http://progit.org/">buying a copy</a> to help support his excellent work.)</p>
+<p>You can find the markdown source for the book on its <a href="http://github.com/progit/progit">github site</a>. Let’s get a copy of the whole repository:<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<pre><code>git clone http://github.com/progit/progit.git</code></pre>
+<p>This command will create a working directory called <code>progit</code> on your machine. The actual markdown sources for the English version of the book are in the <code>en</code> subdirectory, so start by changing to that directory:</p>
+<pre><code>cd progit/en</code></pre>
+<p>As you can see, each chapter is a single text file in its own directory. Chacon does some postprocessing on these files, for example, to insert images. This is a placeholder for Figure 1-1, for example:</p>
+<pre><code>Insert 18333fig0101.png
+Figure 1-1. Local version control diagram.</code></pre>
+<p>The actual image file is called <code>18333fig0101-tn.png</code> and lives in the <code>figures</code> subdirectory of the repository, as you can verify.</p>
+<p>For demonstration purposes, we want pure markdown files, so let’s change this placeholder into a markdown image link. Pandoc will treat a paragraph containing a single image as a figure with a caption, which is what we want:</p>
+<pre><code>![Figure 1-1. Local version control diagram.](../figures/18333fig0101-tn.png)</code></pre>
+<p>We can make this change in all the files with a perl one-liner:</p>
+<pre><code>perl -i -0pe \
+&#39;s/^Insert\s*(.*)\.png\s*\n([^\n]*)$/!\[\2](..\/figures\/\1-tn.png)/mg&#39; \
+*/*.markdown</code></pre>
+<p>This will modify the files in place. (We won’t worry about backing them up; if we mess up, we can get the original files back with <code>git reset --hard</code>.)</p>
+<p>OK! Now we’re almost ready to make an ebook. We have the chapters, each in its own file, but we still need a title. Create a file, <code>title.txt</code>, with a pandoc YAML metadata block:</p>
+<pre><code>---
+title: Pro Git
+author: Scott Chacon
+rights:  Creative Commons Non-Commercial Share Alike 3.0
+language: en-US
+...</code></pre>
+<p>See the <a href="MANUAL.html#epub-metadata">User’s Guide</a> for more information above these fields.</p>
+<p>Now run pandoc to make the ebook, using our title page and modified chapter files as sources:</p>
+<pre><code>pandoc -o progit.epub title.txt \
+  01-introduction/01-chapter1.markdown \
+  02-git-basics/01-chapter2.markdown \
+  03-git-branching/01-chapter3.markdown \
+  04-git-server/01-chapter4.markdown \
+  05-distributed-git/01-chapter5.markdown \
+  06-git-tools/01-chapter6.markdown \
+  07-customizing-git/01-chapter7.markdown \
+  08-git-and-other-scms/01-chapter8.markdown \
+  09-git-internals/01-chapter9.markdown</code></pre>
+<p>That’s it! The ebook, <code>progit.epub</code>, is ready to be uploaded to your reader.</p>
+<h2 id="changing-the-format">Changing the format</h2>
+<p>You can use the <code>--css</code> option to specify a CSS file for the book. The default CSS is minimal and can be found <a href="https://github.com/jgm/pandoc/blob/master/data/epub.css">on GitHub</a> or in the <code>epub.css</code> file in your data directory (see <code>--data-dir</code> in the <a href="MANUAL.html">User’s Guide</a>).</p>
+<p>You can even embed fonts in the EPUB if you want; see the <a href="MANUAL.html">User’s Guide</a> under <code>--epub-embed-font</code> for instructions.</p>
+<h2 id="math">Math</h2>
+<p>Pandoc has an EPUB3 writer. It renders LaTeX math into MathML, which EPUB3 readers are supposed to support (but unfortunately few do).</p>
+<p>Of course, this isn’t much help if you want EPUB2 output (<code>pandoc -t epub2</code>) or target readers that don’t support MathML. Then you should try using the <code>--webtex</code> option, which will use a web service to convert the TeX to an image.</p>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>If you don’t have <a href="http://git-scm.com">git</a>, you can browse to the <a href="http://github.com/progit/progit">github site</a> and click “Download Source” to get the same files in a zip or tar archive.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
+        </div>
+      </main>
+    </div>
+    <footer>
+    </footer>
+  </div>
+</body>
+</html>
