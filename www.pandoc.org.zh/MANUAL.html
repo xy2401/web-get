@@ -1,0 +1,1850 @@
+﻿<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8"></meta>
+  <title>Pandoc  -  Pandoc用户手册</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+  <!--[if lt IE 9]>
+       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+       <![endif]-->
+  <link rel="stylesheet" href="asset?aid=0"></link>
+  <link rel="stylesheet" type="text/css" href="css/screen.css"></link>
+  <link rel="stylesheet" type="text/css" href="css/print.css" media="print"></link>
+  <style type="text/css">code {
+  white-space: pre-wrap;
+}
+pre {
+  font-size: 12pt;
+}
+.smallcaps {
+  font-variant: small-caps;
+}
+.line-block {
+  white-space: pre-line;
+}
+.column {
+  display: inline-block;
+}
+</style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="js/nav.js"></script>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-2234613-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  </script>
+  <script type="text/javascript">
+  /* <![CDATA[ */
+    (function() {
+        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'https://api.flattr.com/js/0.6/load.js?mode=auto';
+        t.parentNode.insertBefore(s, t);
+    })();
+  /* ]]> */
+  </script>
+</head>
+<body dir="ltr">
+  <div id="doc" class="container-fluid">
+    <header>
+      <div id="flattr">
+        <a class="FlattrButton" href="https://pandoc.org" style="display:none" rev="flattr;button:compact;"></a>
+        <noscript><a href="https://flattr.com/thing/936364/Pandoc" target="_blank"><img src="https://api.flattr.com/button/flattr-badge-large.png" alt="Flattr这个" title="Flattr这个" border="0"></a></noscript>
+      </div>
+        <div id="paypal">
+         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHbwYJKoZIhvcNAQcEoIIHYDCCB1wCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYA1aF1SYXH476Drh95jHdjCr2Pe08jgMkj9i7o+LqUNtjNpn2o2WT0G0gRm8+fSf3olG3isnZ8cJcxvV4MqvT054L2Z+erugv1UnDyEx/rmOzk+JQkDX71PmMYjQLwbyrFyU0RaVR6ksjNstM3I7bn4b8gQuSM9UkmfI/xVvslsXTELMAkGBSsOAwIaBQAwgewGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIHvq7EiOKDNOAgcjLqF4vqQA57C5WLRryItIy6xBS/tEOeAqHUR3uj65kP0HqCmwUX18IhLksKwEOc4yeDqZUo9pcPWyFRcrRxjqObs167KmrafWzCrLDRN+czf9pZUjDpYTGy0sYyW7Rt38+vLtVRHukxLkMiT3ZJ8iRd1LXx5iQRN9d8ouuS4/CsTaZoD+cv4leQR7wKpIE2LbuMx9ghOJ4kR3NSSwNYN2VyHfgONyNdQqsZCWaSO5uGXK/TnDguKoi8VSOzX2fIChhYmvdgqPtmKCCA4cwggODMIIC7KADAgECAgEAMA0GCSqGSIb3DQEBBQUAMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbTAeFw0wNDAyMTMxMDEzMTVaFw0zNTAyMTMxMDEzMTVaMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAwUdO3fxEzEtcnI7ZKZL412XvZPugoni7i7D7prCe0AtaHTc97CYgm7NsAtJyxNLixmhLV8pyIEaiHXWAh8fPKW+R017+EmXrr9EaquPmsVvTywAAE1PMNOKqo2kl4Gxiz9zZqIajOm1fZGWcGS0f5JQ2kBqNbvbg2/Za+GJ/qwUCAwEAAaOB7jCB6zAdBgNVHQ4EFgQUlp98u8ZvF71ZP1LXChvsENZklGswgbsGA1UdIwSBszCBsIAUlp98u8ZvF71ZP1LXChvsENZklGuhgZSkgZEwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tggEAMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEFBQADgYEAgV86VpqAWuXvX6Oro4qJ1tYVIT5DgWpE692Ag422H7yRIr/9j/iKG4Thia/Oflx4TdL+IFJBAyPK9v6zZNZtBgPBynXb048hsP16l2vi0k5Q2JKiPDsEfBhGI+HnxLXEaUWAcVfCsQFvd2A1sxRr67ip5y2wwBelUecP3AjJ+YcxggGaMIIBlgIBATCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwCQYFKw4DAhoFAKBdMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTE0MDEwNjIwMjYzOVowIwYJKoZIhvcNAQkEMRYEFJLYt8/tr7y69LYjPJjKyTMm5QAYMA0GCSqGSIb3DQEBAQUABIGAI2+pZ4nP2NsnH4648MqJ7ihLLMxoiNXZTiH2yV9rknNcK0cCT28UTWnO1iFZPWNeZRMA+PclqnTS4DuGvj3+MYvGbu0NauKT9TE1eP+nrdP2XHa3qTGXcCqezVqfUxknMXyXBW5u20JGXp+D9RizEfhSX67JBLvsVwlmBYmcyYk=-----END PKCS7-----
+">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="贝宝 - 更安全，更简单的在线支付方式！">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+      </div>
+
+        <span class="big">潘多克</span> <span class="small">通用文档转换器</span>
+    </header>
+    <div id="bd">
+      <nav id="navbar" class="navbar nav navbar-default col-md-3 col-sm-4">
+        <div class="navbar-header">
+  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">切换导航</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+</div>
+<div class="navbar-collapse collapse">
+  <ul class="nav tree">
+    <li><a href="index.html">关于</a></li>
+    <li><a href="installing.html">1 - 安装</a></li>
+    <li><a href="getting-started.html">入门</a></li>
+    <li><a class="tree-toggle nav-header">演示</a>
+    <ul class="nav tree">
+      <li><a href="try">尝试在线pandoc</a></li>
+      <li><a href="demos.html">示例</a></li>
+    </ul>
+    </li>
+    <li><a class="tree-toggle nav-header">文档</a>
+    <ul class="nav tree">
+      <li><a href="MANUAL.html">USER’S GUIDE </a>
+      <li><a href="MANUAL.pdf">用户指南（PDF）</a>
+      <li><a href="epub.html">制作电子书</a></li>
+      <li><a href="filters.html">筛选</a></li>
+      <li><a href="lua-filters.html">Lua过滤器</a></li>
+      <li><a href="CONTRIBUTING.html">贡献</a></li>
+      <li><a href="faqs.html">常见问题解答</a></li>
+      <li><a href="press.html">按</a></li>
+      <li><a href="using-the-pandoc-api.html">使用Pandoc API</a></li>
+      <li><a href="http://hackage.haskell.org/package/pandoc">API文档</a></li>
+    </li></li></ul>
+    </li>
+    <li><a href="help.html">帮助</a></li>
+    <li><a href="https://github.com/jgm/pandoc/wiki/Pandoc-Extras">其他</a></li>
+    <li><a href="releases.html">发布</a></li>
+  </ul>
+</div>
+      </nav>
+      <main class="col-md-9 col-sm-8">
+        <div class="row">
+          <h1 class="title">Pandoc用户指南</h1>
+        <div id="toc">
+<ul>
+<li><a href="#synopsis">概要</a></li>
+<li><a href="#description">描述</a><ul>
+<li><a href="#using-pandoc">使用<code>pandoc</code></a></li>
+<li><a href="#specifying-formats">指定格式</a></li>
+<li><a href="#character-encoding">字符编码</a></li>
+<li><a href="#creating-a-pdf">创建一个PDF</a></li>
+<li><a href="#reading-from-the-web">从网上阅读</a></li>
+</ul></li>
+<li><a href="#options">选项</a><ul>
+<li><a href="#general-options">选项</a></li>
+<li><a href="#reader-options">读卡器选项</a></li>
+<li><a href="#general-writer-options">一般作家选项</a></li>
+<li><a href="#options-affecting-specific-writers">影响特定作者的选项</a></li>
+<li><a href="#citation-rendering">引用呈现</a></li>
+<li><a href="#math-rendering-in-html">用HTML表示数学</a></li>
+<li><a href="#options-for-wrapper-scripts">包装脚本的选项</a></li>
+</ul></li>
+<li><a href="#templates">模板</a><ul>
+<li><a href="#variables-set-by-pandoc">由pandoc设置的变量</a></li>
+<li><a href="#language-variables">语言变量</a></li>
+<li><a href="#variables-for-slides">幻灯片的变量</a></li>
+<li><a href="#variables-for-latex">LaTeX的变量</a></li>
+<li><a href="#variables-for-context">ConTeXt的变量</a></li>
+<li><a href="#variables-for-man-pages">手册页的变量</a></li>
+<li><a href="#variables-for-ms">ms的变量</a></li>
+<li><a href="#using-variables-in-templates">在模板中使用变量</a></li>
+</ul></li>
+<li><a href="#extensions">扩展</a><ul>
+<li><a href="#typography">字形</a></li>
+<li><a href="#headers-and-sections">标题和部分</a></li>
+<li><a href="#math-input">数学输入</a></li>
+<li><a href="#raw-htmltex">原始HTML / TeX</a></li>
+<li><a href="#literate-haskell-support">识别Haskell支持</a></li>
+<li><a href="#other-extensions">其他扩展</a></li>
+</ul></li>
+<li><a href="#pandocs-markdown">潘多克的降价</a><ul>
+<li><a href="#philosophy">哲学</a></li>
+<li><a href="#paragraphs">段落</a></li>
+<li><a href="#headers">页头</a><ul>
+<li><a href="#setext-style-headers">Setext风格的标题</a></li>
+<li><a href="#atx-style-headers">ATX风格的标题</a></li>
+<li><a href="#header-identifiers">标头标识符</a></li>
+</ul></li>
+<li><a href="#block-quotations">块报价</a></li>
+<li><a href="#verbatim-code-blocks">逐字（代码）块</a><ul>
+<li><a href="#indented-code-blocks">缩进的代码块</a></li>
+<li><a href="#fenced-code-blocks">围栏代码块</a></li>
+</ul></li>
+<li><a href="#line-blocks">线块</a></li>
+<li><a href="#lists">清单</a><ul>
+<li><a href="#bullet-lists">项目符号列表</a></li>
+<li><a href="#block-content-in-list-items">阻止列表项中的内容</a></li>
+<li><a href="#ordered-lists">有序列表</a></li>
+<li><a href="#definition-lists">定义列表</a></li>
+<li><a href="#numbered-example-lists">编号示例列表</a></li>
+<li><a href="#compact-and-loose-lists">紧凑和松散的名单</a></li>
+<li><a href="#ending-a-list">结束列表</a></li>
+</ul></li>
+<li><a href="#horizontal-rules">水平的规则</a></li>
+<li><a href="#tables">表</a></li>
+<li><a href="#metadata-blocks">元数据块</a></li>
+<li><a href="#backslash-escapes">反斜杠转义</a></li>
+<li><a href="#inline-formatting">内联格式</a><ul>
+<li><a href="#emphasis">强调</a></li>
+<li><a href="#strikeout">三振出局</a></li>
+<li><a href="#superscripts-and-subscripts">上标和下标</a></li>
+<li><a href="#verbatim">逐字</a></li>
+<li><a href="#small-caps">小帽子</a></li>
+</ul></li>
+<li><a href="#math">数学</a></li>
+<li><a href="#raw-html">原始HTML</a><ul>
+<li><a href="#generic-raw-attribute">通用的原始属性</a></li>
+</ul></li>
+<li><a href="#latex-macros">LaTeX宏</a></li>
+<li><a href="#links">链接</a><ul>
+<li><a href="#automatic-links">自动链接</a></li>
+<li><a href="#inline-links">内联链接</a></li>
+<li><a href="#reference-links">参考链接</a></li>
+<li><a href="#internal-links">内部链接</a></li>
+</ul></li>
+<li><a href="#images">图像</a></li>
+<li><a href="#divs-and-spans">Divs和跨度</a></li>
+<li><a href="#footnotes">脚注</a></li>
+<li><a href="#citations">原文：</a></li>
+<li><a href="#non-pandoc-extensions">非pandoc扩展</a></li>
+<li><a href="#markdown-variants">减价变种</a></li>
+</ul></li>
+<li><a href="#producing-slide-shows-with-pandoc">用pandoc制作幻灯片</a><ul>
+<li><a href="#structuring-the-slide-show">构建幻灯片</a></li>
+<li><a href="#incremental-lists">增量列表</a></li>
+<li><a href="#inserting-pauses">插入暂停</a></li>
+<li><a href="#styling-the-slides">造型的幻灯片</a></li>
+<li><a href="#speaker-notes">演讲者笔记</a></li>
+<li><a href="#columns">列</a></li>
+<li><a href="#frame-attributes-in-beamer">投影机中的帧属性</a></li>
+</ul></li>
+<li><a href="#creating-epubs-with-pandoc">使用pandoc创建EPUB</a><ul>
+<li><a href="#epub-metadata">EPUB元数据</a></li>
+<li><a href="#linked-media">链接的媒体</a></li>
+</ul></li>
+<li><a href="#syntax-highlighting">语法突出显示</a></li>
+<li><a href="#custom-styles-in-docx-output">Docx输出中的自定义样式</a></li>
+<li><a href="#custom-writers">自定义作家</a></li>
+<li><a href="#authors">作者</a></li>
+</ul>
+        </div>
+<h1 id="synopsis">概要</h1>
+<p><code>pandoc</code> [ <em>options</em> ] [ <em>input-file</em> ] ...</p>
+<h1 id="description">描述</h1>
+<p>Pandoc是一个进行文本标记格式相互转换的Haskell程序库，还有一个使用这个库的命令行工具。</p>
+<p>Pandoc可以读取<a href="http://daringfireball.net/projects/markdown/">降价</a> ， <a href="http://commonmark.org">CommonMark</a> ， <a href="https://michelf.ca/projects/php-markdown/extra/">PHP降价外</a> ， <a href="https://help.github.com/articles/github-flavored-markdown/">GitHub的味降价</a> ， <a href="http://fletcherpenney.net/multimarkdown/">MultiMarkdown</a> ，和（子集） <a href="http://redcloth.org/textile">纺织</a> ， <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText的</a> ， <a href="http://www.w3.org/html/">HTML</a> ， <a href="http://latex-project.org">乳胶</a> ， <a href="https://www.mediawiki.org/wiki/Help:Formatting">链接到MediaWiki标记</a> ， <a href="http://twiki.org/cgi-bin/view/TWiki/TextFormattingRules">TWiki的标记</a> ， <a href="https://doc.tiki.org/Wiki-Syntax-Text#The_Markup_Language_Wiki-Syntax">TikiWiki标记</a> ， <a href="http://www.wikicreole.org/wiki/Creole1.0">克里奥尔1.0</a> ， <a href="https://www.haskell.org/haddock/doc/html/ch03s08.html">黑线鳕标记</a> ， <a href="http://dev.opml.org/spec2.html">OPML</a> ， <a href="http://orgmode.org">Emacs的组织模式</a> ， <a href="http://docbook.org">DocBook的</a> ， <a href="https://jats.nlm.nih.gov">JATS</a> ， <a href="https://amusewiki.org/library/manual">缪斯</a> ， <a href="http://txt2tags.org">txt2tags的</a> ， <a href="https://vimwiki.github.io">Vimwiki</a> ， <a href="http://idpf.org/epub">EPUB</a> ， <a href="http://en.wikipedia.org/wiki/OpenDocument">ODT</a>和<a href="https://en.wikipedia.org/wiki/Office_Open_XML">字DOCX</a> 。</p>
+<p>Pandoc可以写纯文本， <a href="http://daringfireball.net/projects/markdown/">降价</a> ， <a href="http://commonmark.org">CommonMark</a> ， <a href="https://michelf.ca/projects/php-markdown/extra/">PHP降价外</a> ， <a href="https://help.github.com/articles/github-flavored-markdown/">GitHub的味降价</a> ， <a href="http://fletcherpenney.net/multimarkdown/">MultiMarkdown</a> ， <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">新结构化</a> ， <a href="http://www.w3.org/TR/xhtml1/">XHTML</a> ， <a href="http://www.w3.org/TR/html5/">HTML5</a> ， <a href="http://latex-project.org">乳胶</a> （包括<a href="https://ctan.org/pkg/beamer"><code>beamer</code></a>幻灯片）， <a href="http://www.contextgarden.net/">上下文</a> ， <a href="http://en.wikipedia.org/wiki/Rich_Text_Format">RTF</a> ， <a href="http://dev.opml.org/spec2.html">OPML</a> ， <a href="http://docbook.org">DocBook的</a> ， <a href="https://jats.nlm.nih.gov">JATS</a> ， <a href="http://opendocument.xml.org">OpenDocument格式</a> ， <a href="http://en.wikipedia.org/wiki/OpenDocument">ODT</a> ， <a href="https://en.wikipedia.org/wiki/Office_Open_XML">字docx</a> ， <a href="http://www.gnu.org/software/texinfo/">GNU Texinfo</a> ， <a href="https://www.mediawiki.org/wiki/Help:Formatting">MediaWiki标记</a> ， <a href="https://www.dokuwiki.org/dokuwiki">DokuWiki标记</a> ， <a href="http://zim-wiki.org/manual/Help/Wiki_Syntax.html">ZimWiki标记</a> ， <a href="https://www.haskell.org/haddock/doc/html/ch03s08.html">Haddock标记</a> ， <a href="http://idpf.org/epub">EPUB</a> （v2或v3）， <a href="http://www.fictionbook.org/index.php/Eng:XML_Schema_Fictionbook_2.1">FictionBook2</a> ， <a href="http://redcloth.org/textile">Textile</a> ， <a href="http://man7.org/linux/man-pages/man7/groff_man.7.html">groff man</a> ， <a href="http://man7.org/linux/man-pages/man7/groff_ms.7.html">groff ms</a> ， <a href="http://orgmode.org">Emacs Org模式</a> ， <a href="http://www.methods.co.nz/asciidoc/">AsciiDoc</a> ， <a href="http://wwwimages.adobe.com/www.adobe.com/content/dam/acom/en/devnet/indesign/sdk/cs6/idml/idml-cookbook.pdf">InDesign ICML</a> ， <a href="https://github.com/TEIC/TEI-Simple">TEI Simple</a> ， <a href="https://amusewiki.org/library/manual">Muse</a> ， <a href="https://en.wikipedia.org/wiki/Microsoft_PowerPoint">PowerPoint</a>幻灯片显示和<a href="http://www.w3.org/Talks/Tools/Slidy/">Slidy</a> ， <a href="http://goessner.net/articles/slideous/">幻灯片</a> ， <a href="http://paulrouget.com/dzslides/">DZSlides</a> ， <a href="http://lab.hakim.se/reveal-js/">reveal.js</a>或<a href="http://meyerweb.com/eric/tools/s5/">S5的</a> HTML幻灯片放映。它也可以在安装有LaTeX，ConTeXt， <code>pdfroff</code> ， <code>wkhtmltopdf</code> ， <code>prince</code>或<code>weasyprint</code>系统上生成<a href="https://www.adobe.com/pdf/">PDF</a>输出。</p>
+<p>Pandoc增强的Markdown版本包括<a href="#tables">表格</a> ， <a href="#definition-lists">定义列表</a> ， <a href="#metadata-blocks">元数据块</a> ， <a href="#extension-fenced_divs"><code>Div</code>块</a> ， <a href="#footnotes">脚注</a>和<a href="#citations">引文</a> ，嵌入式<a href="#extension-raw_tex">LaTeX</a> （包括<a href="#math">数学</a> ）， <a href="#extension-markdown_in_html_blocks">HTML块元素内的Markdown</a>等等的<a href="#extension-markdown_in_html_blocks">语法</a> 。可以使用<code>markdown_strict</code>格式禁用在<a href="#pandocs-markdown">Pandoc Markdown</a>下进一步描述的这些增强功能。</p>
+<p>Pandoc有一个模块化的设计：它由一组阅读器组成，它们以给定的格式解析文本并生成文档的本地表示（如<em>抽象语法树</em>或AST），以及一组编写器，它们将这种本地表示转换成目标格式。因此，添加输入或输出格式仅需要添加读取器或写入器。用户还可以运行自定义<a href="http://pandoc.org/filters.html">pandoc过滤器</a>来修改中间AST。</p>
+<p>由于pandoc对文档的中间表示与其中间转换的许多格式相比较不具有表现力，所以不应期望在每种​​格式和其他格式之间进行完美的转换。Pandoc尝试保留文档的结构元素，但不格式化边距大小等细节。而一些文档元素，比如复杂的表格，可能不适合pandoc的简单文档模型。虽然从pandoc的Markdown到所有格式的转换都非常完美，但是从比pandoc Markdown更具表现力的格式转换可能是有损的。</p>
+<h2 id="using-pandoc">使用<code>pandoc</code></h2>
+<p>如果没有指定<em>输入文件</em> ，则从<em>标准</em>输入读取<em>输入</em> 。输出默认为<em>stdout</em> 。要输出到文件，请使用<code>-o</code>选项：</p>
+<pre><code>pandoc -o output.html input.txt</code></pre>
+<p>默认情况下，pandoc生成一个文档片段。要生成独立文档（例如，包含<code>&lt;head&gt;</code>和<code>&lt;body&gt;</code>的有效HTML文件），请使用<code>-s</code>或<code>--standalone</code>标志：</p>
+<pre><code>pandoc -s -o output.html input.txt</code></pre>
+<p>有关如何生成独立文档的更多信息，请参阅下面的<a href="#templates">模板</a> 。</p>
+<p>如果给出多个输入文件，则在解析之前， <code>pandoc</code>将把它们全部连接（在它们之间有空行）。（使用<code>--file-scope</code>分别解析文件。）</p>
+<h2 id="specifying-formats">指定格式</h2>
+<p>输入和输出的格式可以使用命令行选项明确指定。输入格式可以使用<code>-f/--from</code>选项指定，输出格式使用<code>-t/--to</code>选项。因此，要将Markdown中的<code>hello.txt</code>转换为LaTeX，你可以输入：</p>
+<pre><code>pandoc -f markdown -t latex hello.txt</code></pre>
+<p>将HTML中的<code>hello.html</code>转换为Markdown：</p>
+<pre><code>pandoc -f html -t markdown hello.html</code></pre>
+<p>受支持的输入和输出格式在<a href="#options">选项</a>下面列出（请参阅<code>-f</code>输入格式和<code>-t</code>输出格式）。您还可以使用<code>pandoc --list-input-formats</code>和<code>pandoc --list-output-formats</code>来打印支持的格式列表。</p>
+<p>如果没有明确指定输入或输出格式，则<code>pandoc</code>将尝试从文件名的扩展名中猜测它。因此，例如，</p>
+<pre><code>pandoc -o hello.tex hello.txt</code></pre>
+<p>将把Markdown的<code>hello.txt</code>转换成LaTeX。如果没有指定输出文件（所以输出到<em>stdout</em> ），或者如果输出文件的扩展名是未知的，输出格式将默认为HTML。如果没有指定输入文件（所以输入来自<em>stdin</em> ），或者输入文件的扩展名是未知的，输入格式将被认为是Markdown。</p>
+<h2 id="character-encoding">字符编码</h2>
+<p>Pandoc对输入和输出使用UTF-8字符编码。如果你的本地字符编码不是UTF-8，你应该通过<a href="http://www.gnu.org/software/libiconv/"><code>iconv</code></a>输入输出：</p>
+<pre><code>iconv -t utf-8 input.txt | pandoc | iconv -f utf-8</code></pre>
+<p>请注意，在某些输出格式（如HTML，LaTeX，ConTeXt，RTF，OPML，DocBook和Texinfo）中，有关字符编码的信息包含在文档标题中，只有在使用<code>-s/--standalone</code>选项。</p>
+<h2 id="creating-a-pdf">创建一个PDF</h2>
+<p>要生成PDF，请指定一个<code>.pdf</code>扩展名的输出文件：</p>
+<pre><code>pandoc test.txt -o test.pdf</code></pre>
+<p>默认情况下，pandoc将使用LaTeX创建PDF，这需要安装LaTeX引擎（请参阅<code>--pdf-engine</code> ）。</p>
+<p>或者，pandoc可以使用<a href="http://www.contextgarden.net/">ConTeXt</a> ， <code>pdfroff</code>或任何以下HTML / CSS到PDF引擎来创建PDF： <a href="https://wkhtmltopdf.org"><code>wkhtmltopdf</code></a> ， <a href="http://weasyprint.org"><code>weasyprint</code></a>或<a href="https://www.princexml.com/"><code>prince</code></a> 。为此，请像以前那样指定一个<code>.pdf</code>扩展名的输出文件，但将<code>--pdf-engine</code>选项或<code>-t context</code> ， <code>-t html</code>或<code>-t ms</code>到命令行（ <code>-t html</code>默认为<code>--pdf-engine=wkhtmltopdf</code> ）。</p>
+<p>可以使用<a href="#variables-for-latex">LaTeX</a> （如果使用LaTeX） <a href="#variables-for-context">变量和ConTeXt变量</a> （如果使用<a href="#variables-for-context">ConTeXt</a> ）控制PDF输出。当使用HTML / CSS到PDF引擎时， - <code>--css</code>会影响输出。如果使用<code>wkhtmltopdf</code> ，那么变量<code>margin-left</code> ， <code>margin-right</code> ， <code>margin-top</code> ， <code>margin-bottom</code>和<code>papersize</code>会影响输出。</p>
+<p>要调试PDF创建，查看中间表示可能很有用：而不是<code>-o test.pdf</code> ，例如使用<code>-s -o test.tex</code>输出生成的LaTeX。然后，您可以使用<code>pdflatex test.tex</code>进行测试。</p>
+<p>使用LaTeX时，需要下列软件包（它们包含在所有最新版本的<a href="http://www.tug.org/texlive/">TeX Live中</a> ）： <a href="https://ctan.org/pkg/amsfonts"><code>amsfonts</code></a> ， <a href="https://ctan.org/pkg/amsmath"><code>amsmath</code></a> ， <a href="https://ctan.org/pkg/lm"><code>lm</code></a> ， <a href="https://ctan.org/pkg/unicode-math"><code>unicode-math</code></a> ， <a href="https://ctan.org/pkg/ifxetex"><code>ifxetex</code></a> ， <a href="https://ctan.org/pkg/ifluatex"><code>ifluatex</code></a> ， <a href="https://ctan.org/pkg/listings"><code>listings</code></a> （如果使用了<code>--listings</code>选项）， <a href="https://ctan.org/pkg/fancyvrb"><code>fancyvrb</code></a> ， <a href="https://ctan.org/pkg/longtable"><code>longtable</code></a> ， <a href="https://ctan.org/pkg/booktabs"><code>booktabs</code></a> ， <a href="https://ctan.org/pkg/graphicx"><code>graphicx</code></a>和<a href="https://ctan.org/pkg/grffile"><code>grffile</code></a> （如果文档包含的图像）， <a href="https://ctan.org/pkg/hyperref"><code>hyperref</code></a> ， <a href="https://ctan.org/pkg/xcolor"><code>xcolor</code></a> （带<code>colorlinks</code> ）， <a href="https://ctan.org/pkg/ulem"><code>ulem</code></a> ， <a href="https://ctan.org/pkg/geometry"><code>geometry</code></a> （与<code>geometry</code>变量集合）， <a href="https://ctan.org/pkg/setspace"><code>setspace</code></a> （带<code>linestretch</code> ），和<a href="https://ctan.org/pkg/babel"><code>babel</code></a> （与<code>lang</code> ）。使用<code>xelatex</code>或<code>lualatex</code>作为LaTeX引擎需要<a href="https://ctan.org/pkg/fontspec"><code>fontspec</code></a> 。 <code>xelatex</code>使用<a href="https://ctan.org/pkg/polyglossia"><code>polyglossia</code></a> （使用<code>lang</code> ）， <a href="https://ctan.org/pkg/xecjk"><code>xecjk</code></a>和<a href="https://ctan.org/pkg/bidi"><code>bidi</code></a> （使用<code>dir</code>变量集）。如果设置了<code>mathspec</code>变量，则<code>xelatex</code>将使用<a href="https://ctan.org/pkg/mathspec"><code>mathspec</code></a>而不是<a href="https://ctan.org/pkg/unicode-math"><code>unicode-math</code></a> 。如果可用，则使用<a href="https://ctan.org/pkg/upquote"><code>upquote</code></a>和<a href="https://ctan.org/pkg/microtype"><code>microtype</code></a>包，如果将其添加到模板或包含在任何头文件中，则<a href="https://ctan.org/pkg/csquotes"><code>csquotes</code></a>将用于<a href="#typography">排版</a> 。<a href="https://ctan.org/pkg/natbib"><code>natbib</code></a> ， <a href="https://ctan.org/pkg/biblatex"><code>biblatex</code></a> ， <a href="https://ctan.org/pkg/bibtex"><code>bibtex</code></a>和<a href="https://ctan.org/pkg/biber"><code>biber</code></a>包可以选择用于<a href="#citation-rendering">引用呈现</a> 。</p>
+<h2 id="reading-from-the-web">从网上阅读</h2>
+<p>可以给出绝对URI，而不是输入文件。在这种情况下，pandoc将使用HTTP获取内容：</p>
+<pre><code>pandoc -f html -t markdown http://www.fsf.org</code></pre>
+<p>从URL请求文档时，可以提供自定义的User-Agent字符串或其他标题：</p>
+<pre><code>pandoc -f html -t markdown --request-header User-Agent：“Mozilla / 5.0”\ http://www.fsf.org</code></pre>
+<h1 id="options">选项</h1>
+<h2 id="general-options">选项</h2>
+<dl>
+<dt><code>-f</code> <em>FORMAT</em> ， <code>-r</code> <em>FORMAT</em> ，-- <code>--from=</code> <em>FORMAT</em> ， <code>--read=</code> <em>FORMAT</em></dt>
+<dd><p>指定输入格式。<em>格式</em>可以是<code>native</code> （原生Haskell）， <code>json</code> （本机AST的JSON版本）， <code>markdown</code> （pandoc的扩展Markdown）， <code>markdown_strict</code> （原始未延期Markdown）， <code>markdown_phpextra</code> （PHP Markdown Extra）， <code>markdown_mmd</code> （ <code>gfm</code> ）， <code>gfm</code> （GitHub风味Markdown ）， <code>commonmark</code> （CommonMark降价）， <code>textile</code> （纺织）， <code>rst</code> （reStructuredText的）， <code>html</code> （HTML）， <code>docbook</code> （DocBook的）， <code>t2t</code> （txt2tags的）， <code>docx</code> （DOCX）， <code>odt</code> （ODT）， <code>epub</code> （EPUB）， <code>opml</code> （ OPML）， <code>org</code> （Emacs的组织模式）， <code>mediawiki</code> （链接到MediaWiki标记）， <code>twiki</code> （TWiki的标记）， <code>tikiwiki</code> （tikiWiki标记）， <code>creole</code> （克里奥尔1.0）， <code>haddock</code> （黑线鳕标记），或<code>latex</code> （胶乳）。 （ <code>markdown_github</code>为Github- <code>gfm</code> Markdown提供了不推荐使用的和不太精确的支持;请使用<code>gfm</code>代替，除非您需要使用除<code>smart</code>以外的扩展名。可以通过将<code>+EXTENSION</code>或<code>-EXTENSION</code>附加到格式名称来单独启用或禁用<code>+EXTENSION</code> 。见<a href="#extensions">扩展</a>下面，为扩展和他们的名字的列表。请参阅下面的<code>--list-input-formats</code>和<code>--list-extensions</code> 。</p>
+</dd>
+<dt><code>-t</code> <em>格式化</em> ， <code>-w</code> <em>格式化</em> ， - <code>--to=</code> <em>格式化</em> ， <code>--write=</code> <code>--to=</code> <code>--write=</code> <em>格式化</em></dt>
+<dd><p>指定输出格式。<em>格式</em>可以是<code>native</code> （原生Haskell）， <code>json</code> （原生AST的JSON版本）， <code>plain</code>文本， <code>markdown</code> （pandoc的扩展Markdown）， <code>markdown_strict</code> （原始未延期Markdown）， <code>markdown_phpextra</code> （PHP Markdown Extra）， <code>markdown_mmd</code> （MultiMarkdown） （GitHub- <code>gfm</code> Markdown）， <code>commonmark</code> （CommonMarkMarkdown）， <code>rst</code> （reStructuredText）， <code>html4</code> （XHTML 1.0 Transitional）， <code>html</code>或<code>html5</code> （HTML5 / XHTML <a href="https://www.w3.org/TR/html-polyglot/">polyglot标记</a> ）， <code>latex</code> （LaTeX）， <code>beamer</code> （LaTeX投影仪幻灯片） <code>context</code> （ConTeXt）， <code>man</code> （groffman）， <code>mediawiki</code> （MediaWiki标记）， <code>dokuwiki</code> （DokuWiki标记）， <code>zimwiki</code> （ZimWiki标记）， <code>textile</code> （Textile）， <code>org</code> （Emacs Org模式）， <code>texinfo</code> （GNU Texinfo）， <code>opml</code> （OPML ）， <code>docbook</code>或<code>docbook4</code> （DocBook 4）， <code>docbook5</code> （DocBook 5）， <code>jats</code> （ <code>jats</code> XML）， <code>opendocument</code> （OpenDocument）， <code>odt</code> （OpenOffice文本文档）， <code>docx</code> （Word docx）， <code>haddock</code> （Haddock标记）， <code>rtf</code>格式）， <code>epub2</code> （EPUB v2 book）， <code>epub</code>或<code>epub3</code> （EPUB v3）， <code>fb2</code> （FictionBook2电子书）， <code>asciidoc</code> （AsciiDoc）， <code>icml</code> （InDesign ICML）， <code>tei</code> （TEI Simple） <code>slidy</code> （Slidy HTML和JavaScript幻灯片）， <code>slideous</code> （幻灯片HTML和JavaScript幻灯片放映）， <code>dzslides</code> （DZSlides HTML5 + JavaScript幻灯片放映）， <code>revealjs</code> （reveal.js HTML5 + JavaScript幻灯片放映）， <code>s5</code> （S5 HTML和JavaScript幻灯片放映）， <code>pptx</code> （PowerPoint幻灯片放映）或自定义lua作家的路径（请参阅下面的<a href="#custom-writers">自定义作者</a> ）。 （ <code>markdown_github</code>为Github- <code>gfm</code> Markdown提供了不赞成的和不太准确的支持;请使用<code>gfm</code> ，除非您使用不支持<code>gfm</code>扩展）。请注意， <code>odt</code> ， <code>docx</code>和<code>epub</code>输出不会被定向到<em>标准输出，</em>除非强制使用<code>-o -</code> 。可以通过将<code>+EXTENSION</code>或<code>-EXTENSION</code>附加到格式名称来单独启用或禁用<code>+EXTENSION</code> 。见<a href="#extensions">扩展</a>下面，为扩展和他们的名字的列表。请参阅下面的<code>--list-output-formats</code>和<code>--list-extensions</code> 。</p>
+</dd>
+<dt><code>-o</code> <em>FILE</em> ，-- <code>--output=</code> <em>FILE</em></dt>
+<dd><p>将获取的远程文件输出到文件中，而不是输出到屏幕上(stdout)。如果<em>FILE</em>是<code>-</code> ，即使指定了非文本格式（ <code>docx</code> ， <code>odt</code> ， <code>epub2</code> ， <code>epub3</code> ），输出也将转到<em>stdout</em> 。</p>
+</dd>
+<dt><code>--data-dir=</code> <em>目录</em></dt>
+<dd><p>指定用户数据目录以搜索pandoc数据文件。如果未指定此选项，将使用默认的用户数据目录。这是在UNIX中：</p>
+<pre><code>$ HOME / .pandoc</code></pre>
+<p>在Windows XP中：</p>
+<pre><code>C：\ Documents and Settings \ USERNAME \ Application Data \ pandoc</code></pre>
+<p>在Windows Vista或更高版本中：</p>
+<pre><code>C：\ Users \用户名\ AppData \漫游\ pandoc</code></pre>
+<p>通过查看<code>pandoc --version</code>的输出，您可以在系统上找到默认的用户数据目录。放置在这个目录下的<code>reference.odt</code> ， <code>reference.docx</code> ， <code>epub.css</code> ， <code>templates</code> ， <code>slidy</code> ， <code>slideous</code>或<code>s5</code>目录将会覆盖pandoc的正常默认值。</p>
+</dd>
+<dt><code>--bash完成</code></dt>
+<dd><p>生成一个bash完成脚本。要使用pandoc启用bash完成，请将此添加到您的<code>.bashrc</code> ：</p>
+<pre><code>eval“$（pandoc --bash-completion）”</code></pre>
+</dd>
+<dt><code>{0}verbose{/0}{1}¶{/1}</code></dt>
+<dd><p>给出详细的调试输出。目前这只对PDF输出有影响。</p>
+</dd>
+<dt><code>安静！</code></dt>
+<dd><p>禁止警告消息。</p>
+</dd>
+<dt><code>--fail-IF-警告</code></dt>
+<dd><p>如果有任何警告，则退出错误状态。</p>
+</dd>
+<dt>Log File</dt>
+<dd><p>以机器可读的JSON格式将日志消息写入<em>FILE</em> 。无论详细设置如何（ <code>--verbose</code> ，-- <code>--quiet</code> ），都会写入DEBUG级别以上的所有消息。</p>
+</dd>
+<dt><code>--list输入的格式</code></dt>
+<dd><p>列出支持的输入格式，每行一个。</p>
+</dd>
+<dt><code>--list输出的格式</code></dt>
+<dd><p>列出支持的输出格式，每行一个。</p>
+</dd>
+<dt><code>--list-extensions</code> [ <code>=</code> <em>FORMAT</em> ]</dt>
+<dd><p>列出支持的扩展名，每行一个，前面加上<code>+</code>或<code>-</code>表示在<em>FORMAT中</em>是否默认启用它。如果没有指定<em>FORMAT</em> ，则给出默认的pandoc Markdown。</p>
+</dd>
+<dt><code>--list高亮语言</code></dt>
+<dd><p>列出语法突出显示支持的语言，每行一个。</p>
+</dd>
+<dt><code>--list高亮的样式</code></dt>
+<dd><p>列出支持语法高亮的样式，每行一个。请参阅 - <code>--highlight-style</code> 。</p>
+</dd>
+<dt><code>-v</code> ，-- <code>--version</code></dt>
+<dd><p>打印版</p>
+</dd>
+<dt><code>-h</code> ， <code>--help</code></dt>
+<dd><p>显示用法消息。</p>
+</dd>
+</dl>
+<h2 id="reader-options">读卡器选项</h2>
+<dl>
+<dt><code>--base-header-level=</code> <em>NUMBER</em></dt>
+<dd><p>指定标题的基本级别（默认为1）。</p>
+</dd>
+<dt><code>--strip-空段落</code></dt>
+<dd><p><em>建议不要使用。改为使用<code>+empty_paragraphs</code>扩展名。</em> 忽略没有内容的段落。此选项对于转换用户使用空白段落的文字处理文档来创建段落间空间非常有用。</p>
+</dd>
+<dt><code>--indented-code-classes=</code> <em>CLASSES</em></dt>
+<dd><p>指定用于缩进代码块的类，例如， <code>perl,numberLines</code>或<code>haskell</code> 。多个类可以用空格或逗号分隔。</p>
+</dd>
+<dt><code>--default-image-extension=</code> <em>EXTENSION</em></dt>
+<dd><p>指定图片路径/网址没有扩展名时使用的默认扩展名。这使您可以使用相同的来源格式，需要不同类型的图像。目前这个选项只影响Markdown和LaTeX阅读器。</p>
+</dd>
+<dt><code>--file-范围</code></dt>
+<dd><p>在合并多文件文档之前，分别解析每个文件。这将允许具有相同标识符的不同文件中的脚注按预期工作。如果设置此选项，脚注和链接将不会跨文件工作。读取二进制文件（docx，odt，epub）意味着<code>--file-scope</code> 。</p>
+</dd>
+<dt><code>--filter=</code> <em>程序</em></dt>
+<dd><p>指定一个可执行文件，用于在输入被解析之后和写入输出之前转换pandoc AST的过滤器。可执行文件应该从标准输入读取JSON并将JSON写入标准输出。JSON必须格式化为像pandoc自己的JSON输入和输出。输出格式的名称将作为第一个参数传递给过滤器。因此，</p>
+<pre><code>pandoc --filter ./caps.py -t latex</code></pre>
+<p>相当于</p>
+<pre><code>pandoc -t json | ./caps.py乳胶| pandoc -f json -t latex</code></pre>
+<p>后一种形式可能对调试过滤器有用。</p>
+<p>过滤器可以用任何语言书写。<code>Text.Pandoc。JSON</code>导出到<code>toJSONFilter</code>以方便在Haskell中编写过滤器。那些喜欢用python编写过滤器的人可以使用可从PyPI安装的模块<a href="https://github.com/jgm/pandocfilters"><code>pandocfilters</code></a> 。还有<a href="https://github.com/vinai/pandocfilters-php">PHP</a> ， <a href="https://metacpan.org/pod/Pandoc::Filter">perl</a>和<a href="https://github.com/mvhenderson/pandoc-filter-node">JavaScript / node.js中的</a> pandoc过滤器库。</p>
+<p>按照偏好的顺序，pandoc将在其中查找过滤器</p>
+<ol type="1">
+<li><p>指定的完整或相对路径（可执行或不可执行）</p></li>
+<li><p><code>$DATADIR/filters</code> （可执行或不可执行）其中<code>$DATADIR</code>是用户数据目录（请参阅上面的<code>--data-dir</code> ）。</p></li>
+<li><p><code>$PATH</code> （仅限可执行文件）</p></li>
+</ol>
+<p>过滤器和lua过滤器按命令行中指定的顺序应用。</p>
+</dd>
+<dt><code>--lua-filter=</code> <em>SCRIPT</em></dt>
+<dd><p>转换文档以类似的方式为JSON过滤器（见<code>--filter</code> ），但使用pandoc的内置的LUA过滤系统。预期给出的lua脚本将返回将按顺序应用的lua过滤器的列表。每个lua过滤器都必须包含元素转换函数，该元素转换函数通过应用过滤器函数的AST元素的名称进行索引。</p>
+<p><code>pandoc</code> lua模块为元素创建提供了辅助函数。它总是被加载到脚本的lua环境中。</p>
+<p>以下是用于宏扩展的lua脚本示例：</p>
+<pre><code>函数expand_hello_world（inline）if inline.c =='{{helloworld}}'然后返回pandoc。Emph {pandoc。Str“Hello，World”} else else return inline end end return {{Str = expand_hello_world}}</code></pre>
+</dd>
+<dt><code>-M</code> <em>KEY</em> [ <code>=</code> <em>VAL</em> ]，-- <code>--metadata=</code> <em>KEY</em> [ <code>:</code> <em>VAL</em> ]</dt>
+<dd><p>将元数据字段<em>KEY</em>设置为值<em>VAL</em> 。在命令行中指定的值将覆盖文档中指定的值。值将被解析为YAML布尔值或字符串值。如果没有指定值，则该值将被视为布尔值true。像<code>--variable</code> ， <code>--metadata</code>导致模板变量被设置。但不像<code>--variable</code> ， <code>--metadata</code>影响底层文档（它是从过滤器可访问的，并且可以在一些输出格式进行打印）的元数据。</p>
+</dd>
+<dt><code>-p</code> ，-- <code>--preserve-tabs</code></dt>
+<dd><p>保留选项卡，而不是将它们转换为空格（默认）。请注意，这只会影响文字代码跨度和代码块中的制表符;常规文本中的选项卡将被视为空格。</p>
+</dd>
+<dt><code>--tab-stop=</code> <em>NUMBER</em></dt>
+<dd><p>指定每个选项卡的空格数（默认值为4）。</p>
+</dd>
+<dt><code>--track-changes=accept</code> | <code>reject</code> | <code>all</code></dt>
+<dd><p>指定如何处理由MS Word“追踪更改”功能生成的插入，删除和注释。 <code>accept</code> （默认），插入所有插入，并忽略所有删除。 <code>reject</code>插入所有删除并忽略插入。<code>accept</code>和<code>reject</code>忽略评论。 <code>all</code>放入插入，删除和注释，分别用<code>insertion</code> ， <code>deletion</code> ， <code>comment-start</code>和<code>comment-end</code>类包装。包括作者和更改时间。 <code>all</code>这些对于脚本都是有用的：只接受某个评论者的改变，或者在某个日期之前。如果插入或删除段落，则<code>track-changes=all</code>将在受影响的段落分隔<code>paragraph-deletion</code>之前生成带<code>paragraph-insertion</code> / <code>paragraph-deletion</code>的段落。该选项只影响docx阅读器。</p>
+</dd>
+<dt><code>--extract-media=</code> <em>DIR</em></dt>
+<dd><p>将包含在源文档中或链接到源文档的图像和其他媒体提取到路径<em>目录</em> ，必要时创建它，并调整文档中的图像引用，使其指向提取的文件。如果源格式是二进制容器（docx，epub或odt），则从容器中提取媒体并使用原始文件名。否则，介质将从文件系统读取或下载，并根据内容的SHA1散列构建新的文件名。</p>
+</dd>
+<dt><code>--abbreviations=</code> <em>文件</em></dt>
+<dd><p>指定一个自定义缩写文件，缩写一行。如果未指定此选项，则pandoc将从用户数据目录中读取数据文件<code>abbreviations</code>或回退到系统默认值。要查看系统默认值，请使用<code>pandoc --print-default-data-file=abbreviations</code> 。这个列表中唯一使用pandoc的是Markdown阅读器。在此列表中出现的字符串后面会有一个不间断的空格，这样句点就不会像LaTeX这样的格式产生句末空格。</p>
+</dd>
+</dl>
+<h2 id="general-writer-options">一般作家选项</h2>
+<dl>
+<dt><code>-s</code> ， - <code>--standalone</code></dt>
+<dd><p>使用适当的页眉和页脚生成输出（例如独立的HTML，LaTeX，TEI或RTF文件，而不是片段）。该选项自动设置为<code>pdf</code> ， <code>epub</code> ， <code>epub3</code> ， <code>fb2</code> ， <code>docx</code>和<code>odt</code>输出。</p>
+</dd>
+<dt><code>--template=</code> <em>文件</em></dt>
+<dd><p>使用<em>FILE</em>作为生成文档的自定义模板。意味着 - <code>--standalone</code> 。见<a href="#templates">模板</a> ，下面，对模板语法的描述。如果没有指定分机，对应于作家的扩展将被添加，使<code>--template=special</code>验看<code>special.html</code>的HTML输出。如果找不到模板，则pandoc将在用户数据目录的<code>templates</code>子目录中搜索它（请参阅<code>--data-dir</code> ）。如果不使用此选项，将使用适合输出格式的默认模板（请参阅<code>-D/--print-default-template</code> ）。</p>
+</dd>
+<dt><code>-V</code> <em>KEY</em> [ <code>=</code> <em>VAL</em> ]，-- <code>--variable=</code> <em>KEY</em> [ <code>:</code> <em>VAL</em> ]</dt>
+<dd><p>将文档以独立模式呈现时，将模板变量<em>KEY</em>设置为<em>VAL</em>值。这通常仅在使用<code>--template</code>选项来指定自定义模板时才有用，因为pandoc会自动设置默认模板中使用的变量。如果没有指定<em>VAL</em> ，则键将被赋予值<code>true</code> 。</p>
+</dd>
+<dt><code>-D</code> <em>格式</em> ，-- <code>--print-default-template=</code> <em>FORMAT</em></dt>
+<dd><p>打印输出<em>格式</em>的系统默认模板。 （请参阅<code>-t</code>查看可能的<em>FORMAT</em>列表。）用户数据目录中的模板将被忽略。</p>
+</dd>
+<dt><code>--print-default-data-file=</code> <em>FILE</em></dt>
+<dd><p>打印系统默认数据文件。用户数据目录中的文件将被忽略。</p>
+</dd>
+<dt><code>--eol=crlf</code> | <code>lf</code> | <code>native</code></dt>
+<dd><p>手动指定行结束符： <code>crlf</code> （Windows）， <code>lf</code> （macOS / Linux / UNIX）或<code>native</code> （适用于运行pandoc的操作系统的行结尾）。默认是<code>native</code> 。</p>
+</dd>
+<dt><code>--dpi</code> = <em>NUMBER</em></dt>
+<dd><p>指定从像素到英寸/厘米转换的dpi（每英寸点数）值，反之亦然。默认值是96dpi。从技术上讲，正确的术语是ppi（像素每英寸）。</p>
+</dd>
+<dt><code>--wrap=auto</code> | <code>none</code> | <code>preserve</code></dt>
+<dd><p>确定文本在输出中的包装方式（源代码，不是渲染版本）。使用<code>auto</code> （默认值）时，pandoc将尝试将行包装为由<code>--columns</code> （默认为72）指定的列宽。<code>none</code> ，pandoc将不会包装线。使用<code>preserve</code> ，pandoc将尝试保留源文档中的包装（也就是说，在源文件中存在非语义换行符的地方，输出中也将存在非语义换行符）。自动换行目前在HTML输出中不起作用。</p>
+</dd>
+<dt><code>--columns=</code> <em>NUMBER</em></dt>
+<dd><p>指定字符的长度。这会影响生成的源代码中的文本换行（请参阅<code>--wrap</code> ）。它也会影响纯文本表格的列宽计算（请参阅下<a href="#tables">表</a> ）。</p>
+</dd>
+<dt><code>--toc</code> ，-- <code>--table-of-contents</code></dt>
+<dd><p>在输出文档中包含一个自动生成的内容表（如果是<code>latex</code> ， <code>context</code> ， <code>docx</code> ， <code>odt</code> ， <code>opendocument</code> ， <code>rst</code>或<code>ms</code> ，则是创建一个指令）。该选项对<code>man</code> ， <code>docbook4</code> ， <code>docbook5</code>或<code>jats</code>输出没有影响。</p>
+</dd>
+<dt><code>--toc-depth=</code> <em>NUMBER</em></dt>
+<dd><p>指定要包含在目录中的部分级数。默认值是3（这意味着1,2,3级标题将被列在内容中）。</p>
+</dd>
+<dt><code>--strip-评论</code></dt>
+<dd><p>在Markdown或Textile源文件中删除HTML注释，而不是将它们作为原始HTML传递给Markdown，Textile或HTML输出。当未设置<code>markdown_in_html_blocks</code>扩展名时，这不适用于原始HTML块内的HTML注释。</p>
+</dd>
+<dt><code>--no高亮</code></dt>
+<dd><p>即使在给定语言属性的情况下，也禁用代码块和内联的语法高亮显示。</p>
+</dd>
+<dt><code>--highlight-style=</code> <em>STYLE</em> | <em>文件</em></dt>
+<dd><p>指定突出显示的源代码中使用的着色风格。选项有<code>pygments</code> （默认）， <code>kate</code> ， <code>monochrome</code> ， <code>breezeDark</code> ， <code>espresso</code> ， <code>zenburn</code> ， <code>haddock</code>和<code>tango</code> 。有关pandoc中语法突出显示的更多信息，请参阅下面的<a href="#syntax-highlighting">语法突出显示</a> 。另见<code>--list-highlight-styles</code> 。</p>
+<p>可以提供扩展名为<code>.theme</code>的JSON文件，而不是<em>STYLE</em>名称。这将被解析为KDE语法高亮主题和（如果有效）用作突出显示样式。</p>
+<p>要生成现有样式的JSON版本，请使用<code>--print-highlight-style</code> 。</p>
+</dd>
+<dt><code>--print-highlight-style=</code> <em>STYLE</em> | <em>文件</em></dt>
+<dd><p>打印JSON版本的突出显示风格，可以修改，以<code>.theme</code>扩展名保存，并使用<code>--highlight-style</code> 。</p>
+</dd>
+<dt><code>--syntax-definition=</code> <em>FILE</em></dt>
+<dd><p>指示pandoc加载KDE XML语法定义文件，该文件将用于语法高亮显示正确标记的代码块。这可以用来添加对新语言的支持或对现有语言使用更改后的语法定义。</p>
+</dd>
+<dt><code>-H</code> <em>FILE</em> ，-- <code>--include-in-header=</code> <em>FILE</em></dt>
+<dd><p>在报头末尾逐字包括<em>FILE的</em>内容。例如，这可以用来在HTML文档中包含特殊的CSS或JavaScript。该选项可以重复使用，以在头中包含多个文件。它们将按照指定的顺序包含在内。意味着 - <code>--standalone</code> 。</p>
+</dd>
+<dt><code>-B</code> <em>FILE</em> ，-- <code>--include-before-body=</code> <em>FILE</em></dt>
+<dd><p>在文档主体的开始处（例如，在HTML中的<code>&lt;body&gt;</code>标签之后，或者在LaTeX中的<code>\begin{document}</code>命令之后），逐字地包含<em>FILE的</em>内容。这可以用来在HTML文档中包含导航栏或横幅。此选项可以重复使用以包含多个文件。它们将按照指定的顺序包含在内。意味着 - <code>--standalone</code> 。</p>
+</dd>
+<dt><code>-A</code> <em>FILE，</em> <code>--include-after-body=</code> <em>FILE</em></dt>
+<dd><p>在文档主体的末尾（在HTML中的<code>&lt;/body&gt;</code>标记之前，或在LaTeX中的<code>\end{document}</code>命令之前）逐字地包含<em>FILE的</em>内容。此选项可以重复使用以包含多个文件。它们将按照指定的顺序包含在内。意味着 - <code>--standalone</code> 。</p>
+</dd>
+<dt><code>--resource-path=</code> <em>SEARCHPATH</em></dt>
+<dd><p>搜索图像和其他资源的路径列表。该路径应该由被分离<code>:</code>在Linux，UNIX，和MacOS系统，并且通过<code>;</code>在Windows上。如果未指定<code>--resource-path</code> ，则默认资源路径是工作目录。请注意，如果指定了<code>--resource-path</code> ，则工作目录必须明确列出，否则将不会被搜索。例如：-- <code>--resource-path=.:test</code>将按照该顺序搜索工作目录和<code>test</code>子目录。</p>
+</dd>
+<dt><code>--request-header=</code> <em>NAME</em> <code>:</code> <em>VAL</em></dt>
+<dd><p>在进行HTTP请求时（例如，在命令行中给出URL，或者必须下载文档中使用的资源时），将请求标头<em>NAME</em>设置为值<em>VAL</em> 。</p>
+</dd>
+</dl>
+<h2 id="options-affecting-specific-writers">影响特定作者的选项</h2>
+<dl>
+<dt><code>自完备的</code></dt>
+<dd><p>生成没有外部依赖关系的独立HTML文件，使用<code>data:</code> URI来合并链接脚本，样式表，图像和视频的内容。生成的文件应该是“独立的”，因为它不需要外部文件，浏览器也不能正确显示网络访问。此选项仅适用于<code>html4</code>输出格式，包括<code>html4</code> ， <code>html5</code> ， <code>html+lhs</code> ， <code>html5+lhs</code> ， <code>s5</code> ， <code>slidy</code> ， <code>slideous</code> ， <code>dzslides</code>和<code>revealjs</code> 。下载绝对URL中的脚本，图像和样式表;那些在相对URL的相对于工作目录（如果第一个源文件是本地的）或相对于基本URL（如果第一个源文件是远程的）将被寻找。具有属性<code>data-external="1"</code>元素将被单独保留;他们链接的文件将不会被纳入文件。限制：通过JavaScript动态加载的资源不能合并;结果， - <code>--self-contained</code>不兼容<code>--mathjax</code> ，并且某些高级功能（例如缩放或扬声器注释）可能无法在离线“自包含”的<code>reveal.js</code>幻灯片中显示。</p>
+</dd>
+<dt><code>--html-Q标签</code></dt>
+<dd><p>在HTML中使用<code>&lt;q&gt;</code>标记进行引号。</p>
+</dd>
+<dt><code> ASCII</code></dt>
+<dd><p>输出中只能使用ASCII字符。目前仅支持HTML和DocBook输出（当选择此选项时，它使用数字实体而不是UTF-8）。</p>
+</dd>
+<dt><code>--reference链接</code></dt>
+<dd><p>在编写Markdown或reStructuredText时使用引用样式的链接，而不是内联链接。默认使用内联链接。链接引用的放置受到<code>--reference-location</code>选项的影响。</p>
+</dd>
+<dt><code>--reference-location = block</code> | <code>section</code> | <code>document</code></dt>
+<dd><p>指定脚注（以及引用，如果<code>reference-links</code>已设置）是否放置在当前（顶级）块，当前部分或文档的末尾。默认是<code>document</code> 。目前只影响降价作家。</p>
+</dd>
+<dt><code>--atx报头</code></dt>
+<dd><p>在Markdown和AsciiDoc输出中使用ATX风格的头文件。默认情况下，使用setext风格的标题为1-2级，然后ATX标题。（注意：对于<code>gfm</code>输出，始终使用ATX头文件。）</p>
+</dd>
+<dt><code>--top级分= [默认|部分|章|部分]</code></dt>
+<dd><p>将顶层标题视为LaTeX，ConTeXt，DocBook和TEI输出中的给定分区类型。层次顺序是部分，章节，然后是部分;所有标题都被移动，使得顶层标题成为指定的类型。默认行为是通过启发式确定最佳分割类型：除非其他条件适用，否则选择<code>section</code> 。当LaTeX文档类设置为<code>report</code> ， <code>book</code>或<code>memoir</code> （除非指定了<code>article</code>选项）时，该<code>chapter</code>的含义是该选项的设置。如果<code>beamer</code>是输出格式，则指定<code>chapter</code>或<code>part</code>将导致顶级标题变为<code>\part{..}</code> ，而第二级标题保留为其默认类型。</p>
+</dd>
+<dt><code>-N</code> ， <code>--number-sections</code></dt>
+<dd><p>在LaTeX，ConTeXt，HTML或EPUB输出中编号部分标题。默认情况下，部分没有编号。即使指定了<code>--number-sections</code> ，类别<code>unnumbered</code>也不会被编号。</p>
+</dd>
+<dt><code>--number-offset=</code> <em>NUMBER</em> [ <code>,</code> <em>NUMBER</em> <code>,</code> <em>...</em> ]</dt>
+<dd><p>HTML输出中部分标题的偏移量（在其他输出格式中被忽略）。第一个数字被添加到顶级标题的部分编号中，第二个用于第二级标题，等等。因此，例如，如果要将文档中的第一个顶级标题编号为“6”，请指定<code>--number-offset=5</code> 。如果您的文档以您希望被编号为“1.5”的级别2标题开头，请指定<code>--number-offset=1,4</code> 。偏移量默认为0。意味着<code>--number-sections</code> 。</p>
+</dd>
+<dt><code># </code></dt>
+<dd><p>使用LaTeX代码块的<a href="https://ctan.org/pkg/listings"><code>listings</code></a>包</p>
+</dd>
+<dt><code>-i</code> ， - <code>--incremental</code></dt>
+<dd><p>使幻灯片显示中的列表项逐步显示（逐个显示）。列表默认是一次显示的。</p>
+</dd>
+<dt><code>--slide-level=</code> <em>NUMBER</em></dt>
+<dd><p>指定与指定的一级标题创建幻灯片（用于<code>beamer</code> ， <code>s5</code> ， <code>slidy</code> ， <code>slideous</code> ， <code>dzslides</code> ）。层次结构中高于此级别的标题用于将幻灯片放映分为多个部分;低于这个级别的标题在幻灯片中创建小标题。请注意，不包含在幻灯片级别标题下的内容不会出现在幻灯片中。默认设置是根据文档内容设置幻灯片级别;请参阅<a href="#structuring-the-slide-show">构建幻灯片</a> 。</p>
+</dd>
+<dt><code>--section-的div</code></dt>
+<dd><p>在<code>&lt;section&gt;</code>标签（或者<code>html4</code> <code>&lt;div&gt;</code>标签）中包装部分，并将标识符附加到封闭的<code>&lt;section&gt;</code> （或<code>&lt;div&gt;</code> ）而不是标头本身。请参阅下面的<a href="#header-identifiers">标题标识符</a> 。</p>
+</dd>
+<dt><code>--email-obfuscation=none</code> | <code>javascript</code> | <code>references</code></dt>
+<dd><p>指定一个方法来模糊HTML文档中的<code>mailto:</code>链接。 <code>none</code>留下<code>mailto:</code>链接。 <code>javascript</code>使用JavaScript对其进行混淆。 <code>references</code>通过将它们的字母作为十进制或十六进制字符引用进行打印来混淆它们。缺省值是<code>none</code> 。</p>
+</dd>
+<dt><code>--id-prefix=</code> <em>STRING</em></dt>
+<dd><p>指定要添加到HTML和DocBook输出中的所有标识符和内部链接的前缀，以及Markdown和Haddock输出中的脚注编号。这对于生成要包含在其他页面中的片段时防止重复的标识符很有用。</p>
+</dd>
+<dt><code>-T</code> <em>STRING</em> ，-- <code>--title-prefix=</code> <em>STRING</em></dt>
+<dd><p>指定<em>STRING</em>作为HTML标题中出现的标题开始处的前缀（但不是出现在HTML主体开头的标题中）。意味着 - <code>--standalone</code> 。</p>
+</dd>
+<dt><code>-c</code> <em>URL</em> ， - <code>--css=</code> <em>URL</em></dt>
+<dd><p>链接到CSS样式表。此选项可以重复使用以包含多个文件。它们将按照指定的顺序包含在内。</p>
+<p>生成EPUB需要样式表。如果没有使用此选项（或<code>stylesheet</code>元数据字段），则pandoc将在用户数据目录中查找文件<code>epub.css</code> （请参阅<code>--data-dir</code> ）。如果没有找到，将使用合理的默认值。</p>
+</dd>
+<dt><code>--reference-doc=</code> <em>文件</em></dt>
+<dd><p>在生成docx或ODT文件时，使用指定的文件作为样式引用。</p>
+<dl>
+<dt>DOCX</dt>
+<dd><p>为了获得最佳结果，引用docx应该是使用pandoc生成的docx文件的修改版本。引用docx的内容被忽略，但是它的样式表和文档属性（包括边距，页面大小，页眉和页脚）在新的docx中使用。如果在命令行中没有指定参考docx，则pandoc将在用户数据目录中查找文件<code>reference.docx</code> （请参阅<code>--data-dir</code> ）。如果没有找到，将使用合理的默认值。</p>
+<p>要生成一个自定义的<code>reference.docx</code> ，首先获取默认的<code>reference.docx</code>的副本： <code>pandoc --print-default-data-file reference.docx &gt; custom-reference.docx</code> 。然后在Word中打开<code>custom-reference.docx</code> ，根据需要修改样式，然后保存该文件。为了获得最佳效果，除了修改pandoc使用的样式之外，不要修改此文件：[paragraph]正常，正文，第一段，压缩，标题，小标题，作者，日期，摘要，参考书目，标题1，标题2 ，标题3，标题4，标题5，标题6，标题7，标题8，标题9，块文本，脚注文本，定义术语，定义，标题，表格标题，图像标题，图，标题图，TOC标题; [字符]默认段落字体，正文文本字符，逐字字符，脚注引用，超链接; [表]表。</p>
+</dd>
+<dt>ODT</dt>
+<dd><p>为获得最佳结果，参考ODT应该是使用pandoc生成的ODT的修改版本。参考ODT的内容被忽略，但是它的样式表被用在新的ODT中。如果在命令行中没有指定参考ODT，则pandoc将在用户数据目录中查找文件<code>reference.odt</code> （请参阅<code>--data-dir</code> ）。如果没有找到，将使用合理的默认值。</p>
+<p>要生成自定义<code>reference.odt</code> ，首先获取默认<code>reference.odt</code>的副本： <code>pandoc --print-default-data-file reference.odt &gt; custom-reference.odt</code> 。然后在LibreOffice中打开<code>custom-reference.odt</code> ，根据需要修改样式，然后保存文件。</p>
+</dd>
+</dl>
+</dd>
+<dt><code>--epub-cover-image=</code> <em>文件</em></dt>
+<dd><p>使用指定的图像作为EPUB封面。建议图像的宽度和高度小于1000像素。请注意，在Markdown源文档中，您也可以在YAML元数据块中指定<code>cover-image</code> （请参阅下面的<a href="#epub-metadata">EPUB元数据</a> ）。</p>
+</dd>
+<dt><code>--epub-metadata=</code> <em>文件</em></dt>
+<dd><p>在指定的XML文件中查找EPUB的元数据。该文件应该包含一系列的<a href="http://dublincore.org/documents/dces/">都柏林核心元素</a> 。例如：</p>
+<pre><code>&lt;dc：rights&gt; Creative Commons &lt;/ dc：rights&gt; &lt;dc：language&gt; es-AR &lt;/ dc：language&gt;</code></pre>
+<p>默认情况下，pandoc将包含以下元数据元素： <code>&lt;dc:title&gt;</code> （来自文档标题）， <code>&lt;dc:creator&gt;</code> （来自文档作者）， <code>&lt;dc:date&gt;</code> （来自文档日期，应该位于<a href="http://www.w3.org/TR/NOTE-datetime">ISO 8601格式</a> ）， <code>&lt;dc:language&gt;</code> （来自<code>lang</code>变量，或者，如果未设置，语言环境）和<code>&lt;dc:identifier id="BookId"&gt;</code> （随机生成的UUID）。这些中的任何一个都可能被元数据文件中的元素覆盖。</p>
+<p>注意：如果源文档是Markdown，则可以使用文档中的YAML元数据块。请参阅下面的<a href="#epub-metadata">EPUB元数据</a> 。</p>
+</dd>
+<dt><code>--epub-embed-font=</code> <em>FILE</em></dt>
+<dd><p>将指定的字体嵌入到EPUB中。该选项可以重复嵌入多个字体。也可以使用通配符：例如<code>DejaVuSans-*.ttf</code> 。但是，如果您在命令行上使用通配符，请确保将其转义或将整个文件名放在单引号中，以防止它们被shell解释。要使用嵌入式字体，您需要将如下所示的声明添加到CSS中（请参阅<code>--css</code> ）：</p>
+<pre><code>@ font-face {font-family：DejaVuSans; font-style：normal; font-weight：正常; SRC：URL（ “DejaVuSans-Regular.ttf”）; } @ font-face {font-family：DejaVuSans; font-style：normal; font-weight：bold; SRC：URL（ “DejaVuSans-Bold.ttf”）; } @ font-face {font-family：DejaVuSans; font-style：italic; font-weight：正常; SRC：URL（ “DejaVuSans-Oblique.ttf”）; } @ font-face {font-family：DejaVuSans; font-style：italic; font-weight：bold; SRC：URL（ “DejaVuSans-BoldOblique.ttf”）; } body {font-family：“DejaVuSans”; }</code></pre>
+</dd>
+<dt><code>--epub-chapter-level=</code> <em>NUMBER</em></dt>
+<dd><p>指定将EPUB分割成单独的“章节”文件的标题级别。默认是分成1级标题的章节。该选项仅影响EPUB的内部组成，而不影响章节显示给用户。如果章节文件太大，某些读者可能会变慢，所以对于具有较少一级标题的大文档，可能想要使用章节级别2或3。</p>
+</dd>
+<dt><code>--epub-subdirectory=</code> <em>DIRNAME</em></dt>
+<dd><p>指定保存EPUB特定内容的OCF容器中的子目录。默认是<code>EPUB</code> 。要将EPUB内容放在顶层，请使用空字符串。</p>
+</dd>
+<dt><code>--pdf-engine=pdflatex</code> | <code>lualatex</code> | <code>xelatex</code> | <code>wkhtmltopdf</code> | <code>weasyprint</code> | <code>prince</code> | <code>context</code> | <code>pdfroff</code></dt>
+<dd><p>生成PDF输出时使用指定的引擎。默认是<code>pdflatex</code> 。如果发动机不在PATH中，则可以在此指定发动机的完整路径。</p>
+</dd>
+<dt><code>--pdf-engine-opt=</code> <em>STRING</em></dt>
+<dd><p>使用给定的字符串作为<code>pdf-engine</code>的命令行参数。如果多次使用，参数之间会有空格。请注意，不检查重复的选项。</p>
+</dd>
+</dl>
+<h2 id="citation-rendering">引用呈现</h2>
+<dl>
+<dt><code>--bibliography=</code> <em>文件</em></dt>
+<dd><p>将文档元数据中的<code>bibliography</code>字段设置为<em>FILE</em> ，覆盖元数据中设置的任何值，并使用<code>pandoc-citeproc</code>处理引用。（这相当于<code>--metadata bibliography=FILE --filter pandoc-citeproc</code> 。）如果还提供了<code>--natbib</code>或<code>--biblatex</code> ，则不使用<code>pandoc-citeproc</code> ，这相当于<code>--metadata bibliography=FILE</code> 。如果您多次提供此参数，则每个<em>文件</em>都将被添加到参考书目中。</p>
+</dd>
+<dt><code>--csl=</code> <em>文件</em></dt>
+<dd><p>将文档元数据中的<code>csl</code>字段设置为<em>FILE</em> ，覆盖元数据中设置的任何值。（这相当于<code>--metadata csl=FILE</code> 。）该选项仅与<code>pandoc-citeproc</code>相关。</p>
+</dd>
+<dt><code>--citation-abbreviations=</code> <em>文件</em></dt>
+<dd><p>将文档元数据中的<code>citation-abbreviations</code>字段设置为<em>FILE</em> ，覆盖元数据中设置的任何值。（这相当于<code>--metadata citation-abbreviations=FILE</code> 。）该选项仅与<code>pandoc-citeproc</code>相关。</p>
+</dd>
+<dt><code>--natbib</code></dt>
+<dd><p>在LaTeX输出中使用<a href="https://ctan.org/pkg/natbib"><code>natbib</code></a>进行引用。该选项不适用于<code>pandoc-citeproc</code>过滤器或PDF输出。它旨在用于生成可以用<a href="https://ctan.org/pkg/bibtex"><code>bibtex</code></a>处理的LaTeX文件。</p>
+</dd>
+<dt><code>--biblatex</code></dt>
+<dd><p>在LaTeX输出中使用<a href="https://ctan.org/pkg/biblatex"><code>biblatex</code></a>进行引用。该选项不适用于<code>pandoc-citeproc</code>过滤器或PDF输出。它旨在用于生产可以用<a href="https://ctan.org/pkg/bibtex"><code>bibtex</code></a>或<a href="https://ctan.org/pkg/biber"><code>biber</code></a>处理的LaTeX文件。</p>
+</dd>
+</dl>
+<h2 id="math-rendering-in-html">用HTML表示数学</h2>
+<p>默认情况下，使用Unicode字符尽可能渲染TeX数学。公式是把里面<code>span</code>与<code>class="math"</code> ，让他们可不同于周围的文字如果需要的风格。然而，这只给出了基本的数学可接受的结果，通常你会想要使用<code>--mathjax</code>或另一个下列选项。</p>
+<dl>
+<dt><code>--mathjax</code> [ <code>=</code> <em>URL</em> ]</dt>
+<dd><p>使用<a href="https://www.mathjax.org">MathJax</a>在HTML输出中显示嵌入的TeX数学。TeX数学将放在<code>\(...\)</code> （用于内联数学）或<code>\[...\]</code> （用于显示数学）之间，并用类<code>math</code>包装在<code>&lt;span&gt;</code>标签中。然后MathJax JavaScript将呈现它。该<em>URL</em>应指向<code>MathJax.js</code>加载脚本。如果未提供<em>URL</em> ，则将插入到Cloudflare CDN的链接。</p>
+</dd>
+<dt><code>--mathml</code></dt>
+<dd><p>将TeX数学转换为<a href="http://www.w3.org/Math/">MathML</a> （在<code>epub3</code> ， <code>docbook4</code> ， <code>docbook5</code> ， <code>jats</code> ， <code>html4</code>和<code>html5</code> ）。这是<code>odt</code>输出的默认值。请注意，目前只有Firefox和Safari（以及选定的电子书阅读器）本地支持MathML。</p>
+</dd>
+<dt><code>--webtex</code> [ <code>=</code> <em>URL</em> ]</dt>
+<dd><p>将TeX公式转换为链接到将公式转换为图像的外部脚本的<code>&lt;img&gt;</code>标记。该公式将被URL编码并与提供的URL连接。对于SVG图像，您可以使用<code>--webtex https://latex.codecogs.com/svg.latex?</code> 。如果未指定URL，将使用生成PNG的CodeCogs URL（ <code>https://latex.codecogs.com/png.latex?</code> ）。注意：-- <code>--webtex</code>选项将影响Markdown输出以及HTML，如果你的目标是没有本地数学支持的Markdown版本的话，这是非常有用的。</p>
+</dd>
+<dt><code>--katex</code> [ <code>=</code> <em>URL</em> ]</dt>
+<dd><p>使用<a href="https://github.com/Khan/KaTeX">KaTeX</a>在HTML输出中显示嵌入的TeX数学。该<em>URL</em>是KaTeX库的基本URL。如果没有提供<em>URL</em> ，则会插入到KaTeX CDN的链接。</p>
+</dd>
+<dt><code>--katex-stylesheet=</code> <em>URL</em></dt>
+<dd><p>该<em>URL</em>应该指向<code>katex.css</code>样式表。如果未指定此选项，则会插入指向KaTeX CDN的链接。请注意，这个选项并不意味着<code>--katex</code> 。</p>
+</dd>
+<dt><code>-m</code> [ <em>URL</em> ]，-- <code>--latexmathml</code> [ <code>=</code> <em>URL</em> ]</dt>
+<dd><p><em>建议不要使用。</em> 使用<a href="http://math.etsu.edu/LaTeXMathML/">LaTeXMathML</a>脚本在HTML输出中显示嵌入的TeX数学。TeX数学将显示在<code>$</code>或<code>$$</code>字符之间，并将<code>LaTeX</code>放在<code>&lt;span&gt;</code>标签中。然后，LaTeXMathML JavaScript会将其更改为MathML。请注意，目前只有Firefox和Safari（以及选定的电子书阅读器）本地支持MathML。要插入链接<code>LaTeXMathML.js</code>脚本，请提供一个<em>URL</em> 。</p>
+</dd>
+<dt><code>--jsmath</code> [ <code>=</code> <em>URL</em> ]</dt>
+<dd><p><em>建议不要使用。</em> 使用<a href="http://www.math.union.edu/~dpvc/jsmath/">jsMath</a> （MathJax的前身）在HTML输出中显示嵌入的TeX数学。TeX数学将放在<code>&lt;span&gt;</code>标签（用于内联数学）或<code>&lt;div&gt;</code>标签（用于显示数学）中，用<code>math</code>类和jsMath脚本呈现。该<em>URL</em>应该指向脚本（例如<code>jsMath/easy/load.js</code> ）;如果提供，它将链接到独立HTML文档的头部。如果没有提供<em>URL，</em>则不会插入到jsMath加载脚本的链接;那么由作者在HTML模板中提供这样一个链接。</p>
+</dd>
+<dt><code>--gladtex</code></dt>
+<dd><p><em>建议不要使用。</em> 在HTML输出的<code>&lt;eq&gt;</code>标签中包含TeX数学。生成的HTML可以由<a href="http://ans.hsh.no/home/mgg/gladtex/">gladTeX</a>进行处理，以生成排版公式的图像和带有指向这些图像链接的HTML文件。那么，程序是：</p>
+<pre><code>pandoc -s --gladtex input.md -o myfile.htex gladtex -d myfile-images myfile.htex＃生成myfile.html和myfile-images中的图像</code></pre>
+</dd>
+<dt><code>--mimetex</code> [ <code>=</code> <em>URL</em> ]</dt>
+<dd><p><em>建议不要使用。</em> 使用<a href="http://www.forkosh.com/mimetex.html">mimeTeX</a> CGI脚本渲染TeX数学，为每个TeX公式生成图像。这应该适用于所有浏览器。如果未指定<em>URL</em> ，则假定脚本位于<code>/cgi-bin/mimetex.cgi</code> 。</p>
+</dd>
+</dl>
+<h2 id="options-for-wrapper-scripts">包装脚本的选项</h2>
+<dl>
+<dt><code>自卸ARGS</code></dt>
+<dd><p>将有关命令行参数的信息打印到<em>stdout</em> ，然后退出。该选项主要用于包装脚本。输出的第一行包含使用<code>-o</code>选项指定的输出文件的名称，如果没有指定输出文件，则使用<code>-</code> （对于<em>stdout</em> ）。其余的行按照它们出现的顺序包含命令行参数，每行一个。这不包括定期pandoc选项和它们的参数，但确实包含之后出现的任何选项<code>--</code>分离器在该行的末尾。</p>
+</dd>
+<dt><code>- 忽略ARGS</code></dt>
+<dd><p>忽略命令行参数（用于包装器脚本）。普通的pandoc选项不会被忽略。因此，例如，</p>
+<pre><code>pandoc --ignore-args -o foo.html -s foo.txt  -  -e latin1</code></pre>
+<p>相当于</p>
+<pre><code>pandoc -o foo.html -s</code></pre>
+</dd>
+</dl>
+<h1 id="templates">模板</h1>
+<p>当使用<code>-s/--standalone</code>选项时，pandoc使用模板添加自定义文档所需的页眉和页脚材质。要查看使用的默认模板，只需键入</p>
+<pre><code>pandoc -D *格式*</code></pre>
+<p>其中<em>FORMAT</em>是输出格式的名称。自定义模板可以使用<code>--template</code>选项指定。您也可以通过放置文件<code>templates/default.来覆盖给定输出格式<em>FORMAT</em>的系统默认模板<code>templates/default.用户数据目录中的*FORMAT*</code> （参见上面的<code>--data-dir</code> ）。<em>例外:</em></p>
+<ul>
+<li>对于<code>odt</code>输出，自定义<code>default.opendocument</code>模板。</li>
+<li>对于<code>pdf</code>输出，自定义<code>default.latex</code>模板（或<code>default.context</code>模板，如果使用<code>-t context</code>或<code>default.ms</code>模板，如果使用<code>-t ms</code>或<code>default.html5</code>模板（如果使用<code>-t html5</code> ）。</li>
+<li><code>docx</code>没有模板（但是，您可以使用<code>--reference-doc</code>来自定义输出）。</li>
+</ul>
+<p>模板包含<em>变量</em> ，允许在文件的任意位置包含任意信息。可以使用<a href="#extension-yaml_metadata_block">YAML元数据块</a>在文档中设置变量。也可以使用<code>-V/--variable</code>选项在命令行中设置它们：以这种方式设置的变量覆盖具有相同名称的元数据字段。</p>
+<h2 id="variables-set-by-pandoc">由pandoc设置的变量</h2>
+<p>有些变量是由pandoc自动设置的。这些取决于输出格式有所不同，但包括元数据字段以及以下内容：</p>
+<dl>
+<dt><code>sourcefile</code> ， <code>outputfile</code></dt>
+<dd><p>源和目标文件名，如命令行中给出的。如果输入来自多个文件， <code>sourcefile</code>也可以是一个列表，如果输入来自stdin， <code>sourcefile</code>也可以是空的。您可以在模板中使用以下片段来区分它们：</p>
+<pre><code>$ if（sourcefile）$ $ for（sourcefile）$ $ sourcefile $ $ endfor $ $ else $（stdin）$ endif $</code></pre>
+<p>类似地， <code>outputfile</code>可以<code>-</code>如果输出变为到终端。</p>
+</dd>
+<dt><code>title</code> ， <code>author</code> ， <code>date</code></dt>
+<dd><p>允许识别文件的基本方面。通过LaTeX和ConTeXt包含在PDF元数据中。这些可以通过一个允许多个作者或通过YAML元数据块的<a href="#extension-pandoc_title_block">pandoc标题块</a>来设置：</p>
+<pre><code>---作者： - 亚里士多德 - 彼得·阿贝拉德...</code></pre>
+</dd>
+<dt><code>副题名</code></dt>
+<dd>文档字幕，包含在HTML，EPUB，LaTeX，ConTeXt和Word docx中;仅在使用支持<code>\subtitle</code>的文档类（例如<code>beamer</code>或<a href="https://ctan.org/pkg/koma-script">KOMA-Script</a>系列（ <code>scrartcl</code> ， <code>scrreprt</code> ， <code>scrbook</code> ））时才在LaTeX中进行渲染。 <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
+</dd>
+<dt><code>学</code></dt>
+<dd>作者所属（仅在LaTeX和Beamer中）。可以是一个列表，当有多个作者时。
+</dd>
+<dt><code>摘要</code></dt>
+<dd>文档摘要，包含在LaTeX，ConTeXt，AsciiDoc和Word docx中</dd>
+<dt><code>{0}？？&lt;/a&gt; {1}{/1}{/0}：：&lt;/a&gt;</code></dt>
+<dd>包含在HTML，PDF和AsciiDoc元数据中的关键字列表;上面的<code>author</code>可能会重复</dd>
+<dt><code>首部的包括</code></dt>
+<dd>由<code>-H/--include-in-header</code>指定的内容（可能有多个值）</dd>
+<dt><code>toc</code></dt>
+<dd>如果指定了<code>--toc/--table-of-contents</code> ，则为非空值</dd>
+<dt><code>TOC标题</code></dt>
+<dd>目录标题（仅与EPUB，opendocument，odt，docx，pptx一起使用）</dd>
+<dt><code>包括-前</code></dt>
+<dd><code>-B/--include-before-body</code>指定的内容<code>-B/--include-before-body</code> （可能有多个值）</dd>
+<dt><code>包括-后</code></dt>
+<dd>由<code>-A/--include-after-body</code>指定的内容<code>-A/--include-after-body</code> （可能有多个值）</dd>
+<dt><code>正文</code></dt>
+<dd>文件的主体</dd>
+<dt><code>元JSON</code></dt>
+<dd>所有文档元数据的JSON表示。字段值被转换为选定的输出格式。
+</dd>
+</dl>
+<h2 id="language-variables">语言变量</h2>
+<dl>
+<dt><code>Lang. </code></dt>
+<dd><p>使用符合<a href="https://tools.ietf.org/html/bcp47">BCP 47</a>的代码（例如<code>en</code>或<code>en-GB</code> ）标识文档的主要语言。对于某些输出格式，pandoc会将其转换为存储在附加变量<code>babel-lang</code> ， <code>polyglossia-lang</code> （LaTeX）和<code>context-lang</code> （ConTeXt）中的适当格式。</p>
+<p>使用lang属性（BCP 47中的值）的原生pandoc Spans和Div可用于切换该范围内的语言。在LaTeX输出中， <code>babel-otherlangs</code> <code>polyglossia-otherlangs</code>和<code>polyglossia-otherlangs</code>变量将根据文档中的Spans和Divs的<code>lang</code>属性自动生成。</p>
+</dd>
+<dt><code>dir,</code></dt>
+<dd><p>文档的基本方向， <code>rtl</code> （从右到左）或<code>ltr</code> （从左到右）。</p>
+<p>对于双向文档，可以使用具有<code>dir</code>属性（值<code>rtl</code>或<code>ltr</code> ）的本机pandoc <code>span</code>和<code>div</code>来覆盖某些输出格式的基本方向。如果最终的渲染器（例如浏览器，当生成HTML）支持<a href="http://www.w3.org/International/articles/inline-bidi-markup/uba-basics">Unicode双向算法</a>时，这可能并不总是必要的。</p>
+<p>将LaTeX用于双向文档时，只支持<code>xelatex</code>引擎（使用<code>--pdf-engine=xelatex</code> ）。</p>
+</dd>
+</dl>
+<h2 id="variables-for-slides">幻灯片的变量</h2>
+<p>变量可用于<a href="#producing-slide-shows-with-pandoc">使用pandoc生成幻灯片</a> ，包括所有的<a href="https://github.com/hakimel/reveal.js#configuration">reveal.js配置选项</a> 。</p>
+<dl>
+<dt><code>titlegraphic</code></dt>
+<dd>Beamer文档的标题图形</dd>
+<dt><code>标识</code></dt>
+<dd>Beamer文档的标志</dd>
+<dt><code>slidy-URL</code></dt>
+<dd>Slidy文档的基本URL（默认为<code>https://www.w3.org/Talks/Tools/Slidy2</code> ）</dd>
+<dt><code>slideous-URL</code></dt>
+<dd>Slideous文档的基本URL（默认为<code>slideous</code> ）</dd>
+<dt><code>S5-网址</code></dt>
+<dd>S5文档的基本URL（默认为<code>s5/default</code> ）</dd>
+<dt><code>revealjs-URL</code></dt>
+<dd>reveal.js文档的基本网址（默认为<code>reveal.js</code> ）</dd>
+<dt><code>theme</code> ， <code>colortheme</code> ， <code>fonttheme</code> ， <code>innertheme</code> ， <code>outertheme</code></dt>
+<dd>LaTeX <a href="https://ctan.org/pkg/beamer"><code>beamer</code></a>文件的主题</dd>
+<dt><code>主题选项</code></dt>
+<dd>LaTeX投影机主题（一个列表）的选项。
+</dd>
+<dt><code>导航</code></dt>
+<dd>控制<code>beamer</code>文档中的导航符号（默认值为<code>empty</code> ，无导航符号;其他有效值为<code>frame</code> ， <code>vertical</code>和<code>horizontal</code> ）。
+</dd>
+<dt><code>科冠军</code></dt>
+<dd>在“标题页面”上启用<code>beamer</code>文档中的新部分（默认= true）。
+</dd>
+<dt><code>beamerarticle</code></dt>
+<dd>如果是这样的话，则装载<code>beamerarticle</code>软件包（用于从Beamer滑块生产物品）。
+</dd>
+<dt><code>方位比率</code></dt>
+<dd>只，载玻片（用于投影仪的纵横比<code>1610</code>为16:10， <code>169</code>为16：9， <code>149</code> 14：9， <code>141</code>为1.41：1， <code>54</code> 5：4， <code>43</code>为4：3，其是默认值，并且<code>32</code>为3：2）。
+</dd>
+</dl>
+<h2 id="variables-for-latex">LaTeX的变量</h2>
+<p><a href="#creating-a-pdf">创建PDF</a>时使用LaTeX变量。</p>
+<dl>
+<dt><code>PaperSize</code></dt>
+<dd>纸张大小，例如<code>letter</code> <code>a4</code>
+</dd>
+<dt><code>字体大小</code></dt>
+<dd>正文文本的字体大小（例如<code>10pt</code> ， <code>12pt</code> ）</dd>
+<dt><code>的DocumentClass</code></dt>
+<dd>文件类，例如<a href="https://ctan.org/pkg/article"><code>article</code></a> ， <a href="https://ctan.org/pkg/report"><code>report</code></a> ， <a href="https://ctan.org/pkg/book"><code>book</code></a> ， <a href="https://ctan.org/pkg/memoir"><code>memoir</code></a>
+</dd>
+<dt><code>classoption</code></dt>
+<dd>文档类的选项，例如<code>oneside</code> ;可能会重复多个选项</dd>
+<dt><code>几何</code></dt>
+<dd><a href="https://ctan.org/pkg/geometry"><code>geometry</code></a>包的选项，例如<code>margin=1in</code> ;可能会重复多个选项</dd>
+<dt><code>margin-left</code> <code>margin-right</code> <code>margin-top</code> ， <code>margin-top</code> ， <code>margin-bottom</code></dt>
+<dd>设定边距，如果<code>geometry</code>不使用（否则<code>geometry</code>覆盖这些）</dd>
+<dt><code>linestretch</code></dt>
+<dd>调整使用行距<a href="https://ctan.org/pkg/setspace"><code>setspace</code></a>包，例如<code>1.25</code> ， <code>1.5</code>
+</dd>
+<dt><code>- 字体 -</code></dt>
+<dd>用于<code>pdflatex</code>字体包： <a href="http://www.tug.org/texlive/">TeX Live</a>包含许多选项，记录在<a href="http://www.tug.dk/FontCatalogue/">LaTeX字体目录中</a> 。默认值是<a href="https://ctan.org/pkg/lm">Latin Modern</a> 。
+</dd>
+<dt><code>fontfamilyoptions</code></dt>
+<dd>用于<code>fontfamily</code>包的选项：例如<code>osf,sc</code> ， <code>fontfamily</code>设置为<a href="https://ctan.org/pkg/mathpazo"><code>mathpazo</code></a>为Palatino提供旧式人物和真正的小型帽子;可能会重复多个选项</dd>
+<dt><code>mainfont</code> ， <code>sansfont</code> ， <code>monofont</code> ， <code>mathfont</code> ， <code>CJKmainfont</code></dt>
+<dd>字体家族与使用<code>xelatex</code>或<code>lualatex</code> ：采取任何系统字体的名称，使用<a href="https://ctan.org/pkg/fontspec"><code>fontspec</code></a>包。请注意，如果使用<code>CJKmainfont</code> ，则<a href="https://ctan.org/pkg/xecjk"><code>xecjk</code></a>软件包必须可用。
+</dd>
+<dt><code>mainfontoptions</code> ， <code>sansfontoptions</code> ， <code>monofontoptions</code> ， <code>mathfontoptions</code> ， <code>CJKoptions</code></dt>
+<dd>选择与使用<code>mainfont</code> ， <code>sansfont</code> ， <code>monofont</code> ， <code>mathfont</code> ， <code>CJKmainfont</code>在<code>xelatex</code>和<code>lualatex</code> 。允许通过<a href="https://ctan.org/pkg/fontspec"><code>fontspec</code></a>提供任何选择，例如OpenType功能<code>Numbers=OldStyle,Numbers=Proportional</code> 。可能会重复多个选项。
+</dd>
+<dt><code>fontenc</code></dt>
+<dd>允许通过<code>fontenc</code>包（使用<code>pdflatex</code> ）指定字体编码;默认是<code>T1</code> （参见<a href="https://ctan.org/pkg/encguide">LaTeX字体编码</a>指南）</dd>
+<dt><code>microtypeoptions</code></dt>
+<dd>选项传递给微型包</dd>
+<dt><code>colorlinks</code></dt>
+<dd>添加颜色来链接文本;如果设置了<code>linkcolor</code> ， <code>citecolor</code> ， <code>urlcolor</code>或<code>toccolor</code>则自动启用</dd>
+<dt><code>linkcolor</code> ， <code>citecolor</code> ， <code>urlcolor</code> ， <code>toccolor</code></dt>
+<dd>内部链接的颜色，引用链接，外部链接和目录中的链接：使用<a href="https://ctan.org/pkg/xcolor"><code>xcolor</code></a>允许的<a href="https://ctan.org/pkg/xcolor"><code>xcolor</code></a> ，包括<code>dvipsnames</code> ， <code>svgnames</code>和<code>x11names</code>列表</dd>
+<dt><code>链接-AS-笔记</code></dt>
+<dd>导致链接被打印为脚注</dd>
+<dt><code>缩进</code></dt>
+<dd>使用文档类设置缩进（默认的LaTeX模板，否则删除缩进，并添加段落之间的空间）</dd>
+<dt><code>分段</code></dt>
+<dd>禁用将（子）段落重新定义为段的LaTeX模板的默认行为，更改某些类中嵌套标题的外观</dd>
+<dt><code>-thanks</code></dt>
+<dd>在文件标题之后指定确认脚注的内容。
+</dd>
+<dt><code>toc</code></dt>
+<dd>包括目录（也可以使用<code>--toc/--table-of-contents</code> ）</dd>
+<dt><code>TOC深入</code></dt>
+<dd>包含在目录中的段的级别</dd>
+<dt><code>secnumdepth</code></dt>
+<dd>编号深度的部分，如果部分编号</dd>
+<dt><code>lof</code> ， <code>lot</code></dt>
+<dd>包括数字清单，表格清单</dd>
+<dt><code>文献目录</code></dt>
+<dd>书目用来解决参考</dd>
+<dt><code>文献记录式</code></dt>
+<dd>参考书目风格，与<code>--natbib</code>和<code>--biblatex</code> 。
+</dd>
+<dt><code>文献记录标题</code></dt>
+<dd>书目标题，与<code>--natbib</code>和<code>--biblatex</code> 。
+</dd>
+<dt><code>biblatexoptions</code></dt>
+<dd>biblatex选项列表。
+</dd>
+<dt><code>natbiboptions</code></dt>
+<dd>natbib的选项列表。
+</dd>
+<dt><code>pagestyle</code></dt>
+<dd>LaTeX的<code>\pagestyle{}</code>的选项。默认的文章类支持“普通”（默认），“空”和“标题”。标题将标题标题放在标题中。
+</dd>
+</dl>
+<h2 id="variables-for-context">ConTeXt的变量</h2>
+<dl>
+<dt><code>PaperSize</code></dt>
+<dd>纸张大小，如<code>letter</code> ， <code>A4</code> ， <code>landscape</code> （请参阅“ <a href="http://wiki.contextgarden.net/PaperSetup">纸张设置”</a> ）;可能会重复多个选项</dd>
+<dt><code># 布局</code></dt>
+<dd>页边距和文本排列选项（请参阅<a href="http://wiki.contextgarden.net/Layout">ConTeXt布局</a> ）;可能会重复多个选项</dd>
+<dt><code>margin-left</code> <code>margin-right</code> <code>margin-top</code> ， <code>margin-top</code> ， <code>margin-bottom</code></dt>
+<dd>设定边距，如果<code>layout</code>不使用（否则<code>layout</code>覆盖这些）</dd>
+<dt><code>字体大小</code></dt>
+<dd>正文文本的字体大小（例如<code>10pt</code> ， <code>12pt</code> ）</dd>
+<dt><code>mainfont</code> ， <code>sansfont</code> ， <code>monofont</code> ， <code>mathfont</code></dt>
+<dd>字体族：取任何系统字体的名称（参见<a href="http://wiki.contextgarden.net/Font_Switching">ConTeXt字体切换</a> ）</dd>
+<dt><code>linkcolor</code> ， <code>contrastcolor</code></dt>
+<dd>页面内部和外部链接的颜色，例如<code>red</code> ， <code>blue</code> （请参阅<a href="http://wiki.contextgarden.net/Color">ConTeXt颜色</a> ）</dd>
+<dt><code>linkstyle</code></dt>
+<dd>用于链接的字体样式，例如<code>normal</code> ， <code>bold</code> ， <code>slanted</code> ， <code>boldslanted</code> ， <code>type</code> ， <code>cap</code> ， <code>small</code>
+</dd>
+<dt><code>缩进</code></dt>
+<dd>控制段落的缩进，例如<code>yes,small,next</code> （参见<a href="http://wiki.contextgarden.net/Indentation">缩写</a> ）;可能会重复多个选项</dd>
+<dt><code>空白</code></dt>
+<dd>段落之间的间距，例如<code>none</code> ， <code>small</code> （使用<a href="http://wiki.contextgarden.net/Command/setupwhitespace"><code>setupwhitespace</code></a> ）</dd>
+<dt><code>interlinespace</code></dt>
+<dd>调整行间距，例如<code>4ex</code> （使用<a href="http://wiki.contextgarden.net/Command/setupinterlinespace"><code>setupinterlinespace</code></a> ）;可能会重复多个选项</dd>
+<dt><code>headertext</code> ， <code>footertext</code></dt>
+<dd>文本被放置在运行的页眉或页脚中（请参阅<a href="http://wiki.contextgarden.net/Headers_and_Footers">ConTeXt页眉和页脚</a> ）;可能会重复最多四次不同的位置</dd>
+<dt><code>pagenumbering</code></dt>
+<dd>页码样式和位置（使用<a href="http://wiki.contextgarden.net/Command/setuppagenumbering"><code>setuppagenumbering</code></a> ）;可能会重复多个选项</dd>
+<dt><code>toc</code></dt>
+<dd>包括目录（也可以使用<code>--toc/--table-of-contents</code> ）</dd>
+<dt><code>lof</code> ， <code>lot</code></dt>
+<dd>包括数字清单，表格清单</dd>
+</dl>
+<h2 id="variables-for-man-pages">手册页的变量</h2>
+<dl>
+<dt><code>section</code></dt>
+<dd>手册页中的节号</dd>
+<dt><code>文件头</code></dt>
+<dd>页面中的页眉</dd>
+<dt><code>页脚Google+的
+搜索
+图片
+地图
+玩
+YouTube的
+新闻
+Gmail的
+更多
+雷风
+雷风
+修改时间：22：35;修改者：asd396529958
+评论显示工具包保存完成
+文件
+编辑
+查看
+帮助
+ 
+原文：
+
+翻译：英语»中文（简体）
+已完28％，共7103字
+
+自动翻译搜索自定义翻译搜索
+无翻译记忆库无术语表
+搜索翻译记忆库和术语库
+搜索
+ 
+100％TM匹配
+页脚
+ 
+
+，删除？将光标移动到文本字段，然后单击候选人！：“”; panelClose</code></dt>
+<dd>页面中的页脚</dd>
+<dt><code>调整</code></dt>
+<dd>将文本调整为左（ <code>l</code> ），右（ <code>r</code> ），中（ <code>c</code> ）或两者（ <code>b</code> ）边距</dd>
+<dt><code>断字</code></dt>
+<dd>如果为<code>true</code> （默认），则使用连字符</dd>
+</dl>
+<h2 id="variables-for-ms">ms的变量</h2>
+<dl>
+<dt><code>的pointsize</code></dt>
+<dd>点大小（例如<code>10p</code> ）</dd>
+<dt><code>line-height物业</code></dt>
+<dd>行高（例如<code>12p</code> ）</dd>
+<dt><code>- 字体 -</code></dt>
+<dd>字体系列（例如<code>T</code>或<code>P</code> ）</dd>
+<dt><code>缩进</code></dt>
+<dd>段落缩进（例如<code>2m</code> ）</dd>
+</dl>
+<h2 id="using-variables-in-templates">在模板中使用变量</h2>
+<p>变量名称是以字母开头的字母数字序列， <code>-</code>和<code>_</code> 。由<code>$</code>符号包围的变量名称将被替换为其值。例如，字符串<code>$title$</code> in</p>
+<pre><code>&lt;TITLE&gt; $ $标题&lt;/ TITLE&gt;</code></pre>
+<p>将被文件标题取代。</p>
+<p>要在模板中写入<code>$</code> ，请使用<code>$$</code> 。</p>
+<p>模板可能包含条件。语法如下：</p>
+<pre><code>$ if（变量）$ X $ else $ Y $ endif $</code></pre>
+<p>如果<code>variable</code>具有非空值，这将在模板中包含<code>X</code> ;否则会包含<code>Y</code> <code>X</code>和<code>Y</code>是任何有效的模板文本的占位符，并可能包含内插变量或其他条件。<code>$else$</code>部分可以省略。</p>
+<p>当变量可以有多个值（例如， <code>author</code>一个多作者的文件中），您可以使用<code>$for$</code>关键字：</p>
+<pre><code>$ for（author）$ &lt;meta name =“author”content =“$ author $”/&gt; $ endfor $</code></pre>
+<p>您可以选择指定要在连续项目之间使用的分隔符：</p>
+<pre><code>$（作者）$$作者$$ sep $，$ endfor $</code></pre>
+<p>一个点可以用来选择一个变量的一个字段，它将一个对象作为它的值。So for example. 例如 </p>
+<pre><code>$ author.name $（$ author.affiliation $）</code></pre>
+<p>如果您使用自定义模板，则可能需要将其修改为pandoc更改。我们建议跟踪默认模板中的更改，并相应地修改您的自定义模板。一个简单的方法是在每个pandoc版本之后， <a href="https://github.com/jgm/pandoc-templates">分派pandoc-templates</a>存储库并进行合并。</p>
+<p>模板可能包含注释： <code>$--</code>之后的任何行将被视为注释并被忽略。</p>
+<h1 id="extensions">扩展</h1>
+<p>一些读者和作者的行为可以通过启用或禁用各种扩展来进行调整。</p>
+<p>可以通过将<code>+EXTENSION</code>添加到格式名称来启用<code>+EXTENSION</code> ，并通过添加<code>-EXTENSION</code>禁用<code>-EXTENSION</code> 。例如， <code>--from markdown_strict+footnotes</code>严格Markdown与脚注启用，而<code>--from markdown-footnotes-pipe_tables</code>是没有脚注或管道表的pandoc的Markdown。</p>
+<p>降价读写器是目前使用最多的扩展。下面的<a href="#pandocs-markdown">Pandoc's Markdown</a>部分介绍了他们仅使用的扩展（请参阅<code>commonmark</code>和<code>gfm</code> <a href="#markdown-variants">Markdown变体</a> ）。下面介绍也适用于其他格式的扩展。</p>
+<h2 id="typography">字形</h2>
+<h4 id="extension-smart">扩展： <code>smart</code></h4>
+<p>将直引号解释为卷曲引号， <code>---</code>如同破折号， <code>--</code>如破折号，以及<code>...</code>作为省略号。在某些缩写之后插入不间断的空格，例如“Mr.”</p>
+<p>该扩展可以启用/禁用以下格式：</p>
+<dl>
+<dt>输入格式</dt>
+<dd><code>markdown</code> ， <code>commonmark</code> ， <code>latex</code> ， <code>mediawiki</code> ， <code>org</code> ， <code>rst</code> ， <code>twiki</code>
+</dd>
+<dt>输出格式</dt>
+<dd><code>markdown</code> ， <code>latex</code> ， <code>context</code> ， <code>rst</code>
+</dd>
+<dt>在默认情况下启用</dt>
+<dd><code>markdown</code> ， <code>latex</code> ， <code>context</code> （输入和输出）</dd>
+</dl>
+<p>注意：如果您正在<em>编写</em> Markdown，那么<code>smart</code>扩展会产生相反的效果：直接引用卷曲的引号。</p>
+<p>在LaTeX中， <code>smart</code>意味着使用标准的TeX连字符（ <code>``</code>和<code>''</code>用于双引号， <code>`</code>和<code>'</code>用于单引号）和破折号（ <code>--</code>用于连字符和<code>---</code>用于em-dash）。如果<code>smart</code>被禁用，那么在阅读LaTeX的时候，pandoc会逐字地解析这些字符。在编写LaTeX时，启用<code>smart</code>告诉pandoc尽可能使用连字符;如果<code>smart</code>禁用，则pandoc将使用unicode引号和短划线字符。</p>
+<h2 id="headers-and-sections">标题和部分</h2>
+<h4 id="extension-auto_identifiers">扩展名： <code>auto_identifiers</code></h4>
+<p>没有明确指定标识符的标题将根据标题文本自动分配一个唯一标识符。</p>
+<p>该扩展可以启用/禁用以下格式：</p>
+<dl>
+<dt>输入格式</dt>
+<dd><code>markdown</code> ， <code>latex</code> ， <code>rst</code> ， <code>mediawiki</code> ， <code>textile</code>
+</dd>
+<dt>输出格式</dt>
+<dd><code>markdown</code> ， <code>muse</code>
+</dd>
+<dt>在默认情况下启用</dt>
+<dd><code>markdown</code> ， <code>muse</code>
+</dd>
+</dl>
+<p>用于从标题文本导出标识符的算法是：</p>
+<ul>
+<li>删除所有格式，链接等</li>
+<li>删除所有脚注。</li>
+<li>删除除下划线，连字符和句点之外的所有标点符号。</li>
+<li>用连字符替换所有空格和换行符。</li>
+<li>将所有字母字符转换为小写字母。</li>
+<li>将所有内容删除至第一个字母（标识符不能以数字或标点符号开头）。</li>
+<li>如果在此之后没有任何内容，请使用标识符<code>section</code> 。</li>
+</ul>
+<p>因此，例如，</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align:left">头</th>
+<th style="text-align:left">识别码</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align:left"><code>HTML中的标头标识符</code></td>
+<td style="text-align:left"><code>报头的标识符功能于HTML</code></td>
+</tr>
+<tr class="even">
+<td style="text-align:left"><code>*狗*？ - 在我的房子？</code></td>
+<td style="text-align:left"><code>狗 - 在 - 我 - 房子</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align:left"><code>[HTML]，[S5]或[RTF]？</code></td>
+<td style="text-align:left"><code>HTML-S5-OR-RTF</code></td>
+</tr>
+<tr class="even">
+<td style="text-align:left"><code>3 申请</code></td>
+<td style="text-align:left"><code>应</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align:left"><code>33</code></td>
+<td style="text-align:left"><code>section</code></td>
+</tr>
+</tbody>
+</table>
+<p>这些规则在大多数情况下应该允许从标题文本中确定标识符。当几个标题具有相同的文本时是例外。在这种情况下，第一个将得到如上所述的标识符;第二个将得到与<code>-1</code>相同的标识符;第二个是<code>-2</code> ;等等。</p>
+<p>这些标识符用于在由<code>--toc|--table-of-contents</code>选项生成的内容列表中提供链接目标。他们还可以很容易地提供从文​​档的一个部分到另一个部分的链接。例如，本节的链接可能如下所示：</p>
+<pre><code>请参阅[标题标识符]（＃header-identifiers-in-html-latex-and-context）部分。</code></pre>
+<p>但请注意，这种提供链接的方法仅适用于HTML，LaTeX和ConTeXt格式。</p>
+<p>如果指定了<code>--section-divs</code>选项，那么每个部分将被包装在一个<code>section</code> （如果指定了<code>html4</code> ，则是一个<code>div</code> ），标识符将被附加到封闭的<code>&lt;section&gt;</code> （或<code>&lt;div&gt;</code> ）标签而不是标题本身。这允许使用JavaScript处理整个部分，或者在CSS中处理不同的部分。</p>
+<h4 id="extension-ascii_identifiers">扩展名： <code>ascii_identifiers</code></h4>
+<p>使<code>auto_identifiers</code>生成的标识符为纯ASCII。口音从重音的拉丁字母中剥离，非拉丁字母被省略。</p>
+<h2 id="math-input">数学输入</h2>
+<p>关于Pandoc Markdown的部分介绍了<a href="#extension-tex_math_dollars"><code>tex_math_dollars</code></a> ， <a href="#extension-tex_math_single_backslash"><code>tex_math_single_backslash</code></a>和<a href="#extension-tex_math_double_backslash"><code>tex_math_double_backslash</code></a>的扩展。</p>
+<p>但是，它们也可以用于HTML输入。例如，这对于阅读使用MathJax格式化的网页非常方便。</p>
+<h2 id="raw-htmltex">原始HTML / TeX</h2>
+<p>以下扩展（尤其是它们如何影响Markdown输入/输出）也在<a href="#pandocs-markdown">Pandoc Markdown</a>的各个章节中有更详细的介绍。</p>
+<h4 id="raw_html"><a href="#extension-raw_html">扩展名： <code>raw_html</code></a></h4>
+<p>从HTML转换时，将元素解析为在pandoc的AST中不可表示的原始HTML。默认情况下，对于HTML输入，这是禁用的。</p>
+<h4 id="raw_tex"><a href="#extension-raw_tex">扩展名： <code>raw_tex</code></a></h4>
+<p>允许将原始LaTeX，TeX和ConTeXt包含在文档中。</p>
+<p>对于以下格式（除了<code>markdown</code> ），可以启用/禁用此扩展：</p>
+<dl>
+<dt>输入格式</dt>
+<dd><code>latex</code> ， <code>org</code> ， <code>textile</code>
+</dd>
+<dt>输出格式</dt>
+<dd><code>纺织品</code>
+</dd>
+</dl>
+<h4 id="native_divs"><a href="#extension-native_divs">扩展名： <code>native_divs</code></a></h4>
+<p>此扩展程序默认为HTML输入启用。这意味着<code>div</code>被解析为pandoc本地元素。（或者，您可以使用<code>-f html-native_divs+raw_html</code>它们解析为原始HTML。）</p>
+<p>例如，在将HTML转换为Markdown时，您可能需要删除所有<code>div</code>和<code>span</code> ：</p>
+<pre><code>pandoc -f html-native_divs-native_spans -t markdown</code></pre>
+<h4 id="native_spans"><a href="#extension-native_spans">扩展名： <code>native_spans</code></a></h4>
+<p>类似于上面的<code>native_divs</code> 。</p>
+<h2 id="literate-haskell-support">识别Haskell支持</h2>
+<h4 id="extension-literate_haskell">扩展名： <code>literate_haskell</code></h4>
+<p>将文档视为文字的Haskell源文件。</p>
+<p>该扩展可以启用/禁用以下格式：</p>
+<dl>
+<dt>输入格式</dt>
+<dd><code>markdown</code> ， <code>rst</code> ， <code>latex</code>
+</dd>
+<dt>输出格式</dt>
+<dd><code>markdown</code> ， <code>rst</code> ， <code>latex</code> ， <code>html</code>
+</dd>
+</dl>
+<p>如果将<code>+lhs</code> （或<code>+literate_haskell</code> ）追加到上面的格式之一，则pandoc将把该文档视为文字的Haskell源文件。也就是说：</p>
+<ul>
+<li><p>在Markdown输入中，“bird track”部分将被解析为Haskell代码而不是块引用。<code>\begin{code}</code>和<code>\end{code}</code>之间的文本也将被视为Haskell代码。对于ATX风格的头文件，将使用字符“=”而不是“＃”。</p></li>
+<li><p>在Markdown输出中， <code>haskell</code>和<code>literate</code>类的代码块将使用鸟类轨迹进行渲染，块引用将被缩进一个空格，所以它们不会被视为Haskell代码。此外，标题将呈现setext风格（带下划线），而不是ATX风格（带有“＃”字符）。（这是因为ghc将第1列中的'＃'字符视为引入行号。）</p></li>
+<li><p>在重组文本输入中，“鸟轨”部分将被解析为Haskell代码。</p></li>
+<li><p>在重构的文本输出中， <code>haskell</code>类的代码块将使用鸟轨道进行渲染。</p></li>
+<li><p>在LaTeX输入中， <code>code</code>环境中的文本将被解析为Haskell代码。</p></li>
+<li><p>在LaTeX输出中， <code>haskell</code>类的代码块将在<code>code</code>环境中呈现。</p></li>
+<li><p>在HTML输出中，类<code>haskell</code>代码块将被渲染为类<code>literatehaskell</code>和bird track。</p></li>
+</ul>
+<p>范例：</p>
+<pre><code>pandoc -f markdown + lhs -t html</code></pre>
+<p>通过Markdown约定读取识字的Haskell源文件，并写入普通的HTML（无鸟音轨）。</p>
+<pre><code>pandoc -f markdown + lhs -t html + lhs</code></pre>
+<p>用HASKELL代码在HTML中写入HTML，所以它可以被复制和粘贴为有用的Haskell源代码。</p>
+<p>请注意，GHC期望第一列中的鸟类轨迹，因此Haskell编译器将不会拾取识别代码块（例如，在条目化环境中）。</p>
+<h2 id="other-extensions">其他扩展</h2>
+<h4 id="extension-empty_paragraphs">扩展名： <code>empty_paragraphs</code></h4>
+<p>允许空段落。默认情况下，空白段落被省略。</p>
+<p>该扩展可以启用/禁用以下格式：</p>
+<dl>
+<dt>输入格式</dt>
+<dd><code>docx</code> ， <code>html</code>
+</dd>
+<dt>输出格式</dt>
+<dd><code>markdown</code> ， <code>docx</code> ， <code>odt</code> ， <code>opendocument</code> ， <code>html</code>
+</dd>
+</dl>
+<h4 id="extension-amuse">扩展： <code>amuse</code></h4>
+<p>在<code>muse</code>输入格式中，这将启用Emacs Muse标记的Text :: Amuse扩展。</p>
+<h4 id="org-citations">扩展名： <code>citations</code></h4>
+<p><a href="#citations">Pandoc的Markdown引用语法的</a>某些方面也可以在<code>org</code>输入中使用。</p>
+<h4 id="extension-ntb">扩展名： <code>ntb</code></h4>
+<p>在<code>context</code>输出格式中，这使得使用<a href="http://wiki.contextgarden.net/TABLE">自然表（TABLE）</a>而不是默认的<a href="http://wiki.contextgarden.net/xtables">极限表（xtables）</a> 。自然表允许更细粒度的全局定制，但与极端表相比，性能会受到影响。</p>
+<h1 id="pandocs-markdown">潘多克的降价</h1>
+<p>Pandoc理解John Gruber的<a href="http://daringfireball.net/projects/markdown/">Markdown</a>语法的一个扩展的和稍微修改的版本。本文档解释了语法，注意到与标准Markdown的区别。除非另有说明， <code>markdown_strict</code>这些差异可以通过使用<code>markdown_strict</code>格式而不是<code>markdown</code>来消除。可以启用或禁用扩展，以更细致地指定行为。他们在下面描述。另见<a href="#extensions">扩展</a>上面，对于工作也对其他格式的扩展。</p>
+<h2 id="philosophy">哲学</h2>
+<p>Markdown的设计很容易编写，更重要的是易于阅读：</p>
+<blockquote>
+<p>Markdown格式的文档应该以纯文本的形式发布，而不会看起来像标签或格式化指令。 - <a href="http://daringfireball.net/projects/markdown/syntax#philosophy">约翰格鲁伯</a></p>
+</blockquote>
+<p>这一原则指导了潘多哥的决定，为表格，脚注和其他扩展名查找语法。</p>
+<p>然而，有一个方面，潘多哥的目标不同于Markdown的原始目标。鉴于Markdown最初是设计用于生成HTML代码，而pandoc是为多种输出格式而设计的。因此，虽然pandoc允许原始HTML的嵌入，但是它不鼓励它，并提供其他非HTML的方式来表示重要的文档元素，如定义列表，表格，数学和脚注。</p>
+<h2 id="paragraphs">段落</h2>
+<p>段落是一行或多行文字，后跟一个或多个空白行。换行符被视为空格，所以您可以根据需要重新排列段落。如果您需要一个强硬的换行符，请在一行的末尾放置两个或多个空格。</p>
+<h4 id="extension-escaped_line_breaks">扩展名： <code>escaped_line_breaks</code></h4>
+<p>反斜杠后跟一个换行符也是一个强硬的换行符。注意：在多行和网格表单元格中，这是创建强行分隔符的唯一方法，因为单元格中的尾随空格将被忽略。</p>
+<h2 id="headers">页头</h2>
+<p>有两种头文件：Setext和ATX。</p>
+<h3 id="setext-style-headers">Setext风格的标题</h3>
+<p>setext风格的标题是一行文字“加下划线”，一行<code>=</code>符号（对于一级标题）或<code>-</code>标志（对于二级标题）：</p>
+<pre><code>一级标题==================二级标题------------------</code></pre>
+<p>标题文本可以包含内联格式，如重点（请参阅下面的<a href="#inline-formatting">内联格式</a> ）。</p>
+<h3 id="atx-style-headers">ATX风格的标题</h3>
+<p>一个ATX风格的头文件由一到六个<code>#</code>号和一行文本组成，后面可以跟随任意数量的<code>#</code>号。行首的<code>#</code>号的数量是标题级别：</p>
+<pre><code>##一个二级标题###一个三级标题###</code></pre>
+<p>与setext风格的标题一样，标题文本可以包含格式：</p>
+<pre><code>＃带有[link]（/ url）和* emphasis *的一级标头</code></pre>
+<h4 id="extension-blank_before_header">扩展名： <code>blank_before_header</code></h4>
+<p>标准Markdown语法在标题之前不需要空行。Pandoc确实需要这个（当然，在文档的开始处除外）。这个要求的原因在于，一个<code>#</code>最终容易出错（可能是通过换行）。考虑一下，例如：</p>
+<pre><code>我喜欢他们的几种口味的冰激凌：例如＃22和＃5。</code></pre>
+<h4 id="extension-space_in_atx_header">扩展名： <code>space_in_atx_header</code></h4>
+<p>许多降价的实现并不需要开之间的空间<code>#</code>的ATX标题和标题文本的S，使<code>#5 bolt</code>和<code>#hashtag</code>作为头数。有了这个扩展，pandoc确实需要这个空间。</p>
+<h3 id="header-identifiers">标头标识符</h3>
+<p>另请参见上面的<a href="#extension-auto_identifiers"><code>auto_identifiers</code>扩展</a> 。</p>
+<h4 id="extension-header_attributes">扩展名： <code>header_attributes</code></h4>
+<p>可以在包含标题文本的行末尾使用以下语法为标题指定属性：</p>
+<pre><code>{#identifier .class .class key = value key = value}</code></pre>
+<p>因此，例如，以下标题将全部被分配标识符<code>foo</code> ：</p>
+<pre><code>＃我的标题{#foo} ##我的标题## {#foo}我的其他标题{#foo} ---------------</code></pre>
+<p>（此语法与<a href="https://michelf.ca/projects/php-markdown/extra/">PHP Markdown Extra</a>兼容。）</p>
+<p>请注意，虽然此语法允许分配类和键/值属性，但作者通常不会使用所有这些信息。标识符，类和键/值属性用于HTML和基于HTML的格式，如EPUB和slidingy。标识符用于LaTeX，ConTeXt，Textile和AsciiDoc编写器中的标签和链接锚点。</p>
+<p>即使指定了<code>--number-sections</code> ，类别<code>unnumbered</code>标题也不会被编号。属性上下文中的单个连字符（ <code>-</code> ）等同于<code>.unnumbered</code> ，在非英文文档中更可取。那么</p>
+<pre><code>＃我的标题{ - }</code></pre>
+<p>是一样的</p>
+<pre><code>＃我的标题{.unnumbered}</code></pre>
+<h4 id="extension-implicit_header_references">扩展名： <code>implicit_header_references</code></h4>
+<p>Pandoc的行为就好像为每个头部定义了引用链接一样。所以，要链接到一个标题</p>
+<pre><code>＃HTML中的标头标识符</code></pre>
+<p>你可以简单地写</p>
+<pre><code>[HTML中的标头标识符]</code></pre>
+<p>或</p>
+<pre><code>[HTML中的标头标识符] []</code></pre>
+<p>或</p>
+<pre><code>[标题标识符部分] [HTML标题标识符]</code></pre>
+<p>而不是明确地给出标识符：</p>
+<pre><code>[HTML中的标头标识符]（＃header-identifiers-in-html）</code></pre>
+<p>如果有多个相同文本的标题，则相应的引用只会链接到第一个，如上所述，您将需要使用显式链接链接到其他链接。</p>
+<p>像常规引用链接一样，这些引用不区分大小写。</p>
+<p>显式链接引用定义总是优先于隐式头引用。所以，在下面的例子中，链接将指向<code>bar</code> ，而不是<code>#foo</code> ：</p>
+<pre><code>＃foo [foo]：bar看[foo]</code></pre>
+<h2 id="block-quotations">块报价</h2>
+<p>Markdown使用电子邮件约定来引用文本块。块引用是一个或多个段落或其他块元素（例如列表或标题），每行以一个<code>&gt;</code>字符和一个可选空格开头。（ <code>&gt;</code>不需要从左边开始，但不能缩进三个以上的空格。）</p>
+<pre><code>&gt;这是一个块报价。这&gt;段有两行。&gt;]&gt;这是一个块引用内的列表。00:10:01,177 --&gt; 00:10:02,594第二项。</code></pre>
+<p>一个“惰性”的形式，只要在每个块的第一行需要<code>&gt;</code>字符，也是允许的：</p>
+<pre><code>&gt;这是一个块报价。这一段有两行。00:10:01,177 --&gt; 00:10:02,594这是一个块引用内的列表。2。第二项。</code></pre>
+<p>块引用中可以包含的块元素包括其他块引号。也就是说，块引用可以嵌套：</p>
+<pre><code>&gt;这是一个块报价。块报价中的块报价。</code></pre>
+<p>如果<code>&gt;</code>字符之后是可选空格，则该空格将被视为块引用标记的一部分，而不是内容的缩进部分。因此，要将一个缩进的代码块放在块引用中，在<code>&gt;</code>之后需要五个空格：</p>
+<pre><code>&gt;代码</code></pre>
+<h4 id="extension-blank_before_blockquote">扩展名： <code>blank_before_blockquote</code></h4>
+<p>标准Markdown语法在块引用之前不需要空行。Pandoc确实需要这个（当然，在文档的开始处除外）。究其原因，要求是，它是太容易了<code>&gt;</code>意外（也许是通过自动换行）在一行的开始到结束。因此，除非使用<code>markdown_strict</code>格式，否则以下内容不会在pandoc中产生嵌套块引用：</p>
+<pre><code>&gt;这是一个块报价。&gt;&gt;嵌套。</code></pre>
+<h2 id="verbatim-code-blocks">逐字（代码）块</h2>
+<h3 id="indented-code-blocks">缩进的代码块</h3>
+<p>缩进四个空格（或一个制表符）的文本块被视为逐字文本：也就是说，特殊字符不会触发特殊格式，并且保留所有空格和换行符。例如：</p>
+<pre><code>如果（a&gt; 3）{moveShip（5 * gravity，DOWN）; }</code></pre>
+<p>最初的（四个空格或一个制表符）缩进不被视为逐字文本的一部分，并在输出中被删除。</p>
+<p>注意：逐字文本中的空白行不必以四个空格开始。</p>
+<h3 id="fenced-code-blocks">围栏代码块</h3>
+<h4 id="extension-fenced_code_blocks">扩展名： <code>fenced_code_blocks</code></h4>
+<p>除了标准缩进代码块之外，pandoc还支持<em>隔离</em>代码块。这些开始于一排三个或更多的波浪形（ <code>~</code> ），并以一排波浪线结束，波浪线至少与起始行一样长。这些行之间的所有内容都被视为代码。不需要缩进：</p>
+<pre><code>~~~~~~~ if（a&gt; 3）{moveShip（5 * gravity，DOWN）; } ~~~~~~~</code></pre>
+<p>像普通的代码块一样，围栏代码块必须用空行与周围的文本分开。</p>
+<p>如果代码本身包含一排波浪形或反引号，则可以在开始和结束时使用较长的波形或反斜杠行：</p>
+<pre><code>~~~~~~~~~~~~~~~~~~~~~~~~~代码包括代码~~~~~~~~~~ ~~~~~~~~~~~ ~~~~~</code></pre>
+<h4 id="extension-backtick_code_blocks">扩展名： <code>backtick_code_blocks</code></h4>
+<p>与<code>fenced_code_blocks</code>相同，但是使用反引号（ <code>`</code> ）而不是代字号（ <code>~</code> ）。</p>
+<h4 id="extension-fenced_code_attributes">扩展名： <code>fenced_code_attributes</code></h4>
+<p>或者，您可以使用以下语法将属性附加到防护或反引号代码块：</p>
+<pre><code>~~~~ {#mycode .haskell .numberLines startFrom =“100”} qsort [] = [] qsort（x：xs）= qsort（filter（&lt;x）xs）++ [x] ++ qsort（filter &gt; = x）xs）〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜 ~~~~~</code></pre>
+<p>这里<code>mycode</code>是一个标识符， <code>haskell</code>和<code>numberLines</code>是类，而<code>startFrom</code>是一个值为<code>100</code>的属性。某些输出格式可以使用这些信息来进行语法高亮显示。目前，使用此信息的唯一输出格式是HTML，LaTeX，Docx和Ms.如果您的输出格式和语言支持突出显示，则上面的代码块将显示为突出显示，并带有数字的行。（要查看哪些语言受支持，请键入<code>pandoc --list-highlight-languages</code> 。）否则，上面的代码块将如下所示：</p>
+<pre><code>&lt;pre id =“mycode”class =“haskell numberLines”startFrom =“100”&gt; &lt;code&gt; ...&lt;/ code&gt; &lt;/ pre&gt;</code></pre>
+<p><code>numberLines</code> （或<code>number-lines</code> ）类将导致代码块的行被编号，从<code>1</code>开始或<code>startFrom</code>属性的值。<code>lineAnchors</code> （或<code>line-anchors</code> ）类将使这些行成为HTML输出中可点击的锚点。</p>
+<p>快捷方式也可以用来指定代码块的语言：</p>
+<pre><code>```haskell qsort [] = []```</code></pre>
+<p>等价于 0-9.</p>
+<pre><code>```{.haskell} qsort [] = []```</code></pre>
+<p>如果禁用了<code>fenced_code_attributes</code>扩展名，但输入包含代码块的类属性，则第一个类属性将作为裸词打印在打开围栅后面。</p>
+<p>要防止突出显示，请使用<code>--no-highlight</code>标志。要设置突出显示风格，请使用<code>--highlight-style</code> 。有关突出显示的更多信息，请参阅下面的<a href="#syntax-highlighting">语法突出显示</a> 。</p>
+<h2 id="line-blocks">线块</h2>
+<h4 id="extension-line_blocks">扩展名： <code>line_blocks</code></h4>
+<p>行块是以竖线（ <code>|</code> ）后跟空格开始的一系列行。产品的分割将保留在输出中，任何领先的空间也一样。否则，这些行将被格式化为Markdown。这对诗句和地址很有用：</p>
+<pre><code>|打油诗包笑解剖|在太空是相当经济的。|但是我见过的好的|所以很少干净|而干净的那些很少是滑稽的200 Main St. |伯克利，加州94718</code></pre>
+<p>如果需要的话，线条可以被硬包裹，但是延续线必须以空格开始。</p>
+<pre><code>|尊敬的正直的小Samuel L. Constable，Jr. | 200 Main St. |伯克利，加州94718</code></pre>
+<p>这个语法是从<a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a>借用的。</p>
+<h2 id="lists">清单</h2>
+<h3 id="bullet-lists">项目符号列表</h3>
+<p>项目符号列表是项目符号列表项目的列表。项目符号列表项以一个项目符号（ <code>*</code> ， <code>+</code>或<code>-</code> ）开头。下面有一个简单的例子：</p>
+<pre><code>一二三。</code></pre>
+<p>这将产生一个“紧凑”的名单。如果你想要一个“松散”的列表，其中每个项目被格式化为一个段落，把项目之间的空格：</p>
+<pre><code>一二三。</code></pre>
+<p>子弹不需要与左边缘齐平;它们可以缩进一个，两个或三个空格。子弹后面必须有空格。</p>
+<p>如果后续行与第一行齐平（列表后面），列表项目看起来最好：</p>
+<pre><code>*这是我的第一个列表项目。*和我的第二个。</code></pre>
+<p>但Markdown也允许“懒惰”的格式：</p>
+<pre><code>*这是我的第一个列表项目。*和我的第二个。</code></pre>
+<h3 id="block-content-in-list-items">阻止列表项中的内容</h3>
+<p>列表项可能包含多个段落和其他块级别的内容。但是，后续段落必须以空白行开头，并缩进以与列表标记之后的第一个非空格内容对齐。</p>
+<pre><code>* 第一段。接上页*第二段。用一个代码块，它必须缩进八个空格：{code}</code></pre>
+<p>例外：如果列表标记后面跟着一个缩进代码块，它必须在列表标记之后5个空格处开始，则后续段落必须在列表标记的最后一个字符后面开始两列：</p>
+<pre><code>*代码连续段落</code></pre>
+<p>列表项目可能包含其他列表。在这种情况下，前面的空白行是可选的。嵌套列表必须缩进以与包含列表项的列表标记之后的第一个非空格字符对齐。</p>
+<pre><code>*水果+苹果 - 麦金塔 - 红色美味+梨子+桃子*蔬菜+西兰花+唐莴苣</code></pre>
+<p>如上所述，Markdown允许您“懒洋洋地”编写列表项，而不是缩进连续行。但是，如果列表项中有多个段落或其他块，则每个段落的第一行必须缩进。</p>
+<pre><code>+懒惰，懒惰，列表项目。+另一个;这看起来不好，但是合法的。第二列表项目的第二段。</code></pre>
+<h3 id="ordered-lists">有序列表</h3>
+<p>有序列表就像项目符号列表一样工作，除了项目以枚举符而不是项目符号开头。</p>
+<p>在标准的Markdown中，枚举器是十进制数字，后跟一个句点和一个空格。数字本身被忽略，所以这个列表没有区别：</p>
+<pre><code>一二三。</code></pre>
+<p>“这个呢？”</p>
+<pre><code>一二三。</code></pre>
+<h4 id="extension-fancy_lists">扩展名： <code>fancy_lists</code></h4>
+<p>与标准Markdown不同的是，除了阿拉伯数字之外，pandoc允许用大写和小写字母和罗马数字标记有序的列表项目。列表标记可以用圆括号括起来，也可以用右括号或句号来表示。它们必须与下面的文本至少有一个空格分开，如果列表标记是带有句点的大写字母，则至少有两个空格。 <a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p><code>fancy_lists</code>扩展还允许将“ <code>#</code> ”用作有序列表标记来代替数字：</p>
+<pre><code>一二...</code></pre>
+<h4 id="extension-startnum">扩展名： <code>startnum</code></h4>
+<p>Pandoc也关注所使用的列表标记的类型，以及起始编号，并且在输出格式中尽可能地保留这两者。因此，以下列表中的数字后面跟着一个从9开始的单括号和一个带有小写罗马数字的子列表：</p>
+<pre><code>9）第九个10）第十个11）第十一个i。 subone ii。 subtwo iii。子三</code></pre>
+<p>每次使用不同类型的列表标记时，Pandoc将开始一个新的列表。所以，下面将创建三个列表：</p>
+<pre><code>（2）两（5）三1。四五</code></pre>
+<p>如果需要默认列表标记，请使用<code>#.</code> ：</p>
+<pre><code>一二三。</code></pre>
+<h3 id="definition-lists">定义列表</h3>
+<h4 id="extension-definition_lists">扩展名： <code>definition_lists</code></h4>
+<p>Pandoc支持定义列表，使用<a href="https://michelf.ca/projects/php-markdown/extra/">PHP Markdown Extra</a>的语法和一些扩展。 <a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<pre><code>术语1：定义1术语2具有*内联标记*：定义2 {一些代码，定义2的一部分}定义2的第三段。</code></pre>
+<p>每个术语必须放在一行上，可以选择后跟一个空行，后面必须跟一个或多个定义。定义以冒号或代字号开头，可以缩进一个或两个空格。</p>
+<p>一个术语可能有多个定义，每个定义可能由一个或多个块元素（段落，代码块，列表等）组成，每个块缩进四个空格或一个制表位。定义的主体（包括第一行，除了冒号或代字号）应该缩进四个空格。但是，与其他Markdown列表一样，除了段落或其他块元素的开头，您可以“懒惰地”省略缩进：</p>
+<pre><code>术语1：定义与懒延续。定义的第二段。</code></pre>
+<p>如果在定义之前留下空格（如上例所示），定义的文本将被视为段落。在一些输出格式中，这将意味着术语/定义对之间的间隔更大。要获得更加紧凑的定义列表，请在定义之前省略空格：</p>
+<pre><code>术语1〜定义1术语2〜定义2a〜定义2b</code></pre>
+<p>请注意，定义列表中的项目之间的空间是必需的。（可以使用<code>compact_definition_lists</code>来激活这个要求，但不允许“懒惰”硬包装的变体：请参阅下面的<a href="#non-pandoc-extensions">非pandoc扩展</a> 。）</p>
+<h3 id="numbered-example-lists">编号示例列表</h3>
+<h4 id="extension-example_lists">扩展名： <code>example_lists</code></h4>
+<p>特殊列表标记<code>@</code>可用于连续编号的示例。第一个带有<code>@</code>标记的列表项将在整个文档中编号为“1”，下一个“2”等等。编号的例子不一定出现在单个列表中;每个使用<code>@</code>新列表将占用上次停止的地方。So for example. 例如 </p>
+<pre><code>（@）我的第一个例子将被编号（1）。（@）我的第二个例子将被编号（2）。例子的解释。（@）我的第三个例子将被编号（3）。</code></pre>
+<p>编号的例子可以标注在文档中的其他地方：</p>
+<pre><code>（@good）这是一个很好的例子。正如（@good）所示，...</code></pre>
+<p>标签可以是任何字母数字字符，下划线或连字符的字符串。</p>
+<p>注意：无论列表标记的长度如何，示例列表中的连续段落必须始终缩进四个空格。也就是说，示例列表的行为总是像设置<code>four_space_rule</code>扩展一样。这是因为示例标签往往很长，并且标签之后的第一个非空格字符的内容会变得难以拗口。</p>
+<h3 id="compact-and-loose-lists">紧凑和松散的名单</h3>
+<p>Pandoc在涉及列表的一些“边缘案例”上表现与<code>Markdown.pl</code>不同。考虑这个来源：</p>
+<pre><code>+第一+第二： - 费 -  Fie  - 仇敌+第三</code></pre>
+<p>Pandoc变换此成“紧凑列表”（无<code>&lt;p&gt;</code>围绕“第一”，“第二”或“第三”标记），而降价放<code>&lt;p&gt;</code>围绕“第二”和“第三”的标签（但不是“第一“），因为”第三“周围的空白。Pandoc遵循一个简单的规则：如果文本后面跟着一个空白行，那么它将被视为一个段落。由于“Second”后面是一个列表，而不是一个空行，因此不会将其视为段落。列表后面跟着一个空行是不相关的。（注意：即使指定了<code>markdown_strict</code>格式，Pandoc也是这样工作的。这种行为与官方的Markdown语法描述是一致的，即使它与<code>Markdown.pl</code>不同）。</p>
+<h3 id="ending-a-list">结束列表</h3>
+<p>如果你想在列表后加一个缩进代码块呢？</p>
+<pre><code>- 第一项 - 第二项（我的代码块）</code></pre>
+<p>麻烦在这里，pandoc（和其他的Markdown实现一样）会把<code>{ my code block }</code>当作第二项的第二段，而不是代码块。</p>
+<p>要在第二项之后“切断”列表，您可以插入一些非缩进内容，如HTML注释，这将不会产生任何格式的可见输出：</p>
+<pre><code>- 项目一 - 项目二&lt;！ - 列表的结尾 - &gt; {我的代码块}</code></pre>
+<p>如果你想要两个连续的列表而不是一个大的列表，你可以使用相同的技巧：</p>
+<pre><code>1.一个2.两个3.三个1. uno 2. dos 3. tres</code></pre>
+<h2 id="horizontal-rules">水平的规则</h2>
+<p>包含一行三个或更多<code>*</code> ， <code>-</code>或<code>_</code>字符（可以用空格分隔）的行会生成一条水平线：</p>
+<pre><code>* * * * ---------------</code></pre>
+<h2 id="tables">表</h2>
+<p>可以使用四种表格。前三种预设使用固定宽度的字体，如Courier。第四种可以使用比例间隔的字体，因为它不需要排列列。</p>
+<h4 id="extension-table_captions">扩展名： <code>table_captions</code></h4>
+<p>标题可以有选择地提供所有4种表格（如下面的例子所示）。甲字幕是与字符串开头段落<code>Table:</code> （或只是<code>:</code> ），这将在剥离。它可能出现在表格之前或之后。</p>
+<h4 id="extension-simple_tables">扩展名： <code>simple_tables</code></h4>
+<p>简单的表格如下所示：</p>
+<pre><code>右左中心默认------- ------ ---------- ------- 12 12 12 12 123 123 123 123 1 1 1 1表：演示简单的表格语法。</code></pre>
+<p>标题和表格行必须分别放在一行上。列对齐由标题文本相对于其下面的虚线的位置决定： <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
+<ul>
+<li>如果虚线与右侧的标题文本齐平，但在左侧超出标题文本，则该列右对齐。</li>
+<li>如果虚线与左侧的标题文本齐平，但在右侧超出标题文本，则列左对齐。</li>
+<li>如果虚线超出了标题文本的两侧，则该列居中。</li>
+<li>如果虚线与两边的标题文本齐平，则使用默认对齐方式（在大多数情况下，这将保留）。</li>
+</ul>
+<p>表格必须以空行结尾，或以空行结尾。</p>
+<p>如果使用虚线来结束表格，那么可以省略列标题。例如：</p>
+<pre><code>------- ------ ---------- ------- 12 12 12 12 123 123 123 123 1 1 1 1 -------  - ----- ---------- -------</code></pre>
+<p>当省略标题时，根据表体的第一行确定列对齐。所以，在上面的表中，列分别是右，左，中，右对齐。</p>
+<h4 id="extension-multiline_tables">扩展名： <code>multiline_tables</code></h4>
+<p>多行表允许标题和表行跨越多行文本（但不支持跨多行或多列的单元格）。举例如下：</p>
+<pre><code>-------------------------------------------------- -----------居中默认右侧左侧标题对齐排列对齐----------- ------- ------------- -  -------------------------第一行12.0跨越多行的行的示例。第二排5.0这是另一个。请注意行之间的空白行。-------------------------------------------------- -----------表：这是标题。它也可能跨越多条线。</code></pre>
+<p>这些工作像简单的表格，但有以下不同之处：</p>
+<ul>
+<li>它们必须在标题文本之前用一排破折号开始（除非标题被省略）。</li>
+<li>它们必须以一行破折号结束，然后是一个空白行。</li>
+<li>行必须用空行分隔。</li>
+</ul>
+<p>在多行表格中，表格解析器注意列的宽度，编写者试图在输出中重现这些相对宽度。因此，如果您发现其中一列在输出中过窄，请尝试在Markdown源中将其扩大。</p>
+<p>在多行表格以及简单的表格中可以省略标题：</p>
+<pre><code>----------- ------- --------------- ----------------- --------第一行12.0跨越多行的一行示例。第二排5.0这是另一个。请注意行之间的空白行。----------- ------- --------------- ----------------- --------：这是一个没有标题的多行表。</code></pre>
+<p>多行表可能只有一行，但行之后应该是一个空行（然后是表格结尾处的破折号行），或者该表可能被解释为一个简单的表。</p>
+<h4 id="extension-grid_tables">扩展名： <code>grid_tables</code></h4>
+<p>网格表如下所示：</p>
+<pre><code>：示例网格表。+ --------------- + --------------- + ----------------- --- + |水果|价格|优点| + =============== + ======= + ================= === + |香蕉| $ 1.34 | - 内置的包装| | | | - 明亮的颜色| + --------------- + --------------- + ----------------- --- + |橙子| $ 2.10 | - 治愈坏血病| | | | - 好吃| + --------------- + --------------- + ----------------- --- +</code></pre>
+<p><code>=</code> s行将表头从表体中分离出来，对于无标题表可以省略。网格表单元格可以包含任意的块元素（多段落，代码块，列表等）。跨多个列或行的单元格不受支持。使用<a href="http://table.sourceforge.net/">Emacs表格模式</a>可以轻松创建网格表格。</p>
+<p>可以通过在管道表格中指定排列，方法是在冒号后面的分隔线边界处放置冒号：</p>
+<pre><code>+ --------------- + --------------- + ----------------- --- + |对| |离开|居中| + ==============：+：============== +：===== ==：+ |香蕉| $ 1.34 |内置的包装| + --------------- + --------------- + ----------------- --- +</code></pre>
+<p>对于无标题表格，冒号代替顶点：</p>
+<pre><code>+ --------------：+：-------------- +：---------------- - ：+ |对| |离开|居中| + --------------- + --------------- + ----------------- --- +</code></pre>
+<h5 id="grid-table-limitations">网格表限制</h5>
+<p>Pandoc不支持具有行跨度或列跨度的网格表。这意味着Pandoc不支持跨行的可变数量的列，也不支持跨列的可变数量的行。所有网格表在每一行中必须具有相同数量的列，并且每列中的行数相同。例如，Docutils <a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#grid-tables">示例网格表</a>不会按预期与Pandoc一起呈现。</p>
+<h4 id="extension-pipe_tables">扩展名： <code>pipe_tables</code></h4>
+<p>管道表如下所示：</p>
+<pre><code>|对| |离开|默认|中心| | ------：| ----- | --------- |：------：| | 12 | 12 | 12 | 12 | | 123 | 123 | 123 | 123 | | 1 | 1 | 1 | 1 | ：演示管道表语法。</code></pre>
+<p>语法与<a href="https://michelf.ca/projects/php-markdown/extra/#table">PHP Markdown Extra表</a>相同。开始和结束管道字符是可选的，但所有列之间都需要管道。如图所示，冒号表示列对齐。标题不能省略。要模拟无标题表格，请包含带有空白单元格的标题。</p>
+<p>由于管道指示列边界，因此列不需要垂直对齐，如上例所示。所以，这是一个完全合法的（虽然丑陋的）管道表：</p>
+<pre><code>水果|价格----- | -----：苹果| 2.05梨| 1.37橙| 3.09</code></pre>
+<p>管道表的单元格不能包含段落和列表之类的块元素，也不能包含多行。如果管道表包含可打印内容宽于列宽的行（请参阅<code>--columns</code> ），则单元格内容将包装，相对单元格宽度由分隔线的宽度决定。（在这种情况下，表格将占据全文宽度。）如果没有行的宽度大于列的宽度，那么单元格的内容将不会被打包，单元格将根据其内容进行调整。</p>
+<p>注意：pandoc也可以识别以下形式的管道表，这可以通过Emacs的orgtbl-mode产生：</p>
+<pre><code>|一| |两个| | ----- + ------- | |我| |表| | |是|很好|</code></pre>
+<p>不同之处在于使用<code>+</code>来代替<code>|</code> 。其他orgtbl功能不支持。特别是要获得非默认的列对齐方式，您需要像上面一样添加冒号。</p>
+<h2 id="metadata-blocks">元数据块</h2>
+<h4 id="extension-pandoc_title_block">扩展名： <code>pandoc_title_block</code></h4>
+<p>如果文件以标题块开始</p>
+<pre><code>％title％作者（以分号分隔）％日期</code></pre>
+<p>它将被解析为书目信息，而不是普通文本。（例如，它将被用于独立的LaTeX或HTML输出的标题中。）该块可能只包含标题，标题和作者，或全部三个元素。如果你想包括作者，但没有标题，或标题和日期，但没有作者，你需要一个空行：</p>
+<pre><code>％％作者％我的标题％％2006年6月15日</code></pre>
+<p>标题可能占用多行，但连续行必须以领先空间开始，因此：</p>
+<pre><code>％我在多行的标题</code></pre>
+<p>如果一个文档有多个作者，作者可能被放在单独的行中，用空格隔开，或用分号隔开，或者两者兼而有之。所以，以下所有内容都是相同的：</p>
+<pre><code>％作者1作者2％作者1;作者二作者一;作者二</code></pre>
+<p>日期必须符合一行。</p>
+<p>所有三个元数据字段可能包含标准的内联格式（斜体，链接，脚注等）。</p>
+<p>标题块将始终被解析，但只有在<code>--standalone</code> （ <code>-s</code> ）选项时才会影响输出。在HTML输出中，标题会出现两次：一次在文档头 - 这是在浏览器窗口顶部显示的标题 - 一次在文档正文的开头。文档头中的标题可以附加一个可选的前缀（ <code>--title-prefix</code>或<code>-T</code>选项）。主体中的标题显示为具有“标题”类的H1元素，因此可以使用CSS来压缩或重新格式化该标题。如果标题前缀是用<code>-T</code>指定的，并且文档中不出现标题块，则标题前缀将被用作HTML标题。</p>
+<p>手册页编写者从标题行中提取标题，手册页编号以及其他页眉和页脚信息。标题被认为是标题行上的第一个单词，它可以有选择地以括号中的（单位数）段号结尾。（标题和括号之间不应有空格）之后的任何事情都被认为是额外的页脚和标题文本。应使用单个管道字符（ <code>|</code> ）将页脚文本与标题文本分开。因此，</p>
+<pre><code>％PANDOC（1）</code></pre>
+<p>将产生一个标题为<code>PANDOC</code>和第1节的手册页。</p>
+<pre><code>％PANDOC（1）Pandoc用户手册</code></pre>
+<p>在页脚也会有“Pandoc用户手册”。</p>
+<pre><code>％PANDOC（1）Pandoc用户手册|版本4.0</code></pre>
+<p>标题中也会有“4.0版本”。</p>
+<h4 id="extension-yaml_metadata_block">扩展名： <code>yaml_metadata_block</code></h4>
+<p>甲YAML元数据块是有效的YAML对象，由线三个连字符（分隔<code>---</code>在顶部）和三个连字符（线<code>---</code> ）或三个点（ <code>...</code>在底部）。YAML元数据块可能出现在文档中的任何地方，但是如果它不在开始处，则必须以空行开头。（请注意，由于pandoc在提供多个输入文件时连接输入文件的方式，您也可以将元数据保存在单独的YAML文件中，并将其作为参数传递给pandoc以及Markdown文件：</p>
+<pre><code>pandoc chap1.md chap2.md chap3.md metadata.yaml -s -o book.html</code></pre>
+<p>只要确保YAML文件以<code>---</code>开始，以<code>---</code>或<code>...</code>结尾）</p>
+<p>元数据将从YAML对象的字段中取出并添加到任何现有的文档元数据中。元数据可以包含列表和对象（任意嵌套），但所有的字符串标量将被解释为Markdown。名称以下划线结尾的字段将被pandoc忽略。（他们可能会被外部处理器赋予一个角色。）</p>
+<p>一个文档可能包含多个元数据块。元数据字段将通过<em>左偏</em>结合进行组合：如果两个元数据块试图设置相同的字段，则将从第一个块取值。</p>
+<p>当pandoc与用于<code>-t markdown</code>创建降价文档，YAML元数据块将仅在产生<code>-s/--standalone</code>选项使用。所有的元数据都将出现在文档开始的一个块中。</p>
+<p>请注意，必须遵守YAML转义规则。因此，例如，如果标题包含冒号，则必须引用它。管道字符（ <code>|</code> ）可以用来开始一个缩进块，这个块将被直接解释，而不需要转义。当该字段包含空行或块级格式时，此表单是必需的：</p>
+<pre><code>---标题：“这是标题：它包含冒号”作者： - 作者一 - 作者两个标签：[nothing，nothingness]这是抽象的。它由两个段落组成。...</code></pre>
+<p>模板变量将从元数据中自动设置。因此，例如，在编写HTML时，变量<code>abstract</code>将被设置为<code>abstract</code>字段中Markdown的HTML等价物：</p>
+<pre><code>这是摘要。&lt;/ p&gt; &lt;p&gt;它由两个段落组成。&lt;/ p&gt;</code></pre>
+<p>变量可以包含任意的YAML结构，但模板必须匹配这个结构。默认模板中的<code>author</code>变量需要一个简单的列表或字符串，但可以更改为支持更复杂的结构。例如，如果给出以下组合，则会给作者增加一个归属关系：</p>
+<pre><code>---标题：文件标题作者： - 名称：作者一个单位：某处的大学 - 名称：作者两个单位：无处大学...</code></pre>
+<p>要使用上述示例中的结构化作者，您需要一个自定义模板：</p>
+<pre><code>（author）$ $ if（author.name）$ $ author.name $$ if（author.affiliation）$（$ author.affiliation $）$ endif $ $ else $ $ author $ $ endif $ $ endfor $</code></pre>
+<p>包含在文档标题中的原始内容可以使用<code>header-includes</code>来指定;然而，使用<a href="#extension-raw_attribute"><code>raw_attribute</code>扩展</a>将此内容标记为特定输出格式的原始代码非常重要），否则将被解释为降价。例如：</p>
+<pre><code>header-includes：```{latex} \ let \ oldsection \ section \ renewcommand {\ section} [1] {\ clearpage \ oldsection {＃1}}```</code></pre>
+<h2 id="backslash-escapes">反斜杠转义</h2>
+<h4 id="extension-all_symbols_escapable">扩展名： <code>all_symbols_escapable</code></h4>
+<p>除了代码块或内联代码之外，任何以反斜杠开头的标点符号或空格符号都将按照字面意思处理，即使通常表示格式化也是如此。因此，例如，如果写道</p>
+<pre><code>你好。</code></pre>
+<p>一个会得到</p>
+<pre><code>&lt;EM&gt; *你好* &lt;/ EM&gt;</code></pre>
+<p>取代</p>
+<pre><code>的&lt;strong&gt;你好&lt;/强&gt;</code></pre>
+<p>这个规则比标准的Markdown规则更容易记忆，它只允许以下字符被反斜线转义：</p>
+<pre><code>00:10:01,177 --&gt; 00:10:02,594</code></pre>
+<p>（但是，如果使用<code>markdown_strict</code>格式，则将使用标准Markdown规则。）</p>
+<p>反斜线转义的空间被解析为一个不间断的空间。它将在TeX输出中以<code>~</code>和HTML和XML的形式出现<code>\&amp;#160;</code>或<code>\&amp;nbsp;</code> 。</p>
+<p>反斜线转义的换行符（即行尾的反斜杠）被解析为一个强行换行符。它将在TeX输出中显示为<code>\\</code> ，在HTML中显示为<code>&lt;br /&gt;</code> 。这是Markdown用线条上两个尾部空格来表示硬线断点的“不可见”方式的一个很好的选择。</p>
+<p>反斜杠转义在逐字的上下文中不起作用。</p>
+<h2 id="inline-formatting">内联格式</h2>
+<h3 id="emphasis">强调</h3>
+<p>为了<em>强调</em>一些文字，用<code>*</code> s或<code>_</code>围起来，就像这样：</p>
+<pre><code>这个文本是用下划线_emphasized的，这是用星号*强调的。</code></pre>
+<p>Double <code>*</code>或<code>_</code> <strong>强调重点</strong> ：</p>
+<pre><code>这是**强调**和__带下划线___。</code></pre>
+<p>被空格或反斜线包围的<code>*</code>或<code>_</code>字符不会引发重点：</p>
+<pre><code>这是*不强调*，*这也不是*。</code></pre>
+<h4 id="extension-intraword_underscores">扩展名： <code>intraword_underscores</code></h4>
+<p>因为<code>_</code>有时被用在单词和标识符中，所以pandoc不会将被字母数字字符包围的<code>_</code>解释为重点标记。如果你想强调一个单词的一部分，使用<code>*</code> ：</p>
+<pre><code>* * * * * * * * * * * * * * * * *</code></pre>
+<h3 id="strikeout">三振出局</h3>
+<h4 id="extension-strikeout">延伸： <code>strikeout</code></h4>
+<p>用横线删除一段文本，用<code>~~</code>开始和结束。因此，例如，</p>
+<pre><code>这个~~是删除文本。~~</code></pre>
+<h3 id="superscripts-and-subscripts">上标和下标</h3>
+<h4 id="extension-superscript-subscript">扩展名： <code>superscript</code> ， <code>subscript</code></h4>
+<p>上标可以通过用<code>^</code>字符包围上标文本来书写;下标可以通过用<code>~</code>字符包围下标文字来书写。因此，例如，</p>
+<pre><code>H〜2〜O是液体。 2 ^ 10 ^是1024。</code></pre>
+<p>如果上标或下标文本包含空格，则必须用反斜线转义这些空格。（这是为了防止通过使用<code>~</code>和<code>^</code>意外的上标和下标。）因此，如果你想要字母P和下标中的“猫”，请使用<code>P~a\ cat~</code> ，而不是<code>P~a cat~</code> 。</p>
+<h3 id="verbatim">逐字</h3>
+<p>要逐字地写短文，把它放在反引号内：</p>
+<pre><code>`&gt;&gt; =`和`&gt;&gt;`有什么区别？</code></pre>
+<p>如果逐字文本包括反引号，则使用双反引号：</p>
+<pre><code>这是一个文字反引号````。</code></pre>
+<p>（反推后的空格将被忽略。）</p>
+<p>通常的规则是，一个逐字记录跨度以一串连续的反引号（可选地后跟一个空格）开头，并以一串反引号（可选地前面有一个空格）结束。</p>
+<p>请注意，反斜杠转义（和其他Markdown构造）在逐字上下文中不起作用：</p>
+<pre><code>这是一个反斜杠，后跟星号：`\ *`。</code></pre>
+<h4 id="extension-inline_code_attributes">扩展名： <code>inline_code_attributes</code></h4>
+<p>属性可以附加到逐字文本，就像<a href="#fenced-code-blocks">隔离代码块一样</a> ：</p>
+<pre><code>`&lt;$&gt;`{.haskell}</code></pre>
+<h3 id="small-caps">小帽子</h3>
+<p>要编写小型大写，请使用<code>smallcaps</code>类：</p>
+<pre><code>[小型大写] {。smallcaps}</code></pre>
+<p>或者，没有<code>bracketed_spans</code>扩展名：</p>
+<pre><code>&lt;span class =“smallcaps”&gt;小型帽子&lt;/ span&gt;</code></pre>
+<p>为了与其他Markdown风格兼容，还支持CSS：</p>
+<pre><code>&lt;span style =“font-variant：small-caps;”&gt;小型大写字母&lt;/ span&gt;</code></pre>
+<p>这将支持所有支持小型大写的输出格式。</p>
+<h2 id="math">数学</h2>
+<h4 id="extension-tex_math_dollars">扩展名： <code>tex_math_dollars</code></h4>
+<p>两个<code>$</code>字符之间的任何东西都将被视为TeX数学。开头<code>$</code>必须在其右侧有一个非空格字符，而结束<code>$</code>必须在它的左侧有一个非空格字符，并且不能立即跟随一个数字。因此， <code>$20,000 and $30,000</code>不会被解析为数学。如果由于某种原因，你需要将文本括在字符<code>$</code>字符中，反斜杠转义他们，他们不会被视为数学分隔符。</p>
+<p>TeX数学将以所有输出格式打印。它如何呈现取决于输出格式：</p>
+<dl>
+<dt>Markdown，LaTeX，Emacs组织模式，ConTeXt，ZimWiki</dt>
+<dd>它将逐字显示在<code>$</code>字符之间。
+</dd>
+<dt>reStructuredText的</dt>
+<dd>它将使用<a href="http://docutils.sourceforge.net/docs/ref/rst/roles.html#math">解释的文本角色</a>呈现<a href="http://docutils.sourceforge.net/docs/ref/rst/roles.html#math"><code>:math:</code></a>
+</dd>
+<dt>AsciiDoc</dt>
+<dd>它将被渲染为<code>latexmath:[...]</code> 。
+</dd>
+<dt>Texinfo-6.1</dt>
+<dd>它将在<code>@math</code>命令内呈现。
+</dd>
+<dt>groff男人</dt>
+<dd>它将逐字呈现，不含<code>$</code> 。
+</dd>
+<dt>MediaWiki，DokuWiki</dt>
+<dd>它将在<code>&lt;math&gt;</code>标签内呈现。
+</dd>
+<dt>纺织品</dt>
+<dd>它将在<code>&lt;span class="math"&gt;</code>标签内呈现。
+</dd>
+<dt>RTF，OpenDocument</dt>
+<dd>如果可能的话，它将被渲染，使用Unicode字符，否则将逐字出现。
+</dd>
+<dt>ODT</dt>
+<dd>如果可能，将使用MathML进行渲染。</dd>
+<dt>DocBook</dt>
+<dd>如果<code>--mathml</code>使用标志，其将在使用MATHML呈现<code>inlineequation</code>或<code>informalequation</code>标签。否则，它将在可能的情况下使用Unicode字符呈现。
+</dd>
+<dt>DOCX</dt>
+<dd>它将使用OMML数学标记呈现。
+</dd>
+<dt>FictionBook2</dt>
+<dd>如果使用<code>--webtex</code>选项，公式将使用CodeCogs或其他兼容的Web服务呈现为图像，并下载并嵌入到电子书中。否则，他们会逐字出现。
+</dd>
+<dt>HTML，Slidy，DZSlides，S5，EPUB</dt>
+<dd>数学以HTML呈现的方式将取决于所选的命令行选项。因此请参阅上面的<a href="#math-rendering-in-html">HTML中的数学渲染</a> 。
+</dd>
+</dl>
+<h2 id="raw-html">原始HTML</h2>
+<h4 id="extension-raw_html">扩展名： <code>raw_html</code></h4>
+<p>Markdown允许您在文档的任何位置插入原始HTML（或DocBook）（除了逐字的上下文，其中字面解释<code>&lt;</code> ， <code>&gt;</code>和<code>&amp;</code> ）。（从技术上讲，这不是一个扩展，因为标准的Markdown允许它，但它已经被做了一个扩展，所以如果需要可以禁用它。）</p>
+<p>原始HTML在HTML，S5，Slidy，Slideous，DZSlides，EPUB，Markdown，Emacs Org模式和Textile输出中不变，并以其他格式进行了压缩。</p>
+<h4 id="extension-markdown_in_html_blocks">扩展名： <code>markdown_in_html_blocks</code></h4>
+<p>标准Markdown允许您包含HTML“块”：平衡标签之间的HTML块，它与周围的文本以空行分隔，在左边距开始和结束。在这些块中，一切都被解释为HTML，而不是Markdown;所以（例如）， <code>*</code>不代表强调。</p>
+<p>当使用<code>markdown_strict</code>格式时，Pandoc的行为是这样的;但默认情况下，pandoc将HTML块标签之间的材质解释为Markdown。因此，例如，潘多克将转向</p>
+<pre><code>&lt;table&gt; &lt;tr&gt; &lt;td&gt; * one * &lt;/ td&gt; &lt;td&gt; [a link]（http://google.com）&lt;/ td&gt; &lt;/ tr&gt; &lt;/ table&gt;</code></pre>
+<p>到</p>
+<pre><code>一个&lt;/ em&gt; &lt;/ td&gt; &lt;td&gt; &lt;a href="http://google.com"&gt;链接&lt;/a&gt; &lt;/ td&gt; &lt;/ tr&gt; &lt;/ table&gt;</code></pre>
+<p>而<code>Markdown.pl</code>会保留原样。</p>
+<p>这个规则有一个例外： <code>&lt;script&gt;</code>和<code>&lt;style&gt;</code>标签之间的文本不会被解释为Markdown。</p>
+<p>Markdown的这种背离使Markdown与HTML块元素的混合变得更加容易。例如，可以使用<code>&lt;div&gt;</code>标签围绕Markdown文本块，而不会将其解释为Markdown。</p>
+<h4 id="extension-native_divs">扩展名： <code>native_divs</code></h4>
+<p>在<code>&lt;div&gt;</code>标签内使用本地pandoc <code>Div</code>块。大多数情况下，这应该提供与<code>markdown_in_html_blocks</code>相同的输出，但是它使编写pandoc过滤器来操作块组变得更加容易。</p>
+<h4 id="extension-native_spans">扩展名： <code>native_spans</code></h4>
+<p>对<code>&lt;span&gt;</code>标签内的内容使用本机pandoc <code>Span</code>块。在大多数情况下，这应该提供与<code>raw_html</code>相同的输出，但是它更容易编写pandoc过滤器来操作内联组。</p>
+<h4 id="extension-raw_tex">扩展名： <code>raw_tex</code></h4>
+<p>除了原始的HTML之外，pandoc还允许将原始的LaTeX，TeX和ConTeXt包含在文档中。内联TeX命令将被保留，并保持原样传递给LaTeX和ConTeXt编写器。因此，例如，您可以使用LaTeX来包含BibTeX引用：</p>
+<pre><code>这个结果在\ cite {jones.1967}中被证明了。</code></pre>
+<p>请注意，在LaTeX环境中，就像</p>
+<pre><code>年龄＆频率\\ \ hline 18--25＆15 \\ 26--35＆33 \\ 36--45＆22 \\ \ hline \ end {表格}</code></pre>
+<p>开始和结束标签之间的材料将被解释为原始的LaTeX，而不是Markdown。</p>
+<p>在Markdown，LaTeX，Emacs Org模式和ConTeXt以外的输出格式中，内联LaTeX被忽略。</p>
+<h3 id="generic-raw-attribute">通用的原始属性</h3>
+<h4 id="extension-raw_attribute">扩展名： <code>raw_attribute</code></h4>
+<p>内联跨度和具有特殊类型属性的隔离代码块将以指定格式解析为原始内容。例如，以下产生一个原始的groff <code>ms</code>块：</p>
+<pre><code>2000毫秒MYMACRO等等等等</code></pre>
+<p>以下内容会生成一个原始的<code>html</code>内联元素：</p>
+<pre><code>这是`&lt;a&gt; html &lt;/a&gt;`{= html}</code></pre>
+<p>格式名称应与目标格式名称匹配（请参阅上面的<code>-t/--to</code> ，用于列表或使用<code>pandoc --list-output-formats</code> ）。</p>
+<p>该扩展的前提是启用了相关的内联代码或防护代码块。因此，例如，要使用带反码代码块的原始属性，必须启用<code>backtick_code_blocks</code> 。</p>
+<p>原始属性不能与常规属性组合。</p>
+<h2 id="latex-macros">LaTeX宏</h2>
+<h4 id="extension-latex_macros">扩展名： <code>latex_macros</code></h4>
+<p>对于除LaTeX以外的输出格式，pandoc将分析LaTeX宏定义，并将生成的宏应用于所有LaTeX数学和原始LaTeX。所以，例如，下面的所有输出格式都可以工作，而不仅仅是LaTeX：</p>
+<pre><code>\ newcommand {\ tuple} [1] {\ langle＃1 \ rangle} $ \ tuple {a，b，c} $</code></pre>
+<p>请注意，如果LaTeX宏出现在原始跨度内或者使用<a href="#extension-raw_attribute"><code>raw_attribute</code>扩展名</a>标记的块内，则不会应用这些宏。</p>
+<p>当<code>latex_macros</code>被禁用时，原始的LaTeX和数学将不会应用宏。当您定位到LaTeX或PDF时，这通常是更好的方法。</p>
+<p>无论是否启用<code>latex_macros</code> ，宏定义仍将作为原始LaTeX传递。</p>
+<h2 id="links">链接</h2>
+<p>Markdown允许以多种方式指定链接。</p>
+<h3 id="automatic-links">自动链接</h3>
+<p>如果您将URL或电子邮件地址放在尖括号中，它将成为一个链接：</p>
+<pre><code>&lt;http://google.com&gt; &lt;sam@green.eggs.ham&gt;</code></pre>
+<h3 id="inline-links">内联链接</h3>
+<p>内联链接由方括号中的链接文本组成，后跟括号中的URL。（或者，URL后面可以跟一个链接标题，用引号引起来。）</p>
+<pre><code>这是一个[内嵌链接]（/网址），这里是[一个标题]（http://fsf.org“点击这里一个很好的时间！51.48"</code></pre>
+<p>括号内的部分和带括号的部分之间不能有空格。链接文本可以包含格式（如重点），但标题不能。</p>
+<p>内联链接中的电子邮件地址不是自动检测的，所以它们必须以<code>mailto</code>为前缀：</p>
+<pre><code>[写信给我！]（邮寄地址：sam@green.eggs.ham）</code></pre>
+<h3 id="reference-links">参考链接</h3>
+<p>一个<em>明确的</em>引用链接有两个部分，链接本身和链接定义，这可能发生在文档的其他地方（链接之前或之后）。</p>
+<p>链接由方括号中的链接文本组成，后接方括号中的标签。（除非启用了<code>spaced_reference_links</code>扩展，否则两者之间不能有空格。）链接定义包含括号内的标签，后跟一个冒号和一个空格，后面跟着URL，以及可选的（空格后面）一个链接标题，用引号或括号括起来。标签不得作为引用进行解析（假设<code>citations</code>扩展已启用）：引用优先于链接标签。</p>
+<p>这里有一些例子：</p>
+<pre><code>[my label 1]：/foo/bar.html“My title，optional”[my label 2]：/ foo [my label 3]：http://fsf.org（自由软件基金会）[my label 4] ：/ bar＃special'单引号中的标题'</code></pre>
+<p>该URL可以选择性地被尖括号包围：</p>
+<pre><code>[我的标签5]：&lt;http：//foo.bar.baz&gt;</code></pre>
+<p>标题可能在下一行：</p>
+<pre><code>[我的标签3]：http://fsf.org“自由软件基础”</code></pre>
+<p>请注意，链接标签不区分大小写。所以，这将工作：</p>
+<pre><code>这是[我的链接] [FOO] [Foo]：/ bar / baz</code></pre>
+<p>在<em>隐含的</em>引用链接中，第二对括号是空的：</p>
+<pre><code>见[我的网站] []。[我的网站]：http：//foo.bar.baz</code></pre>
+<p>注意：在<code>Markdown.pl</code>和大多数其他Markdown实现中，引用链接定义不能出现在嵌套结构中，例如列表项或块引用。潘多克解除了这个任意的表面限制。所以，在pandoc中，以下情况是正确的，尽管在大多数其他实现中并没有：</p>
+<pre><code>&gt;我的块[quote]。&gt; [quote]：/ foo</code></pre>
+<h4 id="extension-shortcut_reference_links">扩展名： <code>shortcut_reference_links</code></h4>
+<p>在<em>快捷方式</em>引用链接中，第二对括号可以完全省略：</p>
+<pre><code>见[我的网站]。[我的网站]：http：//foo.bar.baz</code></pre>
+<h3 id="internal-links">内部链接</h3>
+<p>要链接到同一文档的另一部分，请使用自动生成的标识符（请参阅<a href="#header-identifiers">标题标识符</a> ）。例如：</p>
+<pre><code>参见[介绍]（＃介绍）。</code></pre>
+<p>或</p>
+<pre><code>参见[简介]。导言</code></pre>
+<p>HTML格式（包括HTML幻灯片和EPUB），LaTeX和ConTeXt目前支持内部链接。</p>
+<h2 id="images">图像</h2>
+<p>一个链接立即在一个<code>!</code> 将被视为一个形象。链接文本将被用作图像的替代文本：</p>
+<pre><code>!la lune]（lalune.jpg“登月之旅”）！电影卷轴] [movie reel]：movie.gif</code></pre>
+<h4 id="extension-implicit_figures">扩展名： <code>implicit_figures</code></h4>
+<p>带有非空alt文本的图像（在段落中自身出现）将以带有标题的图形呈现。图像的替代文字将被用作标题。</p>
+<pre><code>!这是标题]（/ url / of / image.png）</code></pre>
+<p>这是如何呈现取决于输出格式。一些输出格式（如RTF）还不支持数字。在这些格式中，您只需在段落中自行获取图像，而无需标题。</p>
+<p>如果你只是想要一个正规的内联图片，只要确保它不是段落中唯一的东西。一种方法是在图像之后插入一个不间断的空格：</p>
+<pre><code>!这个图像不会是一个数字]（/ url / of / image.png）\</code></pre>
+<p>请注意，在reveal.js幻灯片显示中，具有<code>stretch</code>类的段落中的图像将填充屏幕，并且标题和数字标记将被省略。</p>
+<h4 id="extension-link_attributes">扩展名： <code>link_attributes</code></h4>
+<p>属性可以在链接和图像上设置：</p>
+<pre><code>内联！[image]（foo.jpg）{＃id .class width = 30 height = 20px} and reference！[image] [ref]具有属性。[ref]：foo.jpg“可选标题”{#id .class key = val key2 =“val 2”}</code></pre>
+<p>（当仅使用<code>#id</code>和<code>.class</code>时，此语法与<a href="https://michelf.ca/projects/php-markdown/extra/">PHP Markdown Extra</a>兼容。）</p>
+<p>对于HTML和EPUB，除了<code>width</code>和<code>height</code> （但包括<code>srcset</code>和<code>sizes</code> ）之外的所有属性都按<code>srcset</code>传递。其他编写者会忽略其输出格式不支持的属性。</p>
+<p>图像上的<code>width</code>和<code>height</code>属性被专门处理。当没有单位使用时，单位被认为是像素。但是，可以使用以下任何单位标识符： <code>px</code> ， <code>cm</code> ， <code>mm</code> ， <code>in</code> ， <code>inch</code>和<code>%</code> 。号码和单位之间不能有空格。例如：</p>
+<pre><code>！[]（file.jpg）{width = 50％}</code></pre>
+<ul>
+<li>尺寸被转换为英寸，以LaTeX等基于页面的格式输出。尺寸被转换为像素，以HTML格式输出。使用<code>--dpi</code>选项指定每英寸的像素数。默认值是96dpi。</li>
+<li><code>%</code>单位通常相对于一些可用空间。例如，上面的例子会呈现给<code>&lt;img href="file.jpg" style="width: 50%;" /&gt;</code> （HTML）， <code>\includegraphics[width=0.5\textwidth]{file.jpg}</code>胶乳），或<code>\externalfigure[file.jpg][width=0.5\textwidth]</code> （上下文）。</li>
+<li>某些输出格式具有类（ <a href="http://wiki.contextgarden.net/Using_Graphics#Multiple_Image_Settings">ConTeXt</a> ）或唯一标识符（LaTeX <code>\caption</code> ）或两者（HTML）的概念。</li>
+<li>如果未指定<code>width</code>或<code>height</code>属性，则回退是查看图像分辨率和图像文件中嵌入的dpi元数据。</li>
+</ul>
+<h2 id="divs-and-spans">Divs和跨度</h2>
+<p>使用<code>native_divs</code>和<code>native_spans</code>扩展（见<a href="#extension-native_divs">上文</a> ），HTML语法可以用作markdown的一部分，在pandoc AST（而不是原始HTML）中创建原生的<code>Div</code>和<code>Span</code>元素。但是，也有更好的语法可用：</p>
+<h4 id="extension-fenced_divs">扩展名： <code>fenced_divs</code></h4>
+<p>为原生<code>Div</code>块允许特殊的隔离语法。一个Div开始于一个包含至少三个连续冒号和一些属性的栅栏。这些属性可以选择性地跟随另一串连续的冒号。属性语法与围<a href="#extension-fenced_code_attributes"><code>fenced_code_attributes</code></a>代码块中的完全相同（请参阅<a href="#extension-fenced_code_attributes">扩展： <code>fenced_code_attributes</code></a> ）。与围栏代码块一样，可以使用花括号中的属性或单个无支撑的单词，将其视为类名称。Div以包含至少三个连续冒号的字符串的另一行结束。被围起来的Div应该由前面和后面的块用空行隔开。</p>
+<p>示例：</p>
+<pre><code>::::: {#special .sidebar}这是一个段落。再来一个。:::::</code></pre>
+<p>带围栏的div可以嵌套。打开栅栏是有区别的，因为它们<em>必须</em>具有属性：</p>
+<pre><code>:::警告::::::这是一个警告。危险这是警告中的警告。::: ::::::::::::::::::</code></pre>
+<p>没有属性的栅栏总是关闭栅栏。与围栏代码块不同，关闭围栏中的冒号数量不需要与围栏中的数量相匹配。然而，使用不同长度的栅栏来区分嵌套的div和父母可能会对视觉清晰度有所帮助。</p>
+<h4 id="extension-bracketed_spans">扩展名： <code>bracketed_spans</code></h4>
+<p>一个括号内联的序列，就像人们用来开始一个链接一样，如果紧接着是属性，它将被视为一个具有属性的<code>Span</code> ：</p>
+<pre><code>[这是*一些文字*] {。class key =“val”}</code></pre>
+<h2 id="footnotes">脚注</h2>
+<h4 id="extension-footnotes">扩展名： <code>footnotes</code></h4>
+<p>Pandoc的Markdown允许使用以下语法的脚注：</p>
+<pre><code>这是一个脚注参考，[^ 1]和另一个。[^ longnote] [^ 1]：这是脚注。[^ longnote]：这是一个有多个块的。后续段落缩进显示它们属于以前的脚注。{some.code}整个段落可以缩进，或者只是第一行。这样，多段脚注就像多段列表项一样工作。这段不会成为注释的一部分，因为它没有缩进。</code></pre>
+<p>脚注引用中的标识符可能不包含空格，制表符或换行符。这些标识符仅用于将脚注引用与注释本身相关联;在输出中，脚注将按顺序编号。</p>
+<p>脚注本身不需要放在文档的末尾。它们可能出现在除了其他块元素（列表，块引用，表等）之外的任何地方。每个脚注应该用空行与周围的内容（包括其他脚注）分开。</p>
+<h4 id="extension-inline_notes">扩展名： <code>inline_notes</code></h4>
+<p>内联脚注也是允许的（尽管与常规笔记不同，它们不能包含多个段落）。语法如下：</p>
+<pre><code>这是一个内联注释。^ [内联注释更容易编写，因为您不必选择标识符并向下移动即可键入注释。]</code></pre>
+<p>内联和定期脚注可以自由混合使用。</p>
+<h2 id="citations">原文：</h2>
+<h4 id="extension-citations">扩展名： <code>citations</code></h4>
+<p>使用外部过滤器， <code>pandoc-citeproc</code> ，pandoc可以自动生成引用和书目的多种风格。基本用法是</p>
+<pre><code>pandoc  - 过滤器pandoc-citeproc myinput.txt</code></pre>
+<p>为了使用此功能，您需要使用YAML元数据部分中的<code>bibliography</code>元数据字段或 - <code>--bibliography</code>命令行参数来指定参考书目文件。如果你想使用多个书目文件，你可以提供多个<code>--bibliography</code>参数或者将<code>bibliography</code>元数据字段设置为YAML数组。参考书目可能有以下任何一种格式：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align:left">格式</th>
+<th>文件扩展名</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align:left">BibLaTeX</td>
+<td>。围兜</td>
+</tr>
+<tr class="even">
+<td style="text-align:left">中文提供</td>
+<td>.bibtex</td>
+</tr>
+<tr class="odd">
+<td style="text-align:left">COPAC</td>
+<td>.copac</td>
+</tr>
+<tr class="even">
+<td style="text-align:left">CSL JSON</td>
+<td>- Json</td>
+</tr>
+<tr class="odd">
+<td style="text-align:left">CSL YAML</td>
+<td>.yaml</td>
+</tr>
+<tr class="even">
+<td style="text-align:left">的EndNote</td>
+<td>.enl</td>
+</tr>
+<tr class="odd">
+<td style="text-align:left">EndNote XML</td>
+<td>```xml</td>
+</tr>
+<tr class="even">
+<td style="text-align:left">ISI</td>
+<td>.wos</td>
+</tr>
+<tr class="odd">
+<td style="text-align:left">MEDLINE</td>
+<td>.medline</td>
+</tr>
+<tr class="even">
+<td style="text-align:left">mods</td>
+<td>mods</td>
+</tr>
+<tr class="odd">
+<td style="text-align:left">r为1</td>
+<td>r为1</td>
+</tr>
+</tbody>
+</table>
+<p>请注意<code>.bib</code>可以与BibTeX和BibLaTeX文件一起使用;使用<code>.bibtex</code>来强制BibTeX。</p>
+<p>需要注意的是<code>pandoc-citeproc --bib2json</code>和<code>pandoc-citeproc --bib2yaml</code>可产生<code>.json</code>和<code>.yaml</code>从任何支持的格式文件。</p>
+<p>现场标记：在BibTeX和BibLaTeX数据库中，pandoc-citeproc解析LaTeX标记的一个子集;在CSL YAML数据库中，pandoc Markdown;并在CSL JSON数据库中使用<a href="http://docs.citationstyles.org/en/1.0/release-notes.html#rich-text-markup-within-fields">类似HTML的标记</a> ：</p>
+<dl>
+<dt><code>&lt;i&gt; 10...&lt;/i&gt;</code></dt>
+<dd>斜体</dd>
+<dt><code>&lt;B&gt; ... &lt;/ b&gt;的</code></dt>
+<dd>加粗</dd>
+<dt><code>&lt;span style="font-variant:small-caps;"&gt;...&lt;/span&gt;</code>或<code>&lt;sc&gt;...&lt;/sc&gt;</code></dt>
+<dd>小资本</dd>
+<dt><code>&lt;子&gt; ... &lt;/子&gt;</code></dt>
+<dd>下标</dd>
+<dt><code>&lt;SUP&gt; ... &lt;/ SUP&gt;</code></dt>
+<dd>上标</dd>
+<dt><code>&lt;span class =“nocase”&gt; ... &lt;/ span&gt;</code></dt>
+<dd>防止一个短语被冠以大写字母</dd>
+</dl>
+<p><code>pandoc-citeproc -j</code>和<code>-y</code> <code>pandoc-citeproc -j</code>相互转换CSL JSON和CSL YAML格式。</p>
+<p>作为使用<code>--bibliography</code>或YAML元数据字段<code>bibliography</code>指定书目文件的替代方法，您可以将引文数据直接包含在文档的YAML元数据的<code>references</code>字段中。该字段应包含一个YAML编码参考数组，例如：</p>
+<pre><code>- 参考文献： - 类型：文章 - 杂志编号：WatsonCrick1953作者： - 家庭：沃森给出：JD  - 家庭：克里克给出：FHC发出：日期零件： -   -  1953年 -  4  -  25标题：酸：一种脱氧核糖核酸的结构'title-short：核酸容器的分子结构 - 标题：Nature volume：171 issue：4356 page：737-738 DOI：10.1038 / 171737a0 URL：http：//www.nature.com /nature/journal/v171/n4356/abs/171737a0.html language：zh-CN ...</code></pre>
+<p>（ <code>pandoc-citeproc --bib2yaml</code>可以使用其中一种支持格式的书目文件生成这些文件。）</p>
+<p>可以使用<a href="https://www.zotero.org/styles">Zotero样式存储库中</a>列出的<a href="http://citationstyles.org">引用样式语言</a>支持的任何样式对引用和引用进行格式化。这些文件是使用<code>--csl</code>选项或<code>csl</code>元数据字段指定的。默认情况下， <code>pandoc-citeproc</code>将使用<a href="http://chicagomanualofstyle.org">芝加哥样式</a>作者日期格式<a href="http://chicagomanualofstyle.org">手册</a> 。CSL项目提供了关于<a href="http://citationstyles.org/styles/">查找和编辑样式的</a>更多信息。</p>
+<p>为了使您的引用超链接到相应的参考书目条目，添加<code>link-citations: true</code>的YAML元数据。</p>
+<p>引文出现在方括号内，并以分号分隔。每个引用必须有一个键，由数据库中引用标识符“@”组成，可以有一个前缀，一个定位符和一个后缀。引文键必须以字母，数字或<code>_</code>开头，可能包含字母数字， <code>_</code>和内部标点符号（ <code>:.#$%&amp;-+?&lt;% ... %&gt;这里有一些例子：</p>
+<pre><code>Blah blah [见@ doe99，第33-35页;也@ smith04，第一章。1Blah blah [@ doe99，pp.33-35,38-39和* passim *]。Blah blah [@ smith04; @ doe99。</code></pre>
+<p><code>pandoc-citeproc</code>检测<a href="https://github.com/citation-style-language/locales">CSL语言环境文件</a>中的定位符项。无论是缩写还是非缩写形式都被接受。在<code>en-US</code>语言环境中，定位词可以以单数或复数形式书写，如<code>book</code> ， <code>bk.</code> / <code>bks.</code> ; <code>chapter</code> ， <code>chap.</code> / <code>chaps.</code> ; <code>column</code> ， <code>col.</code> / <code>cols.</code> ; <code>figure</code> ， <code>fig.</code> / <code>figs.</code> ; <code>folio</code> ， <code>fol.</code> / <code>fols.</code> ; <code>number</code> ， <code>no.</code> / <code>nos.</code> ; <code>line</code> ， <code>l.</code> / <code>ll.</code> ; <code>note</code> ， <code>n.</code> / <code>nn.</code> ; <code>opus</code> ， <code>op.</code> / <code>opp.</code> ; <code>page</code> ， <code>p.</code> / <code>pp.</code> <code>paragraph</code> ， <code>para.</code> / <code>paras.</code> ; <code>part</code> ，角<code>pt.</code> / <code>pts.</code> ; <code>section</code> ， <code>sec.</code> / <code>secs.</code> ; <code>sub verbo</code> <code>s.vv.</code> ， <code>sv</code> / <code>s.vv.</code> ; <code>verse</code> ， <code>v.</code> / <code>vv.</code> ; <code>volume</code> ， <code>vol.</code> / <code>vols.</code>; <code>¶</code> / <code>¶¶</code> ; <code>§</code> / <code>§§</code> 。如果没有使用定位器术语，则假定“页面”。</p>
+<p><code>@</code>之前的减号（ <code>-</code> ）会在引用中压制作者的提及。当作者已经在文中提到时，这可能是有用的：</p>
+<pre><code>史密斯说blah [ -  @ smith04]。</code></pre>
+<p>你也可以写一个文中引用，如下所示：</p>
+<pre><code>@ smith04说等等。@ smith04 [p。 33]说，等等。</code></pre>
+<p>如果风格要求引用的作品列表，它将被放置在文档的末尾。通常情况下，您需要使用适当的标题结束文档：</p>
+<pre><code>最后一段...{0}参考资料{/0} {1}49{/1}</code></pre>
+<p>参考书目将被插入在这个标题之后。请注意， <code>unnumbered</code>类将被添加到此标题，以便该部分不会被编号。</p>
+<p>如果您希望在参考书目中包含项目，而没有在正文中引用它们，您可以定义一个虚拟的<code>nocite</code>元数据字段，并将引文放在那里：</p>
+<pre><code>--- nocite：| @ item1，@ item2 ...9</code></pre>
+<p>在这个例子中，文档只包含<code>item3</code>的引用，但参考书目将包含<code>item1</code> ， <code>item2</code>和<code>item3</code> 。</p>
+<p>可以通过使用通配符来创建一个带有所有引用的参考书目，不管它们是否出现在文档中：</p>
+<pre><code>--- nocite：| @ * ...</code></pre>
+<p>对于LaTeX或PDF输出，您还可以使用<a href="https://ctan.org/pkg/natbib"><code>natbib</code></a>或<a href="https://ctan.org/pkg/biblatex"><code>biblatex</code></a>来呈现参考书目。为此，请按上面所述指定参考书目文件，并将<code>--natbib</code>或<code>--biblatex</code>参数添加到<code>pandoc</code>调用中。请记住，参考书目文件必须是相应的格式（BibTeX或BibLaTeX）。</p>
+<p>有关更多信息，请参见<a href="https://github.com/jgm/pandoc-citeproc/blob/master/man/pandoc-citeproc.1.md">pandoc-citeproc手册页</a> 。</p>
+<h2 id="non-pandoc-extensions">非pandoc扩展</h2>
+<p>以下Markdown语法扩展在pandoc中默认不启用，但可以通过将<code>+EXTENSION</code>添加到格式名称（其中<code>EXTENSION</code>是<code>EXTENSION</code>名）来启用。因此，例如， <code>markdown+hard_line_breaks</code>是使用强硬换行符Markdown。</p>
+<h4 id="extension-old_dashes">扩展名： <code>old_dashes</code></h4>
+<p>选择pandoc &lt;= 1.8.2.1行为来解析智能破折号： <code>-</code>在数字是一个连字符之前， <code>--</code>是一个em-dash。如果启用<code>smart</code>则此选项仅起作用。自动选择<code>textile</code>输入。</p>
+<h4 id="extension-angle_brackets_escapable">扩展名： <code>angle_brackets_escapable</code></h4>
+<p>允许<code>&lt;</code>和<code>&gt;</code>反斜线转义，因为它们可以在GitHub风格的Markdown中，但不是原始的Markdown。这是由pandoc默认的<code>all_symbols_escapable</code>暗示的。</p>
+<h4 id="extension-lists_without_preceding_blankline">扩展名： <code>lists_without_preceding_blankline</code></h4>
+<p>允许列表在一段后面出现，没有中间空格。</p>
+<h4 id="extension-four_space_rule">扩展名： <code>four_space_rule</code></h4>
+<p>选择用于解析列表的pandoc &lt;= 2.0行为，以便列表项继续段落需要四个空格缩进。</p>
+<h4 id="extension-spaced_reference_links">扩展名： <code>spaced_reference_links</code></h4>
+<p>允许引用链接的两个组件之间的空白，例如，</p>
+<pre><code>[foo] [bar]。</code></pre>
+<h4 id="extension-hard_line_breaks">扩展名： <code>hard_line_breaks</code></h4>
+<p>导致段落中的所有换行符被解释为强行换行而不是空格。</p>
+<h4 id="extension-ignore_line_breaks">扩展名： <code>ignore_line_breaks</code></h4>
+<p>导致段落中的换行符被忽略，而不被视为空格或强行换行符。此选项旨在用于不使用单词之间空格的东亚语言，但为了便于阅读，文本被分为几行。</p>
+<h4 id="extension-east_asian_line_breaks">扩展名： <code>east_asian_line_breaks</code></h4>
+<p>导致段落中的换行符被忽略，而不是在两个东亚宽字符之间出现空格或强行换行。对于包含东亚宽字符和其他字符混合的文本，这是比<code>ignore_line_breaks</code>更好的选择。</p>
+<h4 id="extension-emoji">扩展名： <code>emoji</code></h4>
+<p>解析texto表情符号<code>:smile:</code>作为Unicode表情符号。</p>
+<h4 id="extension-tex_math_single_backslash">扩展名： <code>tex_math_single_backslash</code></h4>
+<p>导致<code>\(</code>和<code>\)</code>之间的任何内容被解释为内联TeX数学， <code>\[</code>和<code>\]</code>之间的任何内容被解释为显示TeX数学。注意：这个扩展的缺点是它排除了逃逸<code>(</code>和<code>[</code> 。</p>
+<h4 id="extension-tex_math_double_backslash">扩展名： <code>tex_math_double_backslash</code></h4>
+<p>导致<code>\\(</code>和<code>\\)</code>之间的任何内容被解释为内联的TeX数学，以及<code>\\[</code>和<code>\\]</code>之间的任何内容被解释为显示TeX数学。</p>
+<h4 id="extension-markdown_attribute">扩展名： <code>markdown_attribute</code></h4>
+<p>默认情况下，pandoc将块级别标签内的材质解释为Markdown。这个扩展改变了行为，所以如果Markdown属性为<code>markdown=1</code> ，Markdown只能在块级标签内解析。</p>
+<h4 id="extension-mmd_title_block">扩展名： <code>mmd_title_block</code></h4>
+<p>在文档顶部启用<a href="http://fletcherpenney.net/multimarkdown/">MultiMarkdown</a>样式标题<a href="http://fletcherpenney.net/multimarkdown/">栏</a> ，例如：</p>
+<pre><code>标题：我的标题作者：John Doe日期：2008年9月1日评论：这是一个示例mmd标题栏，字段跨越多行。</code></pre>
+<p>有关详细信息，请参阅MultiMarkdown文档。如果启用了<code>pandoc_title_block</code>或<code>yaml_metadata_block</code> ，它将优先于<code>mmd_title_block</code> 。</p>
+<h4 id="extension-abbreviations">扩展名： <code>abbreviations</code></h4>
+<p>解析PHP Markdown额外的缩写键，就像</p>
+<pre><code>* [HTML]：超文本标记语言</code></pre>
+<p>请注意，pandoc文档模型不支持缩写，因此，如果启用了此扩展名，则简略键将被简单地跳过（而不是被解析为段落）。</p>
+<h4 id="extension-autolink_bare_uris">扩展名： <code>autolink_bare_uris</code></h4>
+<p>即使没有尖括号<code>&lt;...&gt;</code>包围，也会将所有绝对URI作为链接。</p>
+<h4 id="extension-mmd_link_attributes">扩展名： <code>mmd_link_attributes</code></h4>
+<p>分析链接和图像引用上的multimarkdown样式键值属性。不应将此扩展与<a href="#extension-link_attributes"><code>link_attributes</code></a>扩展混淆。</p>
+<pre><code>这是一个参考！[image] [ref]具有multimarkdown属性。[ref]：http://path.to/image“图片标题”width = 20px height = 30px id = myId class =“myClass1 myClass2”</code></pre>
+<h4 id="extension-mmd_header_identifiers">扩展名： <code>mmd_header_identifiers</code></h4>
+<p>解析multimarkdown风格的头标识符（在方括号中，报头之后，但在任何尾随<code>#</code>在ATX头或多个）。</p>
+<h4 id="extension-compact_definition_lists">扩展名： <code>compact_definition_lists</code></h4>
+<p>激活pandoc 1.12.x及更早版本的定义列表语法。这个语法在<a href="#definition-lists">定义列表</a>中有几个不同的地方：</p>
+<ul>
+<li>定义列表的连续项目之间不需要空行。</li>
+<li>要获得“紧凑”或“紧凑”列表，请省略连续项目之间的空格;术语与其定义之间的空间不影响任何内容。</li>
+<li>懒惰的段落包装是不允许的：整个定义必须缩进四个空格。 <a href="#fn5" class="footnote-ref" id="fnref5"><sup>五</sup></a></li>
+</ul>
+<h2 id="markdown-variants">减价变种</h2>
+<p>除了pandoc扩展Markdown，还支持以下Markdown变体：</p>
+<dl>
+<dt><code>markdown_phpextra</code> （PHP Markdown Extra）</dt>
+<dd><code>footnotes</code> ， <code>pipe_tables</code> ， <code>raw_html</code> ， <code>markdown_attribute</code> ， <code>fenced_code_blocks</code> ， <code>definition_lists</code> ， <code>intraword_underscores</code> ， <code>header_attributes</code> ， <code>link_attributes</code> ， <code>abbreviations</code> ， <code>shortcut_reference_links</code> ， <code>spaced_reference_links</code> 。
+</dd>
+<dt><code>markdown_github</code> （不赞成使用GitHub-Flavored Markdown）</dt>
+<dd><code>pipe_tables</code> ， <code>raw_html</code> ， <code>fenced_code_blocks</code> ， <code>gfm_auto_identifiers</code> ， <code>ascii_identifiers</code> ， <code>backtick_code_blocks</code> ， <code>autolink_bare_uris</code> ， <code>space_in_atx_header</code> ， <code>intraword_underscores</code> ， <code>strikeout</code> ， <code>emoji</code> ， <code>shortcut_reference_links</code> ， <code>angle_brackets_escapable</code> ， <code>lists_without_preceding_blankline</code> 。
+</dd>
+<dt><code>markdown_mmd</code> （MultiMarkdown）</dt>
+<dd><code>pipe_tables</code> ， <code>raw_html</code> ， <code>markdown_attribute</code> ， <code>mmd_link_attributes</code> ， <code>tex_math_double_backslash</code> ， <code>intraword_underscores</code> ， <code>mmd_title_block</code> ， <code>footnotes</code> ， <code>definition_lists</code> ， <code>all_symbols_escapable</code> ， <code>implicit_header_references</code> ， <code>auto_identifiers</code> ， <code>mmd_header_identifiers</code> ， <code>shortcut_reference_links</code> ， <code>implicit_figures</code> ， <code>superscript</code> ， <code>subscript</code> ， <code>backtick_code_blocks</code> ， <code>spaced_reference_links</code> ， <code>raw_attribute</code> 。
+</dd>
+<dt><code>markdown_strict</code> （Markdown.pl）</dt>
+<dd><code>raw_html</code> ， <code>shortcut_reference_links</code> ， <code>spaced_reference_links</code> 。
+</dd>
+</dl>
+<p>我们也支持<code>commonmark</code>和<code>gfm</code> （GitHub- <code>gfm</code> Markdown，它是作为<code>commonmark</code>上的一组扩展来<code>commonmark</code> ）。</p>
+<p>但是请注意， <code>commonmark</code>和<code>gfm</code>对扩展的支持有限。只有下面列出（和<code>smart</code>和<code>raw_tex</code> ）将工作。但是，扩展可以单独禁用。另外， <code>raw_tex</code>只影响<code>gfm</code>输出，而不是输入。</p>
+<dl>
+<dt><code>gfm</code> （GitHub- <code>gfm</code> Markdown）</dt>
+<dd><code>pipe_tables</code> ， <code>raw_html</code> ， <code>fenced_code_blocks</code> ， <code>auto_identifiers</code> ， <code>ascii_identifiers</code> ， <code>backtick_code_blocks</code> ， <code>autolink_bare_uris</code> ， <code>intraword_underscores</code> ， <code>strikeout</code> ， <code>hard_line_breaks</code> ， <code>emoji</code> ， <code>shortcut_reference_links</code> ， <code>angle_brackets_escapable</code> 。
+</dd>
+</dl>
+<h1 id="producing-slide-shows-with-pandoc">用pandoc制作幻灯片</h1>
+<p>您可以使用pandoc生成可通过Web浏览器查看的HTML + JavaScript幻灯片演示文稿。有五种方法可以使用<a href="http://meyerweb.com/eric/tools/s5/">S5</a> ， <a href="http://paulrouget.com/dzslides/">DZSlides</a> ， <a href="http://www.w3.org/Talks/Tools/Slidy/">Slidy</a> ， <a href="http://goessner.net/articles/slideous/">Slideous</a>或<a href="http://lab.hakim.se/reveal-js/">reveal.js</a> 。您还可以使用LaTeX <a href="https://ctan.org/pkg/beamer"><code>beamer</code></a>制作PDF幻灯片，或以Microsoft <a href="https://en.wikipedia.org/wiki/Microsoft_PowerPoint">PowerPoint</a>格式制作幻灯片。</p>
+<p>这里是一个简单的幻灯片放映的Markdown源代码， <code>habits.txt</code> ：</p>
+<pre><code>％的习惯％John Doe％2005年3月22日＃早上##起床 - 关掉闹钟 - 起床##早餐 - 吃鸡蛋 - 喝咖啡＃晚上##晚餐 - 吃意大利面 - 喝红酒 - -----------------！[意大利面图片]（图片/ spaghetti.jpg）##睡觉 - 上床 - 数绵羊</code></pre>
+<p>要制作HTML / JavaScript幻灯片，只需键入</p>
+<pre><code>pandoc -t FORMAT -s habits.txt -o habits.html</code></pre>
+<p><code>FORMAT</code>是<code>s5</code> ， <code>slidy</code> ， <code>slideous</code> ， <code>dzslides</code>或<code>revealjs</code> 。</p>
+<p>对于Slidy，Slideous，reveal.js和S5，由pandoc使用<code>-s/--standalone</code>选项生成的文件嵌入到JavaScript和CSS文件的链接，这些文件假定可在相对路径<code>s5/default</code> （for S5）， <code>slideous</code> （幻灯片）， <code>reveal.js</code> （揭露.js），或在slidy网站<code>w3.org</code> （斯莱迪）。（可以通过设置<code>slidy-url</code> ， <code>slideous-url</code> ， <code>revealjs-url</code>或<code>s5-url</code>变量来更改这些路径;请参阅上面的<a href="#variables-for-slides">幻灯片的变量</a> 。对于DZSlides，这个（相对较短的）JavaScript和CSS默认包含在文件中。</p>
+<p>对于所有的HTML幻灯片格式，可以使用<code>--self-contained</code>选项来生成一个单独的文件，其中包含显示幻灯片所需的所有数据，包括链接的脚本，样式表，图像和视频。</p>
+<p>要使用投影机制作PDF幻灯片，请键入</p>
+<pre><code>pandoc -t beamer habit.txt -o habits.pdf</code></pre>
+<p>请注意，一个reveal.js幻灯片也可以通过从浏览器打印到一个文件转换为PDF格式。</p>
+<p>要制作Powerpoint幻灯片，请键入</p>
+<pre><code>pandoc的习惯.txt -o的习惯.pptx</code></pre>
+<h2 id="structuring-the-slide-show">构建幻灯片</h2>
+<p>默认情况下， <em>幻灯片级别</em>是层次结构中最高的标题级别，紧接着是内容，而不是文档中某处的另一个标题。在上面的例子中，1级标题后面跟着2级标题，后面是内容，所以2是幻灯片级别。可以使用<code>--slide-level</code>选项覆盖此默认值。</p>
+<p>该文件按照以下规则分成幻灯片：</p>
+<ul>
+<li><p>水平线总是开始一个新的幻灯片。</p></li>
+<li><p>幻灯片级别的标题始终启动新的幻灯片。</p></li>
+<li><p>层次结构中幻灯片<em>下面</em>的标题<em>在</em>幻灯片中创建标题。</p></li>
+<li><p>层次结构中幻灯片<em>上方</em>的标题创建“标题幻灯片”，其中只包含片段标题并帮助将幻灯片放映到片段中。</p></li>
+<li><p>幻灯片<em>上方</em>的内容不会出现在幻灯片中。</p></li>
+<li><p>如果存在，则标题页自动从文档的标题栏构建。（在beamer的情况下，这可以通过注释默认模板中的一些行来禁用。）</p></li>
+</ul>
+<p>这些规则旨在支持许多不同风格的幻灯片放映。如果您不关心将幻灯片分成多个小节和小节，则可以对每个幻灯片使用1级标题。（在这种情况下，等级1将是幻灯片级别。）但是，您也可以将幻灯片放映结构分段，如上例所示。</p>
+<p>注意：在reveal.js幻灯片显示中，如果幻灯片级别为2，则会生成二维布局，其中1级标题为水平构建，2级标题为垂直构建。不建议您使用reveal.js更深的嵌套部分级别。</p>
+<h2 id="incremental-lists">增量列表</h2>
+<p>默认情况下，这些作家产生列表，显示“一次全部”。如果您希望您的列表逐步显示（一次一个项目），请使用<code>-i</code>选项。如果你想要一个特定的列表，从默认的离开（即逐步显示没有<code>-i</code>在与一次选项和所有<code>-i</code>选项），把它放在一个块引用：</p>
+<pre><code>&gt;  - 吃意大利面条&gt;  - 喝葡萄酒</code></pre>
+<p>通过这种方式，增量和非增量列表可以混合在单个文档中。</p>
+<h2 id="inserting-pauses">插入暂停</h2>
+<p>您可以在幻灯片中添加“暂停”，方法是将包含三个点的段落用空格分隔：</p>
+<pre><code>＃在暂停前滑动暂停内容。 。 。暂停后的内容</code></pre>
+<h2 id="styling-the-slides">造型的幻灯片</h2>
+<p>您可以通过将自定义CSS文件置于<code>$DATADIR/s5/default</code> （对于S5）， <code>$DATADIR/slidy</code> （对于Slidy）或<code>$DATADIR/slideous</code> （对于Slideous）来更改HTML幻灯片的样式，其中<code>$DATADIR</code>是用户数据目录（参见上面的<code>--data-dir</code> ）。可以在pandoc的系统数据目录中找到原始文件（一般<code>$CABALDIR/pandoc-VERSION/s5/default</code> ）。Pandoc将在那里查找在用户数据目录中找不到的文件。</p>
+<p>对于dzslides，CSS包含在HTML文件本身中，并且可以在那里修改。</p>
+<p>所有的<a href="https://github.com/hakimel/reveal.js#configuration">reveal.js配置选项</a>都可以通过变量来设置。例如，可以通过设置<code>theme</code>变量来使用<code>theme</code> ：</p>
+<pre><code>-V主题=月亮</code></pre>
+<p>或者您可以使用<code>--css</code>选项指定自定义样式表。</p>
+<p>要设置投影仪幻灯片的样式，您可以使用<code>-V</code>选项指定<code>theme</code> ， <code>colortheme</code> ， <code>fonttheme</code> ， <code>innertheme</code>和<code>outertheme</code> 。</p>
+<pre><code>Pandoc -t beamer habit.txt -V主题：Warsaw -o habits.pdf</code></pre>
+<p>请注意，标题属性将变成HTML幻灯片格式的幻灯片属性（在<code>&lt;div&gt;</code>或<code>&lt;section&gt;</code> ），允许您设置单个幻灯片的样式。在投影机中，影响幻灯片的唯一标题属性是<code>allowframebreaks</code>类，它设置了<code>allowframebreaks</code>选项，如果内容溢出帧，将导致创建多个幻灯片。这特别推荐用于参考书目：</p>
+<pre><code>＃参考文献{.allowframebreaks}</code></pre>
+<h2 id="speaker-notes">演讲者笔记</h2>
+<p>reveal.js对演讲者笔记有很好的支持。您可以将注释添加到您的Markdown文档：</p>
+<pre><code>:::注意这是我的笔记。- 它可以包含Markdown  - 像这样的列表:::</code></pre>
+<p>要显示笔记窗口，请在查看演示文稿时按<code>s</code> 。其他幻灯片格式还不支持注释，但笔记本身不会出现在幻灯片上。</p>
+<h2 id="columns">列</h2>
+<p>要将材质放在并排列中，可以使用带有类<code>columns</code>的本机div容器，其中包含具有class <code>column</code>和<code>width</code>属性的两个或多个div容器：</p>
+<pre><code>:::::::::::::: {.columns} ::: {.column width =“40％”} contents ...::: ::: {.column width =“60％”} contents ...::: ::::::::::::::</code></pre>
+<h2 id="frame-attributes-in-beamer">投影机中的帧属性</h2>
+<p>有时需要将LaTeX <code>[fragile]</code>选项添加到投影机中的帧（例如，使用<code>minted</code>环境时）。这可以通过将<code>fragile</code>类添加到引入幻灯片的标题来强制：</p>
+<pre><code>＃脆弱的幻灯片{.fragile}</code></pre>
+<p>“ <a href="http://ctan.math.utah.edu/ctan/tex-archive/macros/latex/contrib/beamer/doc/beameruserguide.pdf">Beamer用户指南”</a>第8.1节中描述的所有其他框架属性也可以使用： <code>allowdisplaybreaks</code> ， <code>allowframebreaks</code> ， <code>b</code> ， <code>c</code> ， <code>t</code> ， <code>environment</code> ， <code>label</code> ， <code>plain</code> ， <code>shrink</code> 。</p>
+<h1 id="creating-epubs-with-pandoc">使用pandoc创建EPUB</h1>
+<h2 id="epub-metadata">EPUB元数据</h2>
+<p>可以使用<code>--epub-metadata</code>选项指定EPUB元<code>--epub-metadata</code> ，但是如果源文档是Markdown，则最好使用<a href="#extension-yaml_metadata_block">YAML元数据块</a> 。举例如下：</p>
+<pre><code>- 标题： - 类型：正文：我的书 - 类型：字幕文本：元数据创建者的调查： - 角色：作者文本：约翰史密斯 - 角色：编辑文本：莎拉琼斯标识符： - 方案：DOI文本：doi ：10.234234.234 / 33发布者：我的新闻稿：©2007 John Smith，CC BY-NC ibooks：version：1.3.4 ...</code></pre>
+<p>以下字段被识别：</p>
+<dl>
+<dt><code>identifier</code></dt>
+<dd>字符串值或字段<code>text</code>和<code>scheme</code>的对象。为有效值<code>scheme</code>是<code>ISBN-10</code> ， <code>GTIN-13</code> ， <code>UPC</code> ， <code>ISMN-10</code> ， <code>DOI</code> ， <code>LCCN</code> ， <code>GTIN-14</code> ， <code>ISBN-13</code> ， <code>Legal deposit number</code> ， <code>URN</code> ， <code>OCLC</code> ， <code>ISMN-13</code> ， <code>ISBN-A</code> <code>JP</code> ， <code>OLCC</code> 。</dd>
+<dt><code>件名</code></dt>
+<dd>可以是字符串值，也可以是包含字段<code>file-as</code>和<code>type</code>的对象，或者是这些对象的列表。<code>type</code>有效值<code>main</code> ， <code>subtitle</code> ， <code>short</code> ， <code>collection</code> ， <code>edition</code> ， <code>extended</code> 。
+</dd>
+<dt><code>作者</code></dt>
+<dd>可以是字符串值，也可以是具有字段<code>role</code> ， <code>file-as</code>和<code>text</code>的对象，或者是这些对象的列表。<code>role</code>有效值是<a href="http://loc.gov/marc/relators/relaterm.html">MARC的关联者</a> ，但是pandoc会试图将人类可读的版本（如“作者”和“编辑者”）翻译成合适的marc关系人。
+</dd>
+<dt><code>贡献者</code></dt>
+<dd>与<code>creator</code>格式相同。
+</dd>
+<dt><code>日期</code></dt>
+<dd><code>YYYY-MM-DD</code>格式的字符串值。（只有一年是必要的。）Pandoc将尝试转换其他常见的日期格式。
+</dd>
+<dt><code>lang</code> （或传统： <code>language</code> ）</dt>
+<dd><a href="https://tools.ietf.org/html/bcp47">BCP 47</a>格式的字符串值。如果没有指定，Pandoc将默认为本地语言。
+</dd>
+<dt><code>subject</code></dt>
+<dd>字符串值或这些值的列表。
+</dd>
+<dt><code>描述</code></dt>
+<dd>一个字符串值。
+</dd>
+<dt><code>类型</code></dt>
+<dd>一个字符串值。
+</dd>
+<dt><code>格式化</code></dt>
+<dd>一个字符串值。
+</dd>
+<dt><code>的关系</code></dt>
+<dd>一个字符串值。
+</dd>
+<dt><code>coverage</code></dt>
+<dd>一个字符串值。
+</dd>
+<dt><code>权利（Rights）。</code></dt>
+<dd>一个字符串值。
+</dd>
+<dt><code>封面图片</code></dt>
+<dd>一个字符串值（封面图片的路径）。
+</dd>
+<dt><code>Stylesheets</code></dt>
+<dd>一个字符串值（CSS样式表的路径）。
+</dd>
+<dt><code>页进展方向</code></dt>
+<dd>或者<code>ltr</code>或者<code>rtl</code> 。指定<a href="http://idpf.org/epub/301/spec/epub-publications.html#sec-spine-elem"><code>spine</code>元素</a>的<code>page-progression-direction</code>属性。
+</dd>
+<dt><code>iBooks</code></dt>
+<dd><p>iBooks特定的元数据，具有以下字段：</p>
+<ul>
+<li><code>version</code> :(字符串）</li>
+<li><code>specified-fonts</code> ： <code>true</code> | <code>false</code> （默认为<code>false</code> ）</li>
+<li><code>ipad-orientation-lock</code> ： <code>portrait-only</code> | <code>landscape-only</code></li>
+<li><code>iphone-orientation-lock</code> ： <code>portrait-only</code> | <code>landscape-only</code></li>
+<li><code>binding</code> ： <code>true</code> | <code>false</code> （默认为<code>true</code> ）</li>
+<li><code>scroll-axis</code> ： <code>vertical</code> | <code>horizontal</code> | <code>default</code></li>
+</ul>
+</dd>
+</dl>
+<h2 id="linked-media">链接的媒体</h2>
+<p>默认情况下，pandoc将下载链接的媒体（包括音频和视频）并将其包含在EPUB容器中，产生一个完全独立的EPUB。如果您想链接到外部媒体资源，请在您的源代码中使用原始HTML，然后将<code>data-external="1"</code>到具有<code>src</code>属性的代码中。例如：</p>
+<pre><code>&lt;audio controls =“1”&gt; &lt;source src =“http://example.com/music/toccata.mp3”data-external =“1”type =“audio / mpeg”&gt; &lt;/ source&gt; &lt;/ audio&gt;</code></pre>
+<h1 id="syntax-highlighting">语法突出显示</h1>
+<p>Pandoc将自动突出显示用语言名称标记的<a href="#fenced-code-blocks">围栏代码块</a>中的语法。Haskell图书馆<a href="https://github.com/jgm/skylighting">天窗</a>用于突出显示，它在HTML，Docx，Ms和LaTeX / PDF输出中起作用。要查看pandoc将识别的语言名称列表，请键入<code>pandoc --list-highlight-languages</code> 。</p>
+<p>可以使用<code>--highlight-style</code>选项来选择配色方案。默认的配色方案是<code>pygments</code> ，它模仿Python库pygments使用的默认配色方案（尽管pygments实际上并没有用于突出显示）。要查看突出显示样式的列表，请键入<code>pandoc --list-highlight-styles</code> 。</p>
+<p>要禁用突出显示，请使用<code>--no-highlight</code>选项。</p>
+<h1 id="custom-styles-in-docx-output">Docx输出中的自定义样式</h1>
+<p>默认情况下，pandoc的docx输出为块（如段落和块引用）应用了预定义的一组样式，并且主要使用内联的默认格式（斜体，粗体）。这将适用于大多数目的，特别是在<code>reference.docx</code>文件旁边。但是，如果您需要将自己的样式应用于块，或者匹配预先存在的一组样式，则可以使用pandoc分别使用<code>div</code>和<code>span</code>定义块和文本的自定义样式。</p>
+<p>如果您使用<code>custom-style</code>定义了<code>div</code>或<code>span</code> ，则pandoc会将您指定的样式应用于包含的元素。所以，例如使用<code>bracketed_spans</code>语法，</p>
+<pre><code>他说，[出去] {custom-style =“着急”）。</code></pre>
+<p>将产生一个docx文件与“出去”风格的字符风格<code>Emphatically</code> 。同样，使用<code>fenced_divs</code>语法，</p>
+<pre><code>狄金森简单地开始了这首诗：::: {custom-style =“Poetry”} |一只鸟走下来--- |他不知道我看到了--- :::</code></pre>
+<p>将风格与<code>Poetry</code>段落风格的两个包含行。</p>
+<p>如果样式不在reference.docx中，则它们将在输出文件中定义为从普通文本继承。如果已经定义了，pandoc不会改变定义。</p>
+<p>此功能允许与<a href="http://pandoc.org/filters.html">pandoc过滤器</a>一起进行最大程度的自定义。如果希望块引号之后的所有段落都缩进，则可以编写一个过滤器来应用所需的样式。如果你希望所有斜体字被转化为<code>Emphasis</code>字符样式（也许是为了改变自己的颜色），你可以写一个过滤器，将改变所有的斜体字内联到内联的内<code>Emphasis</code>定制式的<code>span</code> 。</p>
+<h1 id="custom-writers">自定义作家</h1>
+<p>Pandoc可以使用<a href="http://www.lua.org">lua</a>编写的自定义编写器进行扩展。（Pandoc包含一个lua解释器，所以lua不需要单独安装。）</p>
+<p>要使用自定义书写器，只需指定lua脚本的路径来代替输出格式。例如：</p>
+<pre><code>pandoc -t data / sample.lua</code></pre>
+<p>创建自定义书写器需要为pandoc文档中的每个可能元素编写一个lua函数。为了得到一个你可以根据你的需要修改的记录的例子，</p>
+<pre><code>pandoc --print-default-data-file sample.lua</code></pre>
+<h1 id="authors">作者</h1>
+<p>Copyright 2006-2017 John MacFarlane（jgm@berkeley.edu）。根据<a href="http://www.gnu.org/copyleft/gpl.html" title="GNU General Public License">GPL</a>第2版​​或更高版本<a href="http://www.gnu.org/copyleft/gpl.html" title="GNU General Public License">发布</a> 。本软件不包含任何形式的保证。（请参阅版权所有版权和保修声明。）有关贡献者的完整列表，请参阅pandoc源代码中的文件AUTHORS.md。</p>
+<section class="footnotes">
+<hr>
+<ol>
+<li id="fn1"><p>要使<code>subtitle</code>与其他LaTeX文档类一起工作，可以将以下内容添加到<code>header-includes</code> ：</p>
+<pre><code>\ providecommand {\ subtitle} [1] {％\ usepackage {titling} \ posttitle {％\ par \ large＃1 \ end {center}}}</code></pre>
+<a href="#fnref1" class="footnote-back">↩</a></li>
+<li id="fn2"><p>这个规则的要点是确保正常的段落以人的名字首字母开头</p>
+<pre><code>B.罗素是英国哲学家。</code></pre>
+<p>不要视为列表项目。</p>
+<p>这个规则不会阻止</p>
+<pre><code>（C）2007年乔·史密斯</code></pre>
+<p>从被解释为列表项目。在这种情况下，可以使用反斜杠转义：</p>
+<pre><code>（C \）2007年乔·史密斯</code></pre>
+<a href="#fnref2" class="footnote-back">↩</a></li>
+<li id="fn3"><p>我受到了<a href="http://www.justatheory.com/computers/markup/modest-markdown-proposal.html">David Wheeler</a>的建议的影响。<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>这个计划是由Michel Fortin在<a href="http://six.pairlist.net/pipermail/markdown-discuss/2005-March/001097.html">Markdown讨论名单</a>上提出的。<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>要了解为什么懒惰与放宽项目之间空行的要求不兼容，请考虑以下示例：</p>
+<pre><code>bar：定义foo：定义</code></pre>
+<p>这是一个单一的列表项，有两个定义的“酒吧”，其中第一个是懒洋洋地包裹，或两个列表项？为了消除不明确性，我们必须不允许懒包装或需要列表项之间的空行。<a href="#fnref5" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
+        </div>
+      </main>
+    </div>
+    <footer>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Pandoc - FAQs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--[if lt IE 9]>
+       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+       <![endif]-->
+  <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/screen.css">
+  <link rel="stylesheet" type="text/css" media="print" href="css/print.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      pre{ font-size: 12pt; }
+      .smallcaps{font-variant: small-caps;}
+      .line-block{white-space: pre-line;}
+      .column{display: inline-block;}
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"
+            type="text/javascript"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="js/nav.js"></script>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-2234613-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  </script>
+  <script type="text/javascript">
+  /* <![CDATA[ */
+    (function() {
+        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'https://api.flattr.com/js/0.6/load.js?mode=auto';
+        t.parentNode.insertBefore(s, t);
+    })();
+  /* ]]> */
+  </script>
+</head>
+<body>
+  <div id="doc" class="container-fluid">
+    <header>
+      <div id="flattr">
+        <a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="https://pandoc.org"></a>
+        <noscript><a href="https://flattr.com/thing/936364/Pandoc" target="_blank"><img src="https://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
+      </div>
+        <div id="paypal">
+         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHbwYJKoZIhvcNAQcEoIIHYDCCB1wCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYA1aF1SYXH476Drh95jHdjCr2Pe08jgMkj9i7o+LqUNtjNpn2o2WT0G0gRm8+fSf3olG3isnZ8cJcxvV4MqvT054L2Z+erugv1UnDyEx/rmOzk+JQkDX71PmMYjQLwbyrFyU0RaVR6ksjNstM3I7bn4b8gQuSM9UkmfI/xVvslsXTELMAkGBSsOAwIaBQAwgewGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIHvq7EiOKDNOAgcjLqF4vqQA57C5WLRryItIy6xBS/tEOeAqHUR3uj65kP0HqCmwUX18IhLksKwEOc4yeDqZUo9pcPWyFRcrRxjqObs167KmrafWzCrLDRN+czf9pZUjDpYTGy0sYyW7Rt38+vLtVRHukxLkMiT3ZJ8iRd1LXx5iQRN9d8ouuS4/CsTaZoD+cv4leQR7wKpIE2LbuMx9ghOJ4kR3NSSwNYN2VyHfgONyNdQqsZCWaSO5uGXK/TnDguKoi8VSOzX2fIChhYmvdgqPtmKCCA4cwggODMIIC7KADAgECAgEAMA0GCSqGSIb3DQEBBQUAMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbTAeFw0wNDAyMTMxMDEzMTVaFw0zNTAyMTMxMDEzMTVaMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAwUdO3fxEzEtcnI7ZKZL412XvZPugoni7i7D7prCe0AtaHTc97CYgm7NsAtJyxNLixmhLV8pyIEaiHXWAh8fPKW+R017+EmXrr9EaquPmsVvTywAAE1PMNOKqo2kl4Gxiz9zZqIajOm1fZGWcGS0f5JQ2kBqNbvbg2/Za+GJ/qwUCAwEAAaOB7jCB6zAdBgNVHQ4EFgQUlp98u8ZvF71ZP1LXChvsENZklGswgbsGA1UdIwSBszCBsIAUlp98u8ZvF71ZP1LXChvsENZklGuhgZSkgZEwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tggEAMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEFBQADgYEAgV86VpqAWuXvX6Oro4qJ1tYVIT5DgWpE692Ag422H7yRIr/9j/iKG4Thia/Oflx4TdL+IFJBAyPK9v6zZNZtBgPBynXb048hsP16l2vi0k5Q2JKiPDsEfBhGI+HnxLXEaUWAcVfCsQFvd2A1sxRr67ip5y2wwBelUecP3AjJ+YcxggGaMIIBlgIBATCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwCQYFKw4DAhoFAKBdMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTE0MDEwNjIwMjYzOVowIwYJKoZIhvcNAQkEMRYEFJLYt8/tr7y69LYjPJjKyTMm5QAYMA0GCSqGSIb3DQEBAQUABIGAI2+pZ4nP2NsnH4648MqJ7ihLLMxoiNXZTiH2yV9rknNcK0cCT28UTWnO1iFZPWNeZRMA+PclqnTS4DuGvj3+MYvGbu0NauKT9TE1eP+nrdP2XHa3qTGXcCqezVqfUxknMXyXBW5u20JGXp+D9RizEfhSX67JBLvsVwlmBYmcyYk=-----END PKCS7-----
+">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+      </div>
+
+        <span class="big">Pandoc</span>
+        &nbsp;
+        <span class="small">a universal document converter</span>
+    </header>
+    <div id="bd">
+      <nav id="navbar" class="navbar nav navbar-default col-md-3 col-sm-4">
+        <div class="navbar-header">
+  <button type="button" class="navbar-toggle"
+          data-toggle="collapse"
+          data-target=".navbar-collapse">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+</div>
+<div class="navbar-collapse collapse">
+  <ul class="nav tree">
+    <li><a href="index.html">About</a></li>
+    <li><a href="installing.html">Installing</a></li>
+    <li><a href="getting-started.html">Getting started</a></li>
+    <li><a class="tree-toggle nav-header">Demos</a>
+    <ul class="nav tree">
+      <li><a href="try">Try pandoc online</a></li>
+      <li><a href="demos.html">Examples</a></li>
+    </ul>
+    </li>
+    <li><a class="tree-toggle nav-header">Documentation</a>
+    <ul class="nav tree">
+      <li><a href="MANUAL.html">User's Guide</a>
+      <li><a href="MANUAL.pdf">User's Guide (PDF)</a>
+      <li><a href="epub.html">Making an ebook</a></li>
+      <li><a href="filters.html">Filters</a></li>
+      <li><a href="lua-filters.html">Lua filters</a></li>
+      <li><a href="CONTRIBUTING.html">Contributing</a></li>
+      <li><a href="faqs.html">FAQ</a></li>
+      <li><a href="press.html">Press</a></li>
+      <li><a href="using-the-pandoc-api.html">Using the Pandoc API</a></li>
+      <li><a href="http://hackage.haskell.org/package/pandoc">API documentation</a></li>
+    </ul>
+    </li>
+    <li><a href="help.html">Help</a></li>
+    <li><a href="https://github.com/jgm/pandoc/wiki/Pandoc-Extras">Extras</a></li>
+    <li><a href="releases.html">Releases</a></li>
+  </ul>
+</div>
+      </nav>
+      <main class="col-md-9 col-sm-8">
+        <div class="row">
+          <h1 class="title">FAQs</h1>
+        <div id="toc">
+<ul>
+<li><a href="#how-can-i-convert-a-whole-directory-of-files-from-markdown-to-rtf">How can I convert a whole directory of files from Markdown to RTF?</a></li>
+<li><a href="#i-used-pandoc-to-convert-a-document-to-icml-or-opml-or-rtf-and-and-when-i-try-to-open-it-in-indesign-or-omnioutliner-or-a-word-processor-im-told-its-invalid.-what-have-i-done-wrong">I used pandoc to convert a document to ICML (or OPML or RTF) and, and when I try to open it in InDesign (or OmniOutliner or a word processor), I’m told it’s invalid. What have I done wrong?</a></li>
+<li><a href="#i-get-a-blank-document-when-i-try-to-convert-a-markdown-document-in-chinese-to-pdf-using-pandoc--o-test.pdf-test.markdown.">I get a blank document when I try to convert a markdown document in Chinese to pdf using <code>pandoc -o test.pdf test.markdown</code>.</a></li>
+<li><a href="#the-new-windows-installer-starting-with-1.11-does-a-single-user-install-rather-than-installing-pandoc-for-all-users.-how-can-i-install-pandoc-for-all-users">The new Windows installer (starting with 1.11) does a single user install, rather than installing pandoc for all users. How can I install pandoc for all users?</a></li>
+<li><a href="#how-do-i-change-the-margins-in-pdf-output">How do I change the margins in PDF output?</a></li>
+<li><a href="#how-does-pandoc-compare-to-multimarkdown">How does pandoc compare to multimarkdown?</a></li>
+<li><a href="#pandoc-hangs-when-i-try-to-use---bibliography.">Pandoc hangs when I try to use <code>--bibliography</code>.</a></li>
+<li><a href="#after-upgrading-to-1.8.1.2-markdown2pdf-messes-up-tables-when-used-with-my-custom-latex-template.">After upgrading to 1.8.1.2, markdown2pdf messes up tables when used with my custom latex template.</a></li>
+</ul>
+        </div>
+<style type="text/css">
+h2 { border-bottom: none; border-left: 10px solid #aaa; font-size: 94%;
+font-weight: bold; margin-top: 1.5em; padding-left: 1em; }
+#toc li { padding-top: 1em; }
+</style>
+<h2 id="how-can-i-convert-a-whole-directory-of-files-from-markdown-to-rtf">How can I convert a whole directory of files from Markdown to RTF?</h2>
+<p>On linux or OSX:</p>
+<pre><code>for f in *.txt; do pandoc &quot;$f&quot; -s -o &quot;${f%.txt}.rtf&quot;; done</code></pre>
+<h2 id="i-used-pandoc-to-convert-a-document-to-icml-or-opml-or-rtf-and-and-when-i-try-to-open-it-in-indesign-or-omnioutliner-or-a-word-processor-im-told-its-invalid.-what-have-i-done-wrong">I used pandoc to convert a document to ICML (or OPML or RTF) and, and when I try to open it in InDesign (or OmniOutliner or a word processor), I’m told it’s invalid. What have I done wrong?</h2>
+<p>Be sure to use the <code>-s</code> or <code>--standalone</code> flag, or you just get a fragment, not a full document with the required header:</p>
+<pre><code>pandoc -s -f markdown -t icml -o my.icml my.md</code></pre>
+<h2 id="i-get-a-blank-document-when-i-try-to-convert-a-markdown-document-in-chinese-to-pdf-using-pandoc--o-test.pdf-test.markdown.">I get a blank document when I try to convert a markdown document in Chinese to pdf using <code>pandoc -o test.pdf test.markdown</code>.</h2>
+<p>By default, pandoc uses pdflatex to generate the PDF, and pdflatex doesn’t handle Chinese characters. But you can change the default to use xelatex instead. You should also make sure you’re using a font with Chinese glyphs. For example:</p>
+<pre><code>pandoc -o c.pdf --pdf-engine=xelatex -V mainfont=&#39;Adobe Ming Std&#39;</code></pre>
+<h2 id="the-new-windows-installer-starting-with-1.11-does-a-single-user-install-rather-than-installing-pandoc-for-all-users.-how-can-i-install-pandoc-for-all-users">The new Windows installer (starting with 1.11) does a single user install, rather than installing pandoc for all users. How can I install pandoc for all users?</h2>
+<p>Run the following command as admin:</p>
+<pre><code>msiexec /i pandoc-1.xx.msi ALLUSERS=1</code></pre>
+<p>This will put pandoc in <code>C:\Program Files\Pandoc</code>. You can install Pandoc to a different directory by setting APPLICATIONFOLDER parameter, for example:</p>
+<pre><code>msiexec /i pandoc-1.11.1.msi ALLUSERS=1 APPLICATIONFOLDER=&quot;C:\Pandoc&quot;</code></pre>
+<h2 id="how-do-i-change-the-margins-in-pdf-output">How do I change the margins in PDF output?</h2>
+<p>The option</p>
+<pre><code>-V geometry:margin=1in</code></pre>
+<p>will set the margins to one inch on each side. If you don’t want uniform margins, you can do something like</p>
+<pre><code>-V geometry:&quot;top=2cm, bottom=1.5cm, left=1cm, right=1cm&quot;</code></pre>
+<p>Or</p>
+<pre><code>-V geometry:&quot;left=3cm, width=10cm&quot;</code></pre>
+<p>For more options, see the documentation for the LaTeX <a href="ftp://ftp.tex.ac.uk/tex-archive/macros/latex/contrib/geometry/geometry.pdf">geometry package</a>.</p>
+<h2 id="how-does-pandoc-compare-to-multimarkdown">How does pandoc compare to multimarkdown?</h2>
+<p>Here is a <a href="https://github.com/jgm/pandoc/wiki/Pandoc-vs-Multimarkdown">wiki page</a> comparing the two.</p>
+<h2 id="pandoc-hangs-when-i-try-to-use---bibliography.">Pandoc hangs when I try to use <code>--bibliography</code>.</h2>
+<p>Most likely this is a packaging problem. If you are running the version of pandoc 1.9.1 packaged in Ubuntu 12.04, you should be able to fix the problem by doing</p>
+<pre><code>sudo apt-get install libghc-citeproc-hs-data</code></pre>
+<h2 id="after-upgrading-to-1.8.1.2-markdown2pdf-messes-up-tables-when-used-with-my-custom-latex-template.">After upgrading to 1.8.1.2, markdown2pdf messes up tables when used with my custom latex template.</h2>
+<p>You need to add the line <code>\usepackage{ctable}</code> to your custom latex template, preferably right after the line <code>$if(tables)$</code>.</p>
+        </div>
+      </main>
+    </div>
+    <footer>
+    </footer>
+  </div>
+</body>
+</html>
